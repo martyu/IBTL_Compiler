@@ -14,21 +14,7 @@
 		76575F04189484D500E1BFDD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 76575F03189484D500E1BFDD /* AppDelegate.m */; };
 		76575F07189484D500E1BFDD /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76575F05189484D500E1BFDD /* MainMenu.xib */; };
 		76575F09189484D500E1BFDD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 76575F08189484D500E1BFDD /* Images.xcassets */; };
-		76575F10189484D500E1BFDD /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76575F0F189484D500E1BFDD /* XCTest.framework */; };
-		76575F11189484D500E1BFDD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76575EF0189484D500E1BFDD /* Cocoa.framework */; };
-		76575F19189484D500E1BFDD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 76575F17189484D500E1BFDD /* InfoPlist.strings */; };
-		76575F1B189484D500E1BFDD /* Milestone2Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 76575F1A189484D500E1BFDD /* Milestone2Tests.m */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		76575F12189484D500E1BFDD /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 76575EE5189484D500E1BFDD /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 76575EEC189484D500E1BFDD;
-			remoteInfo = Milestone2;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		76575EED189484D500E1BFDD /* Milestone2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Milestone2.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -45,11 +31,7 @@
 		76575F03189484D500E1BFDD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		76575F06189484D500E1BFDD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		76575F08189484D500E1BFDD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		76575F0E189484D500E1BFDD /* Milestone2Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Milestone2Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		76575F0F189484D500E1BFDD /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		76575F16189484D500E1BFDD /* Milestone2Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Milestone2Tests-Info.plist"; sourceTree = "<group>"; };
-		76575F18189484D500E1BFDD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		76575F1A189484D500E1BFDD /* Milestone2Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Milestone2Tests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,15 +43,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		76575F0B189484D500E1BFDD /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				76575F11189484D500E1BFDD /* Cocoa.framework in Frameworks */,
-				76575F10189484D500E1BFDD /* XCTest.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -77,7 +50,6 @@
 			isa = PBXGroup;
 			children = (
 				76575EF6189484D500E1BFDD /* Milestone2 */,
-				76575F14189484D500E1BFDD /* Milestone2Tests */,
 				76575EEF189484D500E1BFDD /* Frameworks */,
 				76575EEE189484D500E1BFDD /* Products */,
 			);
@@ -87,7 +59,6 @@
 			isa = PBXGroup;
 			children = (
 				76575EED189484D500E1BFDD /* Milestone2.app */,
-				76575F0E189484D500E1BFDD /* Milestone2Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -136,24 +107,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		76575F14189484D500E1BFDD /* Milestone2Tests */ = {
-			isa = PBXGroup;
-			children = (
-				76575F1A189484D500E1BFDD /* Milestone2Tests.m */,
-				76575F15189484D500E1BFDD /* Supporting Files */,
-			);
-			path = Milestone2Tests;
-			sourceTree = "<group>";
-		};
-		76575F15189484D500E1BFDD /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				76575F16189484D500E1BFDD /* Milestone2Tests-Info.plist */,
-				76575F17189484D500E1BFDD /* InfoPlist.strings */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -174,24 +127,6 @@
 			productReference = 76575EED189484D500E1BFDD /* Milestone2.app */;
 			productType = "com.apple.product-type.application";
 		};
-		76575F0D189484D500E1BFDD /* Milestone2Tests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 76575F21189484D500E1BFDD /* Build configuration list for PBXNativeTarget "Milestone2Tests" */;
-			buildPhases = (
-				76575F0A189484D500E1BFDD /* Sources */,
-				76575F0B189484D500E1BFDD /* Frameworks */,
-				76575F0C189484D500E1BFDD /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				76575F13189484D500E1BFDD /* PBXTargetDependency */,
-			);
-			name = Milestone2Tests;
-			productName = Milestone2Tests;
-			productReference = 76575F0E189484D500E1BFDD /* Milestone2Tests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -200,11 +135,6 @@
 			attributes = {
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Marty Ulrich/David Merrick";
-				TargetAttributes = {
-					76575F0D189484D500E1BFDD = {
-						TestTargetID = 76575EEC189484D500E1BFDD;
-					};
-				};
 			};
 			buildConfigurationList = 76575EE8189484D500E1BFDD /* Build configuration list for PBXProject "Milestone2" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -220,7 +150,6 @@
 			projectRoot = "";
 			targets = (
 				76575EEC189484D500E1BFDD /* Milestone2 */,
-				76575F0D189484D500E1BFDD /* Milestone2Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -237,14 +166,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		76575F0C189484D500E1BFDD /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				76575F19189484D500E1BFDD /* InfoPlist.strings in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -257,23 +178,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		76575F0A189484D500E1BFDD /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				76575F1B189484D500E1BFDD /* Milestone2Tests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		76575F13189484D500E1BFDD /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 76575EEC189484D500E1BFDD /* Milestone2 */;
-			targetProxy = 76575F12189484D500E1BFDD /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		76575EF9189484D500E1BFDD /* InfoPlist.strings */ = {
@@ -298,14 +203,6 @@
 				76575F06189484D500E1BFDD /* Base */,
 			);
 			name = MainMenu.xib;
-			sourceTree = "<group>";
-		};
-		76575F17189484D500E1BFDD /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				76575F18189484D500E1BFDD /* en */,
-			);
-			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -407,46 +304,6 @@
 			};
 			name = Release;
 		};
-		76575F22189484D500E1BFDD /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Milestone2.app/Contents/MacOS/Milestone2";
-				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(inherited)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Milestone2/Milestone2-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "Milestone2Tests/Milestone2Tests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		76575F23189484D500E1BFDD /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Milestone2.app/Contents/MacOS/Milestone2";
-				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(inherited)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Milestone2/Milestone2-Prefix.pch";
-				INFOPLIST_FILE = "Milestone2Tests/Milestone2Tests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -464,14 +321,6 @@
 			buildConfigurations = (
 				76575F1F189484D500E1BFDD /* Debug */,
 				76575F20189484D500E1BFDD /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-		};
-		76575F21189484D500E1BFDD /* Build configuration list for PBXNativeTarget "Milestone2Tests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				76575F22189484D500E1BFDD /* Debug */,
-				76575F23189484D500E1BFDD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};
