@@ -19,6 +19,7 @@
 		76575F421894BCE700E1BFDD /* Token.m in Sources */ = {isa = PBXBuildFile; fileRef = 76575F401894BCE700E1BFDD /* Token.m */; };
 		76575F4A1894C41A00E1BFDD /* FiniteAutomatas.m in Sources */ = {isa = PBXBuildFile; fileRef = 76575F491894C41A00E1BFDD /* FiniteAutomatas.m */; };
 		765A623B18959F770097F8C1 /* RelOpDFA.plist in Resources */ = {isa = PBXBuildFile; fileRef = 765A623A18959F770097F8C1 /* RelOpDFA.plist */; };
+		765A623E1895B77F0097F8C1 /* NSString+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 765A623D1895B77F0097F8C1 /* NSString+Utils.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,8 @@
 		76575F481894C41A00E1BFDD /* FiniteAutomatas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FiniteAutomatas.h; path = Milestone2/Classes/FiniteAutomatas.h; sourceTree = SOURCE_ROOT; };
 		76575F491894C41A00E1BFDD /* FiniteAutomatas.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FiniteAutomatas.m; path = Milestone2/Classes/FiniteAutomatas.m; sourceTree = SOURCE_ROOT; };
 		765A623A18959F770097F8C1 /* RelOpDFA.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = RelOpDFA.plist; sourceTree = "<group>"; };
+		765A623C1895B77F0097F8C1 /* NSString+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+Utils.h"; path = "Classes/NSString+Utils.h"; sourceTree = "<group>"; };
+		765A623D1895B77F0097F8C1 /* NSString+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Utils.m"; path = "Classes/NSString+Utils.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +133,8 @@
 				76575F28189486F400E1BFDD /* Parser.h */,
 				76575F29189486F400E1BFDD /* Parser.m */,
 				76575F3C1894BCE700E1BFDD /* Token Classes */,
+				765A623C1895B77F0097F8C1 /* NSString+Utils.h */,
+				765A623D1895B77F0097F8C1 /* NSString+Utils.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -220,6 +225,7 @@
 				76575F4A1894C41A00E1BFDD /* FiniteAutomatas.m in Sources */,
 				76575F421894BCE700E1BFDD /* Token.m in Sources */,
 				76575EFD189484D500E1BFDD /* main.m in Sources */,
+				765A623E1895B77F0097F8C1 /* NSString+Utils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -256,7 +262,7 @@
 		76575F1C189484D500E1BFDD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -299,7 +305,7 @@
 		76575F1D189484D500E1BFDD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
