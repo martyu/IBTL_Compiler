@@ -98,6 +98,11 @@
 	return transitionDictForCurrentState[@"*"];
 }
 
+- (NSString*)type
+{
+	return self.dfaInfo[@"type"];
+}
+
 @end
 
 

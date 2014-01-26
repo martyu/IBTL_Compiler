@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "FiniteAutomatas.h"
+#import "NSString+Utils.h"
 
 @implementation AppDelegate
 
@@ -26,6 +27,9 @@
 
 	accept = [dfa acceptsWord:@"="];
 	NSLog(@"dfa accepts word =: %@", accept ? @"yes" : @"no");
+
+
+	NSLog(@"%@", [@"a     b     c  d e" stringByRemovingExcessWhitespace]);
 
 }
 

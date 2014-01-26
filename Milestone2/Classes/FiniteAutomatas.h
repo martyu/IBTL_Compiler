@@ -10,30 +10,32 @@
 
 typedef NSNumber State;
 
+
 @interface FiniteAutomata : NSObject
 
+// if DFA accepts word, this is the token type it will be.
+@property (nonatomic, readonly) NSString *type;
+
 /**
- 	The plist should be a dictionary with this structure:
+ The plist should be a dictionary with this structure:
 
- 	root dict {
-		dict for state x {
-			[input symbol] : [go to state]
-			[input symbol] : [go to state]
-			...
-		}
-		dict for state y {
-			[input symbol] : [go to state]
-			[input symbol] : [go to state]
-			...
-		}
-	}
- 
- 	- "go to state" type is NSString.
- 	- add a "!" (w/o quotes) to final states.
- 	- use "*" (w/o quotes) as input symbol for wildcard.
-*/
+ root dict {
+ dict for state x {
+ [input symbol] : [go to state]
+ [input symbol] : [go to state]
+ ...
+ }
+ dict for state y {
+ [input symbol] : [go to state]
+ [input symbol] : [go to state]
+ ...
+ }
+ }
 
-
+ - "go to state" type is NSString.
+ - add a "!" (w/o quotes) to final states.
+ - use "*" (w/o quotes) as input symbol for wildcard.
+ */
 - (instancetype)initWithDFAPlist:(NSString*)plistFileName;
 
 - (BOOL)acceptsWord:(NSString*)word;
