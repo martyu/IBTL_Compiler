@@ -14,6 +14,11 @@
 		76575F04189484D500E1BFDD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 76575F03189484D500E1BFDD /* AppDelegate.m */; };
 		76575F07189484D500E1BFDD /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76575F05189484D500E1BFDD /* MainMenu.xib */; };
 		76575F09189484D500E1BFDD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 76575F08189484D500E1BFDD /* Images.xcassets */; };
+		76575F26189486E100E1BFDD /* LexicalAnalyzer.m in Sources */ = {isa = PBXBuildFile; fileRef = 76575F25189486E100E1BFDD /* LexicalAnalyzer.m */; };
+		76575F2A189486F400E1BFDD /* Parser.m in Sources */ = {isa = PBXBuildFile; fileRef = 76575F29189486F400E1BFDD /* Parser.m */; };
+		76575F421894BCE700E1BFDD /* Token.m in Sources */ = {isa = PBXBuildFile; fileRef = 76575F401894BCE700E1BFDD /* Token.m */; };
+		76575F4A1894C41A00E1BFDD /* FiniteAutomatas.m in Sources */ = {isa = PBXBuildFile; fileRef = 76575F491894C41A00E1BFDD /* FiniteAutomatas.m */; };
+		765A623B18959F770097F8C1 /* RelOpDFA.plist in Resources */ = {isa = PBXBuildFile; fileRef = 765A623A18959F770097F8C1 /* RelOpDFA.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +37,15 @@
 		76575F06189484D500E1BFDD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		76575F08189484D500E1BFDD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		76575F0F189484D500E1BFDD /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		76575F24189486E100E1BFDD /* LexicalAnalyzer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LexicalAnalyzer.h; path = Classes/LexicalAnalyzer.h; sourceTree = "<group>"; };
+		76575F25189486E100E1BFDD /* LexicalAnalyzer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LexicalAnalyzer.m; path = Classes/LexicalAnalyzer.m; sourceTree = "<group>"; };
+		76575F28189486F400E1BFDD /* Parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Parser.h; path = Classes/Parser.h; sourceTree = "<group>"; };
+		76575F29189486F400E1BFDD /* Parser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Parser.m; path = Classes/Parser.m; sourceTree = "<group>"; };
+		76575F3F1894BCE700E1BFDD /* Token.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Token.h; sourceTree = "<group>"; };
+		76575F401894BCE700E1BFDD /* Token.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Token.m; sourceTree = "<group>"; };
+		76575F481894C41A00E1BFDD /* FiniteAutomatas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FiniteAutomatas.h; path = Milestone2/Classes/FiniteAutomatas.h; sourceTree = SOURCE_ROOT; };
+		76575F491894C41A00E1BFDD /* FiniteAutomatas.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FiniteAutomatas.m; path = Milestone2/Classes/FiniteAutomatas.m; sourceTree = SOURCE_ROOT; };
+		765A623A18959F770097F8C1 /* RelOpDFA.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = RelOpDFA.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +105,7 @@
 				76575F05189484D500E1BFDD /* MainMenu.xib */,
 				76575F08189484D500E1BFDD /* Images.xcassets */,
 				76575EF7189484D500E1BFDD /* Supporting Files */,
+				76575F27189486E500E1BFDD /* Classes */,
 			);
 			path = Milestone2;
 			sourceTree = "<group>";
@@ -105,6 +120,31 @@
 				76575EFF189484D500E1BFDD /* Credits.rtf */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		76575F27189486E500E1BFDD /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				76575F24189486E100E1BFDD /* LexicalAnalyzer.h */,
+				76575F25189486E100E1BFDD /* LexicalAnalyzer.m */,
+				76575F28189486F400E1BFDD /* Parser.h */,
+				76575F29189486F400E1BFDD /* Parser.m */,
+				76575F3C1894BCE700E1BFDD /* Token Classes */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		76575F3C1894BCE700E1BFDD /* Token Classes */ = {
+			isa = PBXGroup;
+			children = (
+				76575F3F1894BCE700E1BFDD /* Token.h */,
+				76575F401894BCE700E1BFDD /* Token.m */,
+				76575F481894C41A00E1BFDD /* FiniteAutomatas.h */,
+				76575F491894C41A00E1BFDD /* FiniteAutomatas.m */,
+				765A623A18959F770097F8C1 /* RelOpDFA.plist */,
+			);
+			name = "Token Classes";
+			path = "Classes/Token Classes";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -162,6 +202,7 @@
 				76575EFB189484D500E1BFDD /* InfoPlist.strings in Resources */,
 				76575F09189484D500E1BFDD /* Images.xcassets in Resources */,
 				76575F01189484D500E1BFDD /* Credits.rtf in Resources */,
+				765A623B18959F770097F8C1 /* RelOpDFA.plist in Resources */,
 				76575F07189484D500E1BFDD /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -173,7 +214,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				76575F2A189486F400E1BFDD /* Parser.m in Sources */,
+				76575F26189486E100E1BFDD /* LexicalAnalyzer.m in Sources */,
 				76575F04189484D500E1BFDD /* AppDelegate.m in Sources */,
+				76575F4A1894C41A00E1BFDD /* FiniteAutomatas.m in Sources */,
+				76575F421894BCE700E1BFDD /* Token.m in Sources */,
 				76575EFD189484D500E1BFDD /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -240,6 +285,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Applications/Xcode51-Beta4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include",
+					"$(SRCROOT)/**",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -273,6 +323,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Applications/Xcode51-Beta4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include",
+					"$(SRCROOT)/**",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				SDKROOT = macosx;
 			};
@@ -323,6 +378,7 @@
 				76575F20189484D500E1BFDD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

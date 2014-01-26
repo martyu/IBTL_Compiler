@@ -7,12 +7,26 @@
 //
 
 #import "AppDelegate.h"
+#import "FiniteAutomatas.h"
 
 @implementation AppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-	// Insert code here to initialize your application
+	FiniteAutomata *dfa = [[FiniteAutomata alloc] initWithDFAPlist:@"RelOpDFA"];
+
+	BOOL accept = [dfa acceptsWord:@"!="];
+	NSLog(@"dfa accepts word !=: %@", accept ? @"yes" : @"no");
+
+	accept = [dfa acceptsWord:@">"];
+	NSLog(@"dfa accepts word >: %@", accept ? @"yes" : @"no");
+
+	accept = [dfa acceptsWord:@"=="];
+	NSLog(@"dfa accepts word ==: %@", accept ? @"yes" : @"no");
+
+	accept = [dfa acceptsWord:@"="];
+	NSLog(@"dfa accepts word =: %@", accept ? @"yes" : @"no");
+
 }
 
 @end
