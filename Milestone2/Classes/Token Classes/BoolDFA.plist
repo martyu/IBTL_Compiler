@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>type</key>
+	<string>Bool</string>
+	<key>3</key>
+	<dict>
+		<key>e</key>
+		<string>4!</string>
+	</dict>
+	<key>2</key>
+	<dict>
+		<key>u</key>
+		<string>3</string>
+	</dict>
+	<key>1</key>
+	<dict>
+		<key>r</key>
+		<string>2</string>
+	</dict>
+	<key>8</key>
+	<dict>
+		<key>e</key>
+		<string>9!</string>
+	</dict>
+	<key>7</key>
+	<dict>
+		<key>s</key>
+		<string>8</string>
+	</dict>
+	<key>6</key>
+	<dict>
+		<key>l</key>
+		<string>7</string>
+	</dict>
+	<key>5</key>
+	<dict>
+		<key>a</key>
+		<string>6</string>
+	</dict>
+	<key>0</key>
+	<dict>
+		<key>t</key>
+		<string>1</string>
+		<key>f</key>
+		<string>5</string>
+	</dict>
+</dict>
+</plist>
