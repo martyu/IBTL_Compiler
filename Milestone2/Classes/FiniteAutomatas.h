@@ -8,9 +8,6 @@
 
 #import "Token.h"
 
-typedef NSNumber State;
-
-
 @interface FiniteAutomata : NSObject
 
 // if DFA accepts word, this is the token type it will be.
@@ -20,16 +17,16 @@ typedef NSNumber State;
  The plist should be a dictionary with this structure:
 
  root dict {
- dict for state x {
- [input symbol] : [go to state]
- [input symbol] : [go to state]
- ...
- }
- dict for state y {
- [input symbol] : [go to state]
- [input symbol] : [go to state]
- ...
- }
+ 		dict for state x {
+ 			[input symbol] : [go to state]
+ 			[input symbol] : [go to state]
+			...
+		}
+		dict for state y {
+			[input symbol] : [go to state]
+			[input symbol] : [go to state]
+			...
+		}
  }
 
  - "go to state" type is NSString.

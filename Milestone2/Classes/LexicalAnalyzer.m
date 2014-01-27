@@ -17,6 +17,7 @@
 @property (strong, nonatomic) NSMutableArray *tokens;
 /** The current token being retrieved. */
 @property (nonatomic) NSUInteger index;
+@property (strong, nonatomic) NSMutableDictionary *symbolTable;
 
 @end
 
@@ -29,8 +30,27 @@
     if (self) {
 		_sourceCodeArr = [[theSourceCode stringByRemovingExcessWhitespace] componentsSeparatedByString:@" "];
 		_index = 0;
+
     }
     return self;
+}
+
+/** Initializes and adds keyword tokens to symbol table. */
+- (void)setupSymbolTable
+{
+	self.symbolTable = [NSMutableDictionary dictionary];
+	NSString *keywordsPath = [[NSBundle mainBundle] pathForResource:@"ReservedKeywords" ofType:@"plist"];
+	NSDictionary *keywordsDict = [NSDictionary dictionaryWithContentsOfFile:keywordsPath];
+
+	Token *keywordToken;
+
+	for (NSString *category in [keywordsDict allKeys])
+	{
+		for (NSString *lexeme in keywordsDict[category])
+		{
+			keywordToken = [[Token alloc] initWithAttribute:lexeme location:<#(struct TokenLocation)#> type:<#(NSString *)#>]
+		}
+	}
 }
 
 - (Token*)getNextToken
@@ -42,8 +62,7 @@
 	{
 		if ([dfa acceptsWord:lexeme])
 		{
-#warning Fix these arguments
-			token = [[Token alloc] initWithLexeme:lexeme attribute:nil location:tokenLocationMake(0, 0) type:dfa.type];
+			token = [[Token alloc] initWithAttribute:nil location:tokenLocationMake(0, 0) type:dfa.type];
 		}
 	}
 

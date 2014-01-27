@@ -95,7 +95,7 @@
 		return nextState;
 
 	// returns state for wildcard if allowed, nil if not.
-	return transitionDictForCurrentState[@"*"];
+	return transitionDictForCurrentState[@"~"];
 }
 
 - (NSString*)type

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>statements</key>
+	<array>
+		<string>while</string>
+		<string>let</string>
+		<string>stdout</string>
+		<string>if</string>
+		<string>:=</string>
+	</array>
+	<key>primitiveType</key>
+	<array>
+		<string>bool</string>
+		<string>int</string>
+		<string>real</string>
+		<string>string</string>
+	</array>
+	<key>trig</key>
+	<array>
+		<string>sin</string>
+		<string>cos</string>
+		<string>tan</string>
+	</array>
+	<key>bool</key>
+	<array>
+		<string>true</string>
+		<string>false</string>
+	</array>
+	<key>boolOp</key>
+	<array>
+		<string>and</string>
+		<string>not</string>
+		<string>or</string>
+	</array>
+	<key>intOp</key>
+	<array>
+		<string>-</string>
+		<string>*</string>
+		<string>/</string>
+		<string>+</string>
+		<string>%</string>
+		<string>^</string>
+	</array>
+	<key>relOp</key>
+	<array>
+		<string>=</string>
+		<string>&lt;</string>
+		<string>&gt;</string>
+		<string>&lt;=</string>
+		<string>&gt;=</string>
+		<string>!=</string>
+	</array>
+</dict>
+</plist>
