@@ -7,25 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		634A44BC1895CEF700F508F1 /* BoolDFA.plist in Resources */ = {isa = PBXBuildFile; fileRef = 634A44BB1895CEF700F508F1 /* BoolDFA.plist */; };
-		634A44BE1895D25C00F508F1 /* BoolOpDFA.plist in Resources */ = {isa = PBXBuildFile; fileRef = 634A44BD1895D25C00F508F1 /* BoolOpDFA.plist */; };
 		76575EF1189484D500E1BFDD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76575EF0189484D500E1BFDD /* Cocoa.framework */; };
 		76575EFB189484D500E1BFDD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 76575EF9189484D500E1BFDD /* InfoPlist.strings */; };
 		76575EFD189484D500E1BFDD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 76575EFC189484D500E1BFDD /* main.m */; };
 		76575F01189484D500E1BFDD /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 76575EFF189484D500E1BFDD /* Credits.rtf */; };
 		76575F04189484D500E1BFDD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 76575F03189484D500E1BFDD /* AppDelegate.m */; };
-		76575F07189484D500E1BFDD /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76575F05189484D500E1BFDD /* MainMenu.xib */; };
 		76575F09189484D500E1BFDD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 76575F08189484D500E1BFDD /* Images.xcassets */; };
 		76575F26189486E100E1BFDD /* LexicalAnalyzer.m in Sources */ = {isa = PBXBuildFile; fileRef = 76575F25189486E100E1BFDD /* LexicalAnalyzer.m */; };
 		76575F421894BCE700E1BFDD /* Token.m in Sources */ = {isa = PBXBuildFile; fileRef = 76575F401894BCE700E1BFDD /* Token.m */; };
 		76575F4A1894C41A00E1BFDD /* FiniteAutomatas.m in Sources */ = {isa = PBXBuildFile; fileRef = 76575F491894C41A00E1BFDD /* FiniteAutomatas.m */; };
 		765A623E1895B77F0097F8C1 /* NSString+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 765A623D1895B77F0097F8C1 /* NSString+Utils.m */; };
 		765A62491895E2250097F8C1 /* ReservedKeywords.plist in Resources */ = {isa = PBXBuildFile; fileRef = 765A62481895E2250097F8C1 /* ReservedKeywords.plist */; };
+		766B69F118973C8D00579586 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 766B69F018973C8D00579586 /* MainMenu.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		634A44BB1895CEF700F508F1 /* BoolDFA.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BoolDFA.plist; sourceTree = "<group>"; };
-		634A44BD1895D25C00F508F1 /* BoolOpDFA.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BoolOpDFA.plist; sourceTree = "<group>"; };
 		76575EED189484D500E1BFDD /* Milestone2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Milestone2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76575EF0189484D500E1BFDD /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		76575EF3189484D500E1BFDD /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -38,7 +34,6 @@
 		76575F00189484D500E1BFDD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		76575F02189484D500E1BFDD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		76575F03189484D500E1BFDD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		76575F06189484D500E1BFDD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		76575F08189484D500E1BFDD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		76575F0F189484D500E1BFDD /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		76575F24189486E100E1BFDD /* LexicalAnalyzer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LexicalAnalyzer.h; path = Classes/LexicalAnalyzer.h; sourceTree = "<group>"; };
@@ -50,6 +45,7 @@
 		765A623C1895B77F0097F8C1 /* NSString+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+Utils.h"; path = "Classes/NSString+Utils.h"; sourceTree = "<group>"; };
 		765A623D1895B77F0097F8C1 /* NSString+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Utils.m"; path = "Classes/NSString+Utils.m"; sourceTree = "<group>"; };
 		765A62481895E2250097F8C1 /* ReservedKeywords.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ReservedKeywords.plist; sourceTree = "<group>"; };
+		766B69F018973C8D00579586 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,7 +102,6 @@
 			children = (
 				76575F02189484D500E1BFDD /* AppDelegate.h */,
 				76575F03189484D500E1BFDD /* AppDelegate.m */,
-				76575F05189484D500E1BFDD /* MainMenu.xib */,
 				76575F08189484D500E1BFDD /* Images.xcassets */,
 				76575EF7189484D500E1BFDD /* Supporting Files */,
 				76575F27189486E500E1BFDD /* Classes */,
@@ -117,6 +112,8 @@
 		76575EF7189484D500E1BFDD /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				765A623F1895D0490097F8C1 /* DFA plists */,
+				766B69F018973C8D00579586 /* MainMenu.xib */,
 				76575EF8189484D500E1BFDD /* Milestone2-Info.plist */,
 				76575EF9189484D500E1BFDD /* InfoPlist.strings */,
 				76575EFC189484D500E1BFDD /* main.m */,
@@ -131,7 +128,6 @@
 			children = (
 				76575F24189486E100E1BFDD /* LexicalAnalyzer.h */,
 				76575F25189486E100E1BFDD /* LexicalAnalyzer.m */,
-				765A623F1895D0490097F8C1 /* DFA plists */,
 				76575F3C1894BCE700E1BFDD /* Token Classes */,
 				765A623C1895B77F0097F8C1 /* NSString+Utils.h */,
 				765A623D1895B77F0097F8C1 /* NSString+Utils.m */,
@@ -212,11 +208,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				76575EFB189484D500E1BFDD /* InfoPlist.strings in Resources */,
+				766B69F118973C8D00579586 /* MainMenu.xib in Resources */,
 				76575F09189484D500E1BFDD /* Images.xcassets in Resources */,
-				634A44BC1895CEF700F508F1 /* BoolDFA.plist in Resources */,
 				76575F01189484D500E1BFDD /* Credits.rtf in Resources */,
 				765A62491895E2250097F8C1 /* ReservedKeywords.plist in Resources */,
-				76575F07189484D500E1BFDD /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,14 +248,6 @@
 				76575F00189484D500E1BFDD /* en */,
 			);
 			name = Credits.rtf;
-			sourceTree = "<group>";
-		};
-		76575F05189484D500E1BFDD /* MainMenu.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				76575F06189484D500E1BFDD /* Base */,
-			);
-			name = MainMenu.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
