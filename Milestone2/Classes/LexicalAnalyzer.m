@@ -13,7 +13,7 @@
 
 @interface LexicalAnalyzer ()
 
-@property (strong, nonatomic) NSArray *sourceCodeArr;
+@property (strong, nonatomic) NSString *sourceCode;
 @property (strong, nonatomic) NSMutableArray *tokens;
 /** The current token being retrieved. */
 @property (nonatomic) NSUInteger index;
@@ -28,8 +28,9 @@
 {
     self = [super init];
     if (self) {
-		_sourceCodeArr = [[theSourceCode stringByRemovingExcessWhitespace] componentsSeparatedByString:@" "];
+		_sourceCode = [theSourceCode stringByRemovingExcessWhitespace];
 		_index = 0;
+		[self setupSymbolTable];
 
     }
     return self;
@@ -48,21 +49,23 @@
 	{
 		for (NSString *lexeme in keywordsDict[category])
 		{
-			keywordToken = [[Token alloc] initWithAttribute:lexeme location:<#(struct TokenLocation)#> type:<#(NSString *)#>]
+			keywordToken = [[Token alloc] initWithLexeme:lexeme attribute:nil];
+			self.symbolTable[lexeme] = keywordToken;
 		}
 	}
+
 }
 
 - (Token*)getNextToken
 {
 	Token *token;
-	Lexeme *lexeme = self.sourceCodeArr[self.index];
+	Lexeme *lexeme;// = self.sourceCodeArr[self.index];
 
 	for (FiniteAutomata *dfa in [self DFAs])
 	{
 		if ([dfa acceptsWord:lexeme])
 		{
-			token = [[Token alloc] initWithAttribute:nil location:tokenLocationMake(0, 0) type:dfa.type];
+			token = [[Token alloc] initWithLexeme:lexeme attribute:nil];
 		}
 	}
 

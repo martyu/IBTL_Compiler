@@ -10,12 +10,11 @@
 
 @implementation Token
 
-- (instancetype) initWithAttribute:(id)theAttribute location:(struct TokenLocation)theLocation type:(TokenType*)theType
+- (instancetype) initWithLexeme:(NSString*)theLexeme attribute:(id)theAttribute
 {
     self = [super init];
     if (self) {
 		_attribute = theAttribute;
-		_type = theType;
     }
     return self;
 }
