@@ -24,4 +24,10 @@
 	return [[[self class] alloc] initWithValue:val];
 }
 
+-(NSString*)description
+{
+	NSString *str = [NSString stringWithFormat:@"%i", self.value];
+	return str;
+}
+
 @end

@@ -23,7 +23,6 @@
 		766B418D189895DF00B17587 /* Type.m in Sources */ = {isa = PBXBuildFile; fileRef = 766B418C189895DF00B17587 /* Type.m */; };
 		766B41901898A20700B17587 /* Real.m in Sources */ = {isa = PBXBuildFile; fileRef = 766B418F1898A20700B17587 /* Real.m */; };
 		766B69F118973C8D00579586 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 766B69F018973C8D00579586 /* MainMenu.xib */; };
-		766B69F318973D5A00579586 /* StringsDFA.plist in Resources */ = {isa = PBXBuildFile; fileRef = 766B69F218973D5A00579586 /* StringsDFA.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,7 +59,6 @@
 		766B418E1898A20700B17587 /* Real.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Real.h; sourceTree = "<group>"; };
 		766B418F1898A20700B17587 /* Real.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Real.m; sourceTree = "<group>"; };
 		766B69F018973C8D00579586 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
-		766B69F218973D5A00579586 /* StringsDFA.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = StringsDFA.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -175,7 +173,6 @@
 			isa = PBXGroup;
 			children = (
 				765A62481895E2250097F8C1 /* ReservedKeywords.plist */,
-				766B69F218973D5A00579586 /* StringsDFA.plist */,
 			);
 			name = "DFA plists";
 			sourceTree = "<group>";
@@ -235,7 +232,6 @@
 				76575EFB189484D500E1BFDD /* InfoPlist.strings in Resources */,
 				766B69F118973C8D00579586 /* MainMenu.xib in Resources */,
 				76575F09189484D500E1BFDD /* Images.xcassets in Resources */,
-				766B69F318973D5A00579586 /* StringsDFA.plist in Resources */,
 				76575F01189484D500E1BFDD /* Credits.rtf in Resources */,
 				765A62491895E2250097F8C1 /* ReservedKeywords.plist in Resources */,
 			);

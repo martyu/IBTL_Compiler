@@ -82,5 +82,12 @@
 	return [[[self class] alloc] initWithLexeme:lex tag:theTag];
 }
 
+-(NSString*)description
+{
+	NSString *str = [NSString stringWithFormat:@"%@", self.lexeme];
+	return str;
+}
+
+
 @end
 

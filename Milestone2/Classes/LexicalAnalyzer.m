@@ -13,7 +13,7 @@
 #import "Defines.h"
 
 
-@interface SourceServer : NSObject <LexicalAnalyzerDataSource>
+@interface SourceServer : NSObject
 @end
 
 @interface SourceServer ()
@@ -36,8 +36,11 @@
 
 - (char)nextCharacter
 {
-	NSLog(<#NSString *format, ...#>)
-	return [self.sourceText characterAtIndex:self.index++];
+	if (self.index >= self.sourceText.length)
+		return '\0';
+
+	char next = [self.sourceText characterAtIndex:self.index++];
+	return next;
 }
 
 @end
@@ -104,7 +107,8 @@
 
 - (void)readCharacter
 {
-	self.peek = [self.dataSource nextCharacter];
+
+	self.peek = [self.sourceServer nextCharacter];
 }
 
 - (BOOL)readCharacter:(char)c
@@ -213,9 +217,13 @@
 		if (word)
 			return word;
 
-		self.words[buffer] = [[Word alloc] initWithLexeme:buffer tag:ID];
+		word = [[Word alloc] initWithLexeme:buffer tag:ID];
+		self.words[buffer] = word;
 		return word;
 	}
+
+	if (self.peek == '\0')
+		return nil;
 
 	Token *token = [Token tokenWithTag:self.peek];
 	self.peek = ' ';

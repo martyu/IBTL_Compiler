@@ -8,19 +8,10 @@
 
 #import "Token.h"
 
-@protocol LexicalAnalyzerDataSource <NSObject>
-
-@required
-/** Returns the next character in the stream. */
-- (char)nextCharacter;
-
-@end
-
 
 @interface LexicalAnalyzer : NSObject
 
 @property(nonatomic) int line;
-@property(weak, nonatomic) id<LexicalAnalyzerDataSource> dataSource;
 @property(strong, nonatomic) NSMutableDictionary *words;
 
 - (instancetype)initWithSource:(NSString*)source;

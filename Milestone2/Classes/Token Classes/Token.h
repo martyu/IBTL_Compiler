@@ -20,7 +20,6 @@ typedef NSString Lexeme;
 @interface Token : NSObject
 
 @property (strong, nonatomic) id attribute;
-//@property (strong, nonatomic) Lexeme *lexeme;
 @property (nonatomic, readonly) int tag;
 
 - (instancetype) initWithLexeme:(NSString*)theLexeme attribute:(id)theAttribute;
