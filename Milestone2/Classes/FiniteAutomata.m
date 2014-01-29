@@ -7,7 +7,7 @@
 //
 
 
-#import "FiniteAutomatas.h"
+#import "FiniteAutomata.h"
 
 @interface FiniteAutomata ()
 
@@ -86,15 +86,35 @@
  */
 - (NSString*)stateAfterCurrentStateForCharacter:(NSString*)aChar
 {
+	NSString *nextState;
+
 	// get transition function info for current state.
 	NSDictionary *transitionDictForCurrentState = self.dfaInfo[self.state];
 
-	// get next state.
-	NSString *nextState = transitionDictForCurrentState[aChar];
+	// check for a next state for the character by using it as a key.
+	nextState = transitionDictForCurrentState[aChar];
 	if (nextState)
 		return nextState;
 
+	// if an alpha character, check for [a-z] key.
+	unichar inputChar = [aChar characterAtIndex:0];
+	if (isalpha(inputChar))
+	{
+		nextState = transitionDictForCurrentState[REGEX_ALPHA];
+		if (nextState)
+			return nextState;
+	}
+
+	// if a digit, check for [0-9] key.
+	if (isnumber(inputChar))
+	{
+		nextState = transitionDictForCurrentState[REGEX_NUM];
+		if (nextState)
+			return nextState;
+	}
+
 	// returns state for wildcard if allowed, nil if not.
+	// "That wildcard was our last hope."
 	return transitionDictForCurrentState[@"~"];
 }
 

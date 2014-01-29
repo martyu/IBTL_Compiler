@@ -8,86 +8,41 @@
 
 #import "LexicalAnalyzer.h"
 #import "Token.h"
-#import "FiniteAutomatas.h"
-#import "NSString+Utils.h"
 
 @interface LexicalAnalyzer ()
 
-@property (strong, nonatomic) NSString *sourceCode;
-@property (strong, nonatomic) NSMutableArray *tokens;
-/** The current token being retrieved. */
-@property (nonatomic) NSUInteger index;
-@property (strong, nonatomic) NSMutableDictionary *symbolTable;
+@property(nonatomic) char peek;
+@property(strong, nonatomic) NSMutableDictionary *words;
 
 @end
 
 
 @implementation LexicalAnalyzer
 
-- (instancetype)initWithSource:(NSString*)theSourceCode
+- (instancetype)init
 {
     self = [super init];
     if (self) {
-		_sourceCode = [theSourceCode stringByRemovingExcessWhitespace];
-		_index = 0;
-		[self setupSymbolTable];
+		_peek = ' ';
+		_words = [NSMutableDictionary dictionary];
+		[self setupReserveWords];
 
     }
     return self;
 }
 
-/** Initializes and adds keyword tokens to symbol table. */
-- (void)setupSymbolTable
+- (void)setupReserveWords
 {
-	self.symbolTable = [NSMutableDictionary dictionary];
-	NSString *keywordsPath = [[NSBundle mainBundle] pathForResource:@"ReservedKeywords" ofType:@"plist"];
-	NSDictionary *keywordsDict = [NSDictionary dictionaryWithContentsOfFile:keywordsPath];
-
-	Token *keywordToken;
-
-	for (NSString *category in [keywordsDict allKeys])
-	{
-		for (NSString *lexeme in keywordsDict[category])
-		{
-			keywordToken = [[Token alloc] initWithLexeme:lexeme attribute:nil];
-			self.symbolTable[lexeme] = keywordToken;
-		}
-	}
-
+	
 }
 
-- (Token*)getNextToken
+#pragma mark - Accessors
+
+- (int)line
 {
-	Token *token;
-	Lexeme *lexeme;// = self.sourceCodeArr[self.index];
-
-	for (FiniteAutomata *dfa in [self DFAs])
-	{
-		if ([dfa acceptsWord:lexeme])
-		{
-			token = [[Token alloc] initWithLexeme:lexeme attribute:nil];
-		}
-	}
-
-	self.index++;
-
-	return token;
+	static int line = 1;
+	return line;
 }
 
-// The list of all DFAs.
-- (NSArray*)DFAs
-{
-	NSArray *dfaFileNames = @[@"RelOpDFA"];
-	NSMutableArray *dfaArr = [NSMutableArray array];
-	FiniteAutomata *dfa;
-
-	for (NSString *fileName in dfaFileNames)
-	{
-		dfa = [[FiniteAutomata alloc] initWithDFAPlist:fileName];
-		[dfaArr addObject:dfa];
-	}
-
-	return [NSArray arrayWithArray:dfaArr];
-}
 
 @end

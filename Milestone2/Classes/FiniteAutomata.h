@@ -8,6 +8,9 @@
 
 #import "Token.h"
 
+#define REGEX_ALPHA		@"[a-z]"
+#define REGEX_NUM		@"[0-9]"
+
 @interface FiniteAutomata : NSObject
 
 // if DFA accepts word, this is the token type it will be.
@@ -31,7 +34,8 @@
 
  - "go to state" type is NSString.
  - add a "!" (w/o quotes) to final states.
- - use "*" (w/o quotes) as input symbol for wildcard.
+ - use "~" (w/o quotes) as input symbol for wildcard.
+ - use [0-9]
  */
 - (instancetype)initWithDFAPlist:(NSString*)plistFileName;
 

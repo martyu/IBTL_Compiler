@@ -15,10 +15,11 @@
 		76575F09189484D500E1BFDD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 76575F08189484D500E1BFDD /* Images.xcassets */; };
 		76575F26189486E100E1BFDD /* LexicalAnalyzer.m in Sources */ = {isa = PBXBuildFile; fileRef = 76575F25189486E100E1BFDD /* LexicalAnalyzer.m */; };
 		76575F421894BCE700E1BFDD /* Token.m in Sources */ = {isa = PBXBuildFile; fileRef = 76575F401894BCE700E1BFDD /* Token.m */; };
-		76575F4A1894C41A00E1BFDD /* FiniteAutomatas.m in Sources */ = {isa = PBXBuildFile; fileRef = 76575F491894C41A00E1BFDD /* FiniteAutomatas.m */; };
+		76575F4A1894C41A00E1BFDD /* FiniteAutomata.m in Sources */ = {isa = PBXBuildFile; fileRef = 76575F491894C41A00E1BFDD /* FiniteAutomata.m */; };
 		765A623E1895B77F0097F8C1 /* NSString+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 765A623D1895B77F0097F8C1 /* NSString+Utils.m */; };
 		765A62491895E2250097F8C1 /* ReservedKeywords.plist in Resources */ = {isa = PBXBuildFile; fileRef = 765A62481895E2250097F8C1 /* ReservedKeywords.plist */; };
 		766B69F118973C8D00579586 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 766B69F018973C8D00579586 /* MainMenu.xib */; };
+		766B69F318973D5A00579586 /* StringsDFA.plist in Resources */ = {isa = PBXBuildFile; fileRef = 766B69F218973D5A00579586 /* StringsDFA.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,12 +41,14 @@
 		76575F25189486E100E1BFDD /* LexicalAnalyzer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LexicalAnalyzer.m; path = Classes/LexicalAnalyzer.m; sourceTree = "<group>"; };
 		76575F3F1894BCE700E1BFDD /* Token.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Token.h; sourceTree = "<group>"; };
 		76575F401894BCE700E1BFDD /* Token.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Token.m; sourceTree = "<group>"; };
-		76575F481894C41A00E1BFDD /* FiniteAutomatas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FiniteAutomatas.h; path = Milestone2/Classes/FiniteAutomatas.h; sourceTree = SOURCE_ROOT; };
-		76575F491894C41A00E1BFDD /* FiniteAutomatas.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FiniteAutomatas.m; path = Milestone2/Classes/FiniteAutomatas.m; sourceTree = SOURCE_ROOT; };
+		76575F481894C41A00E1BFDD /* FiniteAutomata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FiniteAutomata.h; path = Milestone2/Classes/FiniteAutomata.h; sourceTree = SOURCE_ROOT; };
+		76575F491894C41A00E1BFDD /* FiniteAutomata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FiniteAutomata.m; path = Milestone2/Classes/FiniteAutomata.m; sourceTree = SOURCE_ROOT; };
 		765A623C1895B77F0097F8C1 /* NSString+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+Utils.h"; path = "Classes/NSString+Utils.h"; sourceTree = "<group>"; };
 		765A623D1895B77F0097F8C1 /* NSString+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Utils.m"; path = "Classes/NSString+Utils.m"; sourceTree = "<group>"; };
 		765A62481895E2250097F8C1 /* ReservedKeywords.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ReservedKeywords.plist; sourceTree = "<group>"; };
+		766B41811898889D00B17587 /* TagDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TagDefines.h; sourceTree = "<group>"; };
 		766B69F018973C8D00579586 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
+		766B69F218973D5A00579586 /* StringsDFA.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = StringsDFA.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +131,7 @@
 			children = (
 				76575F24189486E100E1BFDD /* LexicalAnalyzer.h */,
 				76575F25189486E100E1BFDD /* LexicalAnalyzer.m */,
+				766B41811898889D00B17587 /* TagDefines.h */,
 				76575F3C1894BCE700E1BFDD /* Token Classes */,
 				765A623C1895B77F0097F8C1 /* NSString+Utils.h */,
 				765A623D1895B77F0097F8C1 /* NSString+Utils.m */,
@@ -140,8 +144,8 @@
 			children = (
 				76575F3F1894BCE700E1BFDD /* Token.h */,
 				76575F401894BCE700E1BFDD /* Token.m */,
-				76575F481894C41A00E1BFDD /* FiniteAutomatas.h */,
-				76575F491894C41A00E1BFDD /* FiniteAutomatas.m */,
+				76575F481894C41A00E1BFDD /* FiniteAutomata.h */,
+				76575F491894C41A00E1BFDD /* FiniteAutomata.m */,
 			);
 			name = "Token Classes";
 			path = "Classes/Token Classes";
@@ -151,6 +155,7 @@
 			isa = PBXGroup;
 			children = (
 				765A62481895E2250097F8C1 /* ReservedKeywords.plist */,
+				766B69F218973D5A00579586 /* StringsDFA.plist */,
 			);
 			name = "DFA plists";
 			sourceTree = "<group>";
@@ -210,6 +215,7 @@
 				76575EFB189484D500E1BFDD /* InfoPlist.strings in Resources */,
 				766B69F118973C8D00579586 /* MainMenu.xib in Resources */,
 				76575F09189484D500E1BFDD /* Images.xcassets in Resources */,
+				766B69F318973D5A00579586 /* StringsDFA.plist in Resources */,
 				76575F01189484D500E1BFDD /* Credits.rtf in Resources */,
 				765A62491895E2250097F8C1 /* ReservedKeywords.plist in Resources */,
 			);
@@ -224,7 +230,7 @@
 			files = (
 				76575F26189486E100E1BFDD /* LexicalAnalyzer.m in Sources */,
 				76575F04189484D500E1BFDD /* AppDelegate.m in Sources */,
-				76575F4A1894C41A00E1BFDD /* FiniteAutomatas.m in Sources */,
+				76575F4A1894C41A00E1BFDD /* FiniteAutomata.m in Sources */,
 				76575F421894BCE700E1BFDD /* Token.m in Sources */,
 				76575EFD189484D500E1BFDD /* main.m in Sources */,
 				765A623E1895B77F0097F8C1 /* NSString+Utils.m in Sources */,

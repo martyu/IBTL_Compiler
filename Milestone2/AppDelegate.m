@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "FiniteAutomatas.h"
 #import "NSString+Utils.h"
 #import "LexicalAnalyzer.h"
 
@@ -15,24 +14,6 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-	FiniteAutomata *dfa = [[FiniteAutomata alloc] initWithDFAPlist:@"RelOpDFA"];
-
-	LexicalAnalyzer *lex = [[LexicalAnalyzer alloc] initWithSource:@"test"];
-
-	BOOL accept = [dfa acceptsWord:@"!="];
-	NSLog(@"dfa accepts word !=: %@", accept ? @"yes" : @"no");
-
-	accept = [dfa acceptsWord:@">"];
-	NSLog(@"dfa accepts word >: %@", accept ? @"yes" : @"no");
-
-	accept = [dfa acceptsWord:@"=="];
-	NSLog(@"dfa accepts word ==: %@", accept ? @"yes" : @"no");
-
-	accept = [dfa acceptsWord:@"="];
-	NSLog(@"dfa accepts word =: %@", accept ? @"yes" : @"no");
-
-
-	NSLog(@"%@", [@"a     b     c  d e" stringByRemovingExcessWhitespace]);
 
 }
 

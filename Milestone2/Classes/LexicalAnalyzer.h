@@ -6,11 +6,11 @@
 //  Copyright (c) 2014 Marty Ulrich/David Merrick. All rights reserved.
 //
 
-@class Token;
+#define AND 256
+#define <#macro#>
 
 @interface LexicalAnalyzer : NSObject
 
-- (instancetype)initWithSource:(NSString*)theSourceCode;
-- (Token*)getNextToken;
+@property(nonatomic) int line;
 
 @end
