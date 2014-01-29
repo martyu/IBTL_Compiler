@@ -12,10 +12,46 @@
 #import "Real.h"
 #import "Defines.h"
 
+
+@interface SourceServer : NSObject <LexicalAnalyzerDataSource>
+@end
+
+@interface SourceServer ()
+
+@property(strong, nonatomic)NSString *sourceText;
+@property(nonatomic)int index;
+
+@end
+
+@implementation SourceServer
+
+- (instancetype)initWithSource:(NSString*)theSourceText
+{
+    self = [super init];
+    if (self) {
+		_sourceText = theSourceText;
+    }
+    return self;
+}
+
+- (char)nextCharacter
+{
+	NSLog(<#NSString *format, ...#>)
+	return [self.sourceText characterAtIndex:self.index++];
+}
+
+@end
+
+
+
+//////////////////////////////////////////////////////////////////////
+
+
+
 @interface LexicalAnalyzer ()
 
 @property(nonatomic) char peek;
-@property(strong, nonatomic) NSMutableDictionary *words;
+@property(strong, nonatomic) SourceServer *sourceServer;
 
 @end
 
@@ -33,6 +69,17 @@
 
     }
     return self;
+}
+
+- (instancetype)initWithSource:(NSString*)source
+{
+	self = [self init];
+
+	if (self) {
+		_sourceServer = [[SourceServer alloc] initWithSource:source];
+	}
+
+	return self;
 }
 
 - (void)setupReserveWords
