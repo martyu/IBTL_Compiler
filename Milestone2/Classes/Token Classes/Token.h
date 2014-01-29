@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Marty Ulrich/David Merrick. All rights reserved.
 //
 
+#import "Defines.h"
+
 struct TokenLocation {
 	int line;
 	int row;
@@ -22,6 +24,7 @@ typedef NSString Lexeme;
 @property (nonatomic, readonly) int tag;
 
 - (instancetype) initWithLexeme:(NSString*)theLexeme attribute:(id)theAttribute;
-- (instancetype)initWithTag:(int)theTag;
+- (instancetype) initWithTag:(int)theTag;
++ (instancetype) tokenWithTag:(int)theTag;
 
 @end

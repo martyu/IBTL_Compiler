@@ -7,24 +7,26 @@
 //
 
 #import "Token.h"
+#import "Defines.h"
 
 typedef enum {
-	WordTypeAnd,
-	WordTypeOr,
-	WordTypeEq,
-	WordTypeNE,
-	WordTypeLE,
-	WordTypeGE,
-	WordTypeMinus,
-	WordTypeTrue,
-	WordTypeFalse,
-	WordTypeTemp,
-} WordType;
+	WordSetupTypeAnd,
+	WordSetupTypeOr,
+	WordSetupTypeEq,
+	WordSetupTypeNE,
+	WordSetupTypeLE,
+	WordSetupTypeGE,
+	WordSetupTypeMinus,
+	WordSetupTypeTrue,
+	WordSetupTypeFalse,
+	WordSetupTypeTemp,
+} WordSetupType;
 
 @interface Word : Token
 
 @property(strong, nonatomic) NSString *lexeme;
 
 - (instancetype)initWithLexeme:(NSString*)theLexeme tag:(int)theTag;
++ (instancetype)wordWithType:(WordSetupType)type;
 
 @end
