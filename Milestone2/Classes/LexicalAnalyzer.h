@@ -6,9 +6,6 @@
 //  Copyright (c) 2014 Marty Ulrich/David Merrick. All rights reserved.
 //
 
-#define AND 256
-#define <#macro#>
-
 @interface LexicalAnalyzer : NSObject
 
 @property(nonatomic) int line;

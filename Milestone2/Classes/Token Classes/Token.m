@@ -10,6 +10,15 @@
 
 @implementation Token
 
+- (instancetype)initWithTag:(int)theTag
+{
+    self = [super init];
+    if (self) {
+        _tag = theTag;
+    }
+    return self;
+}
+
 - (instancetype) initWithLexeme:(NSString*)theLexeme attribute:(id)theAttribute
 {
     self = [super init];

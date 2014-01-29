@@ -18,6 +18,7 @@
 		76575F4A1894C41A00E1BFDD /* FiniteAutomata.m in Sources */ = {isa = PBXBuildFile; fileRef = 76575F491894C41A00E1BFDD /* FiniteAutomata.m */; };
 		765A623E1895B77F0097F8C1 /* NSString+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 765A623D1895B77F0097F8C1 /* NSString+Utils.m */; };
 		765A62491895E2250097F8C1 /* ReservedKeywords.plist in Resources */ = {isa = PBXBuildFile; fileRef = 765A62481895E2250097F8C1 /* ReservedKeywords.plist */; };
+		766B4187189889DB00B17587 /* Word.m in Sources */ = {isa = PBXBuildFile; fileRef = 766B4186189889DB00B17587 /* Word.m */; };
 		766B69F118973C8D00579586 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 766B69F018973C8D00579586 /* MainMenu.xib */; };
 		766B69F318973D5A00579586 /* StringsDFA.plist in Resources */ = {isa = PBXBuildFile; fileRef = 766B69F218973D5A00579586 /* StringsDFA.plist */; };
 /* End PBXBuildFile section */
@@ -47,6 +48,8 @@
 		765A623D1895B77F0097F8C1 /* NSString+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Utils.m"; path = "Classes/NSString+Utils.m"; sourceTree = "<group>"; };
 		765A62481895E2250097F8C1 /* ReservedKeywords.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ReservedKeywords.plist; sourceTree = "<group>"; };
 		766B41811898889D00B17587 /* TagDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TagDefines.h; sourceTree = "<group>"; };
+		766B4185189889DB00B17587 /* Word.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Word.h; sourceTree = "<group>"; };
+		766B4186189889DB00B17587 /* Word.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Word.m; sourceTree = "<group>"; };
 		766B69F018973C8D00579586 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		766B69F218973D5A00579586 /* StringsDFA.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = StringsDFA.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -146,6 +149,8 @@
 				76575F401894BCE700E1BFDD /* Token.m */,
 				76575F481894C41A00E1BFDD /* FiniteAutomata.h */,
 				76575F491894C41A00E1BFDD /* FiniteAutomata.m */,
+				766B4185189889DB00B17587 /* Word.h */,
+				766B4186189889DB00B17587 /* Word.m */,
 			);
 			name = "Token Classes";
 			path = "Classes/Token Classes";
@@ -234,6 +239,7 @@
 				76575F421894BCE700E1BFDD /* Token.m in Sources */,
 				76575EFD189484D500E1BFDD /* main.m in Sources */,
 				765A623E1895B77F0097F8C1 /* NSString+Utils.m in Sources */,
+				766B4187189889DB00B17587 /* Word.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
