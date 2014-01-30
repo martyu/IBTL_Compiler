@@ -130,7 +130,6 @@
 
 - (void)readCharacter
 {
-
 	self.peek = [self.sourceServer nextCharacter];
 }
 
@@ -165,8 +164,12 @@
 		case '%':
 		case '^':
 		case '=':
-			return [Token tokenWithTag:self.peek type:TokenTypeBinOp];
-
+		{
+			Token *tok = [Token tokenWithTag:self.peek type:TokenTypeBinOp];
+			[self readCharacter];
+			return tok;
+			break;
+		}
 		case '!':
 			if ([self readCharacter:'='])
 				return [Token tokenWithTag:NEQ type:TokenTypeBinOp];

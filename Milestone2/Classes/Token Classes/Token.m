@@ -15,6 +15,7 @@
     self = [super init];
     if (self) {
         _tag = theTag;
+		_tokType = theType;
     }
     return self;
 }
@@ -27,7 +28,7 @@
 
 - (NSString*)description
 {
-	return [NSString stringWithFormat:@"<%@, tag:%i>", [self class], self.tag];
+	return [NSString stringWithFormat:@"<%@, tag:%i, type:%i>", [self class], self.tag, self.tokType];
 }
 
 struct TokenLocation tokenLocationMake(int theLine, int theRow)

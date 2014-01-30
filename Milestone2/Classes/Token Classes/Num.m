@@ -26,7 +26,7 @@
 
 -(NSString*)description
 {
-	NSString *str = [NSString stringWithFormat:@"<%@, val:%i>", [self class], self.value];
+	NSString *str = [NSString stringWithFormat:@"<%@, val:%i, type:%i>", [self class], self.value, self.tokType];
 	return str;
 }
 

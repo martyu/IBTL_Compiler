@@ -31,7 +31,6 @@ typedef enum {
 @interface Word : Token
 
 @property(strong, nonatomic) NSString *lexeme;
-@property(nonatomic)WordSetupType wordType;
 
 - (instancetype)initWithLexeme:(NSString*)theLexeme tag:(int)theTag type:(TokenType)tokType;
 + (instancetype)wordWithType:(WordSetupType)type;

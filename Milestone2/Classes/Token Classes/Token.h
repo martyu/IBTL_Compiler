@@ -27,16 +27,17 @@ struct TokenLocation {
 	int row;
 };
 
-struct TokenLocation tokenLocationMake(int theLine, int theRow);
 
+struct TokenLocation tokenLocationMake(int theLine, int theRow);
 typedef NSString Lexeme;
+
 
 @interface Token : NSObject
 
 @property (nonatomic, readonly) int tag;
+@property (nonatomic) TokenType tokType;
 
 - (instancetype) initWithTag:(int)theTag type:(TokenType)theType;
-
 + (instancetype) tokenWithTag:(int)theTag type:(TokenType)theType;
 
 @end
