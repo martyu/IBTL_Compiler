@@ -19,62 +19,13 @@
     return self;
 }
 
-+ (instancetype)wordWithType:(WordSetupType)type
++ (instancetype)wordWithType:(WordType)theType
 {
 	NSString *lex;
 	int theTag;
 
-	switch (type) {
-		case WordSetupTypeAnd:
-			lex = @"&&";
-			theTag = AND;
-			break;
-
-		case WordSetupTypeEq:
-			lex = @"==";
-			theTag = EQ;
-			break;
-
-		case WordSetupTypeFalse:
-			lex = @"false";
-			theTag = FALSE_;
-			break;
-
-		case WordSetupTypeGE:
-			lex = @">=";
-			theTag = GE;
-			break;
-
-		case WordSetupTypeLE:
-			lex = @"<=";
-			theTag = LE;
-			break;
-
-		case WordSetupTypeMinus:
-			lex = @"-";
-			theTag = MINUS;
-			break;
-
-		case WordSetupTypeNE:
-			lex = @"!=";
-			theTag = NE;
-			break;
-
-		case WordSetupTypeOr:
-			lex = @"||";
-			theTag = OR;
-			break;
-
-		case WordSetupTypeTemp:
-			lex = @"t";
-			theTag = TEMP;
-			break;
-
-		case WordSetupTypeTrue:
-			lex = @"true";
-			theTag = TRUE_;
-			break;
-
+	switch (theType) {
+			
 		default:
 			break;
 	}
@@ -84,7 +35,7 @@
 
 -(NSString*)description
 {
-	NSString *str = [NSString stringWithFormat:@"%@", self.lexeme];
+	NSString *str = [NSString stringWithFormat:@"<%@, lex:%@, tag:%i>", [self class], self.lexeme, self.tag];
 	return str;
 }
 

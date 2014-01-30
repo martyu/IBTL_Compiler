@@ -26,6 +26,9 @@
 #define IF 317
 #define NUM 318
 #define WHILE 319
+#define COS 320
+#define SIN 321
+#define TAN 322
 
 #define INT_TYPE @"int"
 #define FLOAT_TYPE @"float"

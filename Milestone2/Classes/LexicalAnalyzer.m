@@ -87,17 +87,9 @@
 
 - (void)setupReserveWords
 {
-	[self addKeyword:[Word wordWithType:WordSetupTypeTrue]];
-	[self addKeyword:[Word wordWithType:WordSetupTypeFalse]];
-	[self addKeyword:[Word wordWithType:WordSetupTypeAnd]];
-	[self addKeyword:[Word wordWithType:WordSetupTypeEq]];
-	[self addKeyword:[Word wordWithType:WordSetupTypeGE]];
-	[self addKeyword:[Word wordWithType:WordSetupTypeLE]];
-	[self addKeyword:[Word wordWithType:WordSetupTypeMinus]];
-	[self addKeyword:[Word wordWithType:WordSetupTypeNE]];
-	[self addKeyword:[Word wordWithType:WordSetupTypeOr]];
-	[self addKeyword:[Word wordWithType:WordSetupTypeTemp]];
-	[self addKeyword:[Word wordWithType:WordSetupTypeTrue]];
+
+
+
 }
 
 - (void)addKeyword:(Word*)keyword
@@ -204,16 +196,19 @@
 		return [Real realWithValue:v];
 	}
 
-	if (isalpha(self.peek))
+
+	if (isalpha(self.peek) || self.peek == '_')
 	{
 		NSMutableString *buffer = [NSMutableString string];
 		do
 		{
 			[buffer appendFormat:@"%c", self.peek];
 			[self readCharacter];
-		} while (isalnum(self.peek));
+		} while (isalnum(self.peek) || self.peek == '_'	);
 
-		Word *word = self.words[buffer];
+		
+
+		Token *word = self.words[buffer];
 		if (word)
 			return word;
 
@@ -222,6 +217,7 @@
 		return word;
 	}
 
+	// End of stream.
 	if (self.peek == '\0')
 		return nil;
 

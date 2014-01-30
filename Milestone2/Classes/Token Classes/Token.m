@@ -36,7 +36,7 @@
 
 - (NSString*)description
 {
-	return [NSString stringWithFormat:@"tag = %i", self.tag];
+	return [NSString stringWithFormat:@"<%@, tag:%i>", [self class], self.tag];
 }
 
 struct TokenLocation tokenLocationMake(int theLine, int theRow)

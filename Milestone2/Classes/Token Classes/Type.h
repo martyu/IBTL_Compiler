@@ -8,12 +8,12 @@
 
 #import "Word.h"
 
-typedef enum {
-	WordTypeInt,
-	WordTypeFloat,
-	WordTypeChar,
-	WordTypeBool
-} WordType;
+//typedef enum {
+//	WordTypeInt,
+//	WordTypeFloat,
+//	WordTypeChar,
+//	WordTypeBool
+//} WordType;
 
 @interface Type : Word
 
