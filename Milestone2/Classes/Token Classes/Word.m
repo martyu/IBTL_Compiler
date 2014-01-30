@@ -29,12 +29,12 @@
 			lex = @"&&";
 			theTag = AND;
 			break;
-
+            
 		case WordSetupTypeEq:
 			lex = @"==";
 			theTag = EQ;
 			break;
-
+            
 		case WordSetupTypeFalse:
 			lex = @"false";
 			theTag = FALSE_;
@@ -73,6 +73,41 @@
 		case WordSetupTypeTrue:
 			lex = @"true";
 			theTag = TRUE_;
+			break;
+            
+        case WordSetupTypePlus:
+			lex = @"+";
+			theTag = '+';
+			break;
+            
+        case WordSetupTypeMinus:
+			lex = @"-";
+			theTag = '-';
+			break;
+            
+        case WordSetupTypeDivide:
+			lex = @"/";
+			theTag = '/';
+			break;
+            
+        case WordSetupTypeTimes:
+			lex = @"*";
+			theTag = '*';
+			break;
+            
+        case WordSetupTypeMod:
+			lex = @"%";
+			theTag = '%';
+			break;
+            
+        case WordSetupTypeAnd:
+            lex = @"and";
+			theTag = AND;
+			break;
+            
+        case WordSetupTypeOr:
+            lex = @"or";
+			theTag = OR;
 			break;
 
 		default:

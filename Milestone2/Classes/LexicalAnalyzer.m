@@ -134,13 +134,21 @@
 	}
 
 	switch (self.peek) {
-		case '&':
-			if ([self readCharacter:'&'])
-				return [Word wordWithType:WordSetupTypeAnd];
-			else
-				return [Token tokenWithTag:'&'];
-			break;
-
+        case '+':
+            return [Word wordWithType:WordSetupTypePlus];
+            break;
+        case '-':
+            return [Word wordWithType:WordSetupTypeMinus];
+            break;
+        case '/':
+            return [Word wordWithType:WordSetupTypeDivide];
+            break;
+        case '%':
+            return [Word wordWithType:WordSetupTypeMod];
+            break;
+        case '^':
+            return [Word wordWithType:WordSetupTypePower];
+            break;
 		case '|':
 			if ([self readCharacter:'|'])
 				return [Word wordWithType:WordSetupTypeOr];

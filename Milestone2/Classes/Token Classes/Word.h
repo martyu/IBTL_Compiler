@@ -20,6 +20,11 @@ typedef enum {
 	WordSetupTypeTrue,
 	WordSetupTypeFalse,
 	WordSetupTypeTemp,
+    WordSetupTypePlus,
+    WordSetupTypeTimes,
+    WordSetupTypeDivide,
+    WordSetupTypeMod,
+    WordSetupTypePower,
 } WordSetupType;
 
 @interface Word : Token
