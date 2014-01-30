@@ -66,7 +66,6 @@
     self = [super init];
     if (self) {
 		_peek = ' ';
-		_words = [NSMutableDictionary dictionary];
 		_line = 1;
 		[self setupReserveWords];
 
@@ -87,8 +86,40 @@
 
 - (void)setupReserveWords
 {
+	self.words = [NSMutableDictionary dictionary];
 
-
+	Word *keyword = [Word wordWithType:WordSetupTypeOr];
+	self.words[keyword.lexeme] = keyword;
+	keyword = [Word wordWithType:WordSetupTypeAnd];
+	self.words[keyword.lexeme] = keyword;
+	keyword = [Word wordWithType:WordSetupTypeTrue];
+	self.words[keyword.lexeme] = keyword;
+	keyword = [Word wordWithType:WordSetupTypeFalse];
+	self.words[keyword.lexeme] = keyword;
+	keyword = [Word wordWithType:WordSetupTypeTan];
+	self.words[keyword.lexeme] = keyword;
+	keyword = [Word wordWithType:WordSetupTypeSin];
+	self.words[keyword.lexeme] = keyword;
+	keyword = [Word wordWithType:WordSetupTypeCos];
+	self.words[keyword.lexeme] = keyword;
+	keyword = [Word wordWithType:WordSetupTypeNot];
+	self.words[keyword.lexeme] = keyword;
+	keyword = [Word wordWithType:WordSetupTypeBool];
+	self.words[keyword.lexeme] = keyword;
+	keyword = [Word wordWithType:WordSetupTypeFloat];
+	self.words[keyword.lexeme] = keyword;
+	keyword = [Word wordWithType:WordSetupTypeString];
+	self.words[keyword.lexeme] = keyword;
+	keyword = [Word wordWithType:WordSetupTypeInt];
+	self.words[keyword.lexeme] = keyword;
+	keyword = [Word wordWithType:WordSetupTypeIf];
+	self.words[keyword.lexeme] = keyword;
+	keyword = [Word wordWithType:WordSetupTypeWhile];
+	self.words[keyword.lexeme] = keyword;
+	keyword = [Word wordWithType:WordSetupTypeLet];
+	self.words[keyword.lexeme] = keyword;
+	keyword = [Word wordWithType:WordSetupTypeStdOut];
+	self.words[keyword.lexeme] = keyword;
 
 }
 
@@ -126,54 +157,44 @@
 	}
 
 	switch (self.peek) {
-        case '+':
-            return [Word wordWithType:WordSetupTypePlus];
-            break;
-        case '-':
-            return [Word wordWithType:WordSetupTypeMinus];
-            break;
-        case '/':
-            return [Word wordWithType:WordSetupTypeDivide];
-            break;
-        case '%':
-            return [Word wordWithType:WordSetupTypeMod];
-            break;
-        case '^':
-            return [Word wordWithType:WordSetupTypePower];
-            break;
-		case '|':
-			if ([self readCharacter:'|'])
-				return [Word wordWithType:WordSetupTypeOr];
-			else
-				return [Token tokenWithTag:'|'];
-			break;
 
+        case '+':
+		case '-':
+		case '*':
+		case '/':
+		case '%':
+		case '^':
 		case '=':
-			if ([self readCharacter:'='])
-				return [Word wordWithType:WordSetupTypeEq];
-			else
-				return [Token tokenWithTag:'='];
-			break;
+			return [Token tokenWithTag:self.peek type:TokenTypeBinOp];
 
 		case '!':
 			if ([self readCharacter:'='])
-				return [Word wordWithType:WordSetupTypeNE];
+				return [Token tokenWithTag:NEQ type:TokenTypeBinOp];
 			else
-				return [Token tokenWithTag:'!'];
+			{
+				[self reportError];
+				return [Token tokenWithTag:'!' type:TokenTypeNone];
+			}
 			break;
 
 		case '<':
 			if ([self readCharacter:'='])
-				return [Word wordWithType:WordSetupTypeLE];
+				return [Token tokenWithTag:LE type:TokenTypeBinOp];
 			else
-				return [Token tokenWithTag:'<'];
+			{
+				[self reportError];
+				return [Token tokenWithTag:'<' type:TokenTypeNone];
+			}
 			break;
 
 		case '>':
 			if ([self readCharacter:'='])
-				return [Word wordWithType:WordSetupTypeGE];
+				return [Token tokenWithTag:GE type:TokenTypeBinOp];
 			else
-				return [Token tokenWithTag:'>'];
+			{
+				[self reportError];
+				return [Token tokenWithTag:'>' type:TokenTypeNone];
+			}
 			break;
 
 		default:
@@ -214,13 +235,11 @@
 			[self readCharacter];
 		} while (isalnum(self.peek) || self.peek == '_'	);
 
-		
-
 		Token *word = self.words[buffer];
 		if (word)
 			return word;
 
-		word = [[Word alloc] initWithLexeme:buffer tag:ID];
+		word = [[Word alloc] initWithLexeme:buffer tag:ID type:TokenTypeWord];
 		self.words[buffer] = word;
 		return word;
 	}
@@ -229,9 +248,14 @@
 	if (self.peek == '\0')
 		return nil;
 
-	Token *token = [Token tokenWithTag:self.peek];
+	Token *token = [Token tokenWithTag:self.peek type:TokenTypeNone];
 	self.peek = ' ';
 	return token;
+}
+
+- (void)reportError
+{
+	NSLog(@"Syntax error on line %i", self.line);
 }
 
 @end

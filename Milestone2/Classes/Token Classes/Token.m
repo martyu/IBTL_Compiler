@@ -10,7 +10,7 @@
 
 @implementation Token
 
-- (instancetype) initWithTag:(int)theTag
+- (instancetype) initWithTag:(int)theTag type:(TokenType)theType
 {
     self = [super init];
     if (self) {
@@ -19,20 +19,11 @@
     return self;
 }
 
-+ (instancetype) tokenWithTag:(int)theTag
++ (instancetype) tokenWithTag:(int)theTag type:(TokenType)theType
 {
-	return [[[self class] alloc] initWithTag:theTag];
+	return [[[self class] alloc] initWithTag:theTag type:theType];
 }
 
-
-- (instancetype) initWithLexeme:(NSString*)theLexeme attribute:(id)theAttribute
-{
-    self = [super init];
-    if (self) {
-		_attribute = theAttribute;
-    }
-    return self;
-}
 
 - (NSString*)description
 {

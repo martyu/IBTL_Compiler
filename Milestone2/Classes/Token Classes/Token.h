@@ -8,6 +8,20 @@
 
 #import "Defines.h"
 
+typedef enum {
+	TokenTypeBinOp,
+	TokenTypeUnOp,
+	TokenTypeTypeDef,
+	TokenTypeBool,
+	TokenTypeWord,
+	TokenTypeReal,
+	TokenTypeInt,
+	TokenTypeConditional,
+	TokenTypeLet,
+	TokenTypeStdOut,
+	TokenTypeNone
+} TokenType;
+
 struct TokenLocation {
 	int line;
 	int row;
@@ -19,11 +33,10 @@ typedef NSString Lexeme;
 
 @interface Token : NSObject
 
-@property (strong, nonatomic) id attribute;
 @property (nonatomic, readonly) int tag;
 
-- (instancetype) initWithLexeme:(NSString*)theLexeme attribute:(id)theAttribute;
-- (instancetype) initWithTag:(int)theTag;
-+ (instancetype) tokenWithTag:(int)theTag;
+- (instancetype) initWithTag:(int)theTag type:(TokenType)theType;
+
++ (instancetype) tokenWithTag:(int)theTag type:(TokenType)theType;
 
 @end

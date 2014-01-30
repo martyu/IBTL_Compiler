@@ -12,7 +12,7 @@
 
 - (instancetype)initWithValue:(float)val
 {
-    self = [super initWithTag:REAL];
+    self = [super initWithTag:REAL type:TokenTypeReal];
     if (self) {
         _value = val;
     }
