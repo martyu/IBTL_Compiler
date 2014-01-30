@@ -158,17 +158,27 @@
 	switch (self.peek) {
 
         case '+':
-		case '-':
 		case '*':
 		case '/':
 		case '%':
 		case '^':
 		case '=':
+		case '[':
+		case ']':
 		{
 			Token *tok = [Token tokenWithTag:self.peek type:TokenTypeBinOp];
+			// just to move index ahead 1.
 			[self readCharacter];
 			return tok;
 			break;
+		}
+		case '-':
+		{
+			[self readCharacter];
+			if (isnumber(self.peek))
+				return [Token tokenWithTag:NEG type:TokenTypeUnOp];
+			else
+				return [Token tokenWithTag:'-' type:TokenTypeBinOp];
 		}
 		case '!':
 			if ([self readCharacter:'='])
@@ -197,6 +207,16 @@
 			{
 				[self reportError];
 				return [Token tokenWithTag:'>' type:TokenTypeNone];
+			}
+			break;
+
+		case ':':
+			if ([self readCharacter:'='])
+				return [Token tokenWithTag:ASSIGN type:TokenTypeAssign];
+			else
+			{
+				[self reportError];
+				return [Token tokenWithTag:':' type:TokenTypeNone];
 			}
 			break;
 

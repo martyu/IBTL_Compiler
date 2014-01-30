@@ -19,6 +19,7 @@ typedef enum {
 	TokenTypeConditional,
 	TokenTypeLet,
 	TokenTypeStdOut,
+	TokenTypeAssign,
 	TokenTypeNone
 } TokenType;
 
