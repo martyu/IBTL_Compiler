@@ -14,7 +14,7 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-	NSString *source = @"int num = 5; if(num == 5)float x = num - 5;";
+	NSString *source = @"int num = 5; if(num == 5)float x = num - 5; myString = (\"hello world\")";
 
 	LexicalAnalyzer *lex = [[LexicalAnalyzer alloc] initWithSource:source];
 	Token *token = [lex scan];

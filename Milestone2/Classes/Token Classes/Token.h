@@ -14,6 +14,7 @@ typedef enum {
 	TokenTypeTypeDef,
 	TokenTypeBool,
 	TokenTypeWord,
+    TokenTypeString,
 	TokenTypeReal,
 	TokenTypeInt,
 	TokenTypeConditional,
