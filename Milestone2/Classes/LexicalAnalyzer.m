@@ -194,20 +194,14 @@
 			if ([self readCharacter:'='])
 				return [Token tokenWithTag:LE type:TokenTypeBinOp];
 			else
-			{
-				[self reportError];
-				return [Token tokenWithTag:'<' type:TokenTypeNone];
-			}
+				return [Token tokenWithTag:'<' type:TokenTypeBinOp];
 			break;
 
 		case '>':
 			if ([self readCharacter:'='])
 				return [Token tokenWithTag:GE type:TokenTypeBinOp];
 			else
-			{
-				[self reportError];
-				return [Token tokenWithTag:'>' type:TokenTypeNone];
-			}
+				return [Token tokenWithTag:'>' type:TokenTypeBinOp];
 			break;
 
 		case ':':
