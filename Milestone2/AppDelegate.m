@@ -18,6 +18,7 @@
     //Floats, etc
     //Have lots of tests
     //To do: Have output be translated so token type will show up as the category name as a string
+    //To do: Have input be a file by default
 	NSString *source = @"int num = 5; if(num == 5)float x = num - 5; myString = (\"hello world\")";
 
 	LexicalAnalyzer *lex = [[LexicalAnalyzer alloc] initWithSource:source];
