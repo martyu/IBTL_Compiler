@@ -273,7 +273,9 @@
 			[self readCharacter];
 		} while (isalnum(self.peek) || self.peek == '_');
 
-		Token *word = self.words[buffer];
+		//To do: optimize this so there's no lookup. Write our own lookup function.
+        //Could use the DFA idea here.
+        Token *word = self.words[buffer];
 		if (word)
 			return word;
 
