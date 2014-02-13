@@ -19,13 +19,13 @@
     //Have lots of tests
     //To do: Have output be translated so token type will show up as the category name as a string
     //To do: Have input be a file by default
-	NSString *source = @"int num = 5; if(num == 5)float x = num - 5; myString = (\"hello world\")";
+	NSString *source = @"[[while [= 5 x] [:= x [- x 1]]]]";
 
 	LexicalAnalyzer *lex = [[LexicalAnalyzer alloc] initWithSource:source];
 	Token *token = [lex scan];
 
 	while (token) {
-		printf("%s ",  [[token description] UTF8String]);
+		printf("%s \n",  [[token description] UTF8String]);
 		token = [lex scan];
 	}
 }

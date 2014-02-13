@@ -34,3 +34,10 @@
 #define FLOAT_TYPE @"float"
 #define CHAR_TYPE @"char"
 #define BOOL_TYPE @"bool"
+
+
+@interface Defines : NSObject
+
++ (NSString*) descriptionForConstant:(int)val;
+
+@end

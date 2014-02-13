@@ -132,7 +132,7 @@
 
 -(NSString*)description
 {
-	NSString *str = [NSString stringWithFormat:@"<%@, lexeme:\"%@\", tag:%i, type:%i>", [self class], self.lexeme, self.tag, self.tokType];
+	NSString *str = [NSString stringWithFormat:@"<%@, lexeme:\"%@\", tag:%@, type:%i>", [self class], self.lexeme, [Defines descriptionForConstant:self.tag], self.tokType];
 	return str;
 }
 
