@@ -106,9 +106,17 @@
 			break;
 
 		default:
-			return nil;
 			break;
 	}
+
+	if (isascii(val))
+	{
+		NSString *str = [NSString stringWithFormat:@"'%c'", (char)val];
+		return str;
+	}
+
+	return nil;
+
 }
 
 @end
