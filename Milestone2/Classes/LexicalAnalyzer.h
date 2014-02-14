@@ -8,14 +8,15 @@
 
 #import "Token.h"
 
-
 @interface LexicalAnalyzer : NSObject
 
-@property(nonatomic) int line;
 @property(strong, nonatomic) NSMutableDictionary *words;
 
 - (instancetype)initWithSource:(NSString*)source;
 
 - (Token*)scan;
+
++ (int)line;
++ (void)setLine:(int)newLine;
 
 @end

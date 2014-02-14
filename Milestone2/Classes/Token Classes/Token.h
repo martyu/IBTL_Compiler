@@ -21,6 +21,7 @@ typedef enum {
 	TokenTypeLet,
 	TokenTypeStdOut,
 	TokenTypeAssign,
+	TokenTypeType, // weird, huh?
 	TokenTypeNone
 } TokenType;
 

@@ -58,6 +58,7 @@
 
 @end
 
+static int _line;
 
 @implementation LexicalAnalyzer
 
@@ -149,7 +150,7 @@
 		if (self.peek == ' ' || self.peek == '\t')
 			continue;
 		else if (self.peek == '\n')
-			self.line++;
+			_line++;
 		else
 			break;
 	}
@@ -295,7 +296,17 @@
 
 - (void)reportError
 {
-	NSLog(@"Syntax error on line %i", self.line);
+	NSLog(@"Syntax error on line %i", _line);
+}
+
++ (int)line
+{
+	return _line;
+}
+
++ (void)setLine:(int)line
+{
+	_line = line;
 }
 
 @end

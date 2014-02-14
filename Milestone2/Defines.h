@@ -27,8 +27,10 @@
 #define STRING	318
 #define FLOAT	319
 #define BOOL_	320
+// not sure why we skipped 321/322...
 #define NEG		323 // '-' (negative).  '-' (minus) uses itself as a tag.
 #define ASSIGN	324 // ":-"
+#define BASIC	325
 
 #define INT_TYPE @"int"
 #define FLOAT_TYPE @"float"
