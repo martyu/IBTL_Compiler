@@ -60,20 +60,21 @@
 	if (self.lookAhead.tag == '[')
 	{
 		[self match:'['];
-
+        
 		if (self.lookAhead.tag == ']')
 			[self match:']'];
 	}
-
+    
 }
 
 /** expr -> oper | stmts */
 - (void) expr
 {
-	[self oper];
+//	[self oper];
 	[self stmts];
 }
 
+/** oper -> [:= name oper] | [binops oper oper] | [unops oper] | constants | name */
 - (Tree*) oper:(Token*)t
 {
 	Tree *tempTree = [[Tree alloc] init];
@@ -84,13 +85,19 @@
 	}
 	else if (t.tag == '[')
 	{
-		[tempTree addChildNode:[[Tree alloc] initWithToken:t]];
+        [tempTree addChildNode:[[Tree alloc] initWithToken:t]];
+        
+        // Case: [binops oper oper]
 		[self move];
 		t = self.lookAhead;
+        
+        // Check for binop
         [tempTree addChildNode:[[Tree alloc] initWithToken:t]];
 		[self move];
+        
 		t = self.lookAhead;
         [tempTree addChildNode:[self oper:t]];
+        
         [self move];
 		t = self.lookAhead;
 		[tempTree addChildNode:[self oper:t]];
@@ -111,46 +118,6 @@
     return tempTree;
 }
 
-/** oper -> [:= name oper] | [binops oper oper] | [unops oper] | constants | name */
-- (void) oper
-{
-	if (self.lookAhead.tag == '[')
-	{
-		[self match:'['];
-
-		if (self.lookAhead.tag == ':')
-		{
-			[self match:':'];
-			[self match:'='];
-			[self name];
-		}
-		else if (self.lookAhead.tokType == TokenTypeBinOp)
-		{
-			[self binOps];
-			[self oper];
-		}
-		else if (self.lookAhead.tokType == TokenTypeUnOp)
-		{
-			[self unOps];
-		}
-
-		[self oper];
-		[self match:']'];
-	}
-	else if (self.lookAhead.tokType == TokenTypeConstant)
-	{
-		[self constants];
-	}
-	else if (self.lookAhead.tokType == TokenTypeName)
-	{
-		[self name];
-	}
-	else
-	{
-		[self error:@"syntax error"];
-	}
-}
-
 /** binops -> + | - | * | / | % | ^ | = | > | >= | < | <= | != | or | and */
 - (void) binOps
 {
@@ -158,59 +125,59 @@
 		case '+':
 			[self match:'+'];
 			break;
-
+            
 		case '-':
 			[self match:'-'];
 			break;
-
+            
 		case '*':
 			[self match:'*'];
 			break;
-
+            
 		case '/':
 			[self match:'/'];
 			break;
-
+            
 		case '%':
 			[self match:'%'];
 			break;
-
+            
 		case '^':
 			[self match:'^'];
 			break;
-
+            
 		case '=':
 			[self match:'='];
 			break;
-
+            
 		case '>':
 			[self match:'>'];
 			break;
-
+            
 		case GE:
 			[self match:GE];
 			break;
-
+            
 		case '<':
 			[self match:'<'];
 			break;
-
+            
 		case LE:
 			[self match:LE];
 			break;
-
+            
 		case NEQ:
 			[self match:NEQ];
 			break;
-
+            
 		case OR:
 			[self match:OR];
 			break;
-
+            
 		case AND:
 			[self match:AND];
 			break;
-
+            
 		default:
 			break;
 	}
@@ -222,23 +189,23 @@
 		case '-':
 			[self match:'-'];
 			break;
-
+            
 		case NOT:
 			[self match:NOT];
 			break;
-
+            
 		case SIN:
 			[self match:SIN];
 			break;
-
+            
 		case COS:
 			[self match:COS];
 			break;
-
+            
 		case TAN:
 			[self match:TAN];
 			break;
-
+            
 		default:
 			break;
 	}
@@ -292,19 +259,19 @@
 		case IF:
 			[self ifstmts];
 			break;
-
+            
 		case WHILE:
 			[self whilestmts];
 			break;
-
+            
 		case LET:
 			[self letstmts];
 			break;
-
+            
 		case STDOUT:
 			[self printsmts];
 			break;
-
+            
 		default:
 			break;
 	}
@@ -340,7 +307,7 @@
         } else {
             //@todo: error? Another varlist?
         }
-
+        
     }
 }
 
@@ -363,12 +330,12 @@
 {
     //How to do this one?!
     /*
-    if([self expr]){
-        return TRUE;
-    } else if([self expr] || [self exprlist]){
-        return true;
+     if([self expr]){
+     return TRUE;
+     } else if([self expr] || [self exprlist]){
+     return true;
      } else {
-        return false;
+     return false;
      }
      */
 }
