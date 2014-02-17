@@ -15,47 +15,34 @@
 
 @end
 
-static int _labels = 0;
 
 @implementation Node
 
-- (instancetype)init
+- (instancetype)initWithToken:(Token*)tok
 {
     self = [super init];
     if (self) {
-        _lexLine = [LexicalAnalyzer line];
+		_children = [NSMutableArray array];
+		_token = tok;
     }
     return self;
 }
 
-- (int)newLabel
+
+- (void) addChildNode:(Node*)node
 {
-	return ++_labels;
+	[self.children addObject:node];
 }
 
-- (void)emitLabel:(int)i
+- (void) printChildren
 {
-	NSLog(@"L%i:", i);
-}
-
-- (void)emit:(NSString*)str
-{
-	NSLog(@"\t%@", str);
-}
-
-- (void)error:(NSString*)errStr
-{
-	[NSException raise:errStr format:@"near line %i", self.lexLine];
-}
-
-+ (int)labels
-{
-	return _labels;
-}
-
-+ (void)setLabels:(int)labelsVal
-{
-	_labels = labelsVal;
+	if (self.children.count)
+	{
+		for (Node *node in self.children)
+			[node printChildren];
+	}
+	else
+		NSLog(@"%@", self.token);
 }
 
 

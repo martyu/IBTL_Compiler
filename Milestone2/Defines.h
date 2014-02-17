@@ -15,6 +15,7 @@
 #define AND		306
 #define OR		307
 #define FLOAT	308
+#define INTEGER	319
 #define NOT		309
 #define SIN		310
 #define COS		311

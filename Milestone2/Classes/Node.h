@@ -6,13 +6,16 @@
 //  Copyright (c) 2014 Marty Ulrich/David Merrick. All rights reserved.
 //
 
+#import "Token Classes/Token.h"
 
 @interface Node : NSObject
 
-+ (int)labels;
-+ (void)setLabels:(int)labelsVal;
-- (int)newLabel;
-- (void)emitLabel:(int)i;
-- (void)emit:(NSString*)str;
+@property(nonatomic, strong) NSMutableArray *children;
+@property(nonatomic, strong) Token *token;
+
+- (void) addChildNode:(Node*)node;
+- (void) printChildren;
+
+- (instancetype)initWithToken:(Token*)tok;
 
 @end

@@ -101,6 +101,10 @@
 			return @"ASSIGN";
 			break;
 
+		case INTEGER:
+			return @"INTEGER";
+			break;
+
 		default:
 			break;
 	}

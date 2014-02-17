@@ -12,7 +12,7 @@
 
 - (instancetype)initWithValue:(int)val
 {
-    self = [super init];
+    self = [super initWithTag:INTEGER type:TokenTypeConstant];
     if (self) {
         _value = val;
     }
@@ -26,7 +26,7 @@
 
 -(NSString*)description
 {
-	NSString *str = [NSString stringWithFormat:@"<%@, val:%i, type:%i>", [self class], self.value, self.tokType];
+	NSString *str = [NSString stringWithFormat:@"<%@, val:%i, tag:%@, type:%i>", [self class], self.value, [Defines descriptionForConstant:self.tag], self.tokType];
 	return str;
 }
 
