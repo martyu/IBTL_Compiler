@@ -36,13 +36,24 @@
 
 - (void) printChildren
 {
+	static int depth = 0;
+
 	if (self.children.count)
 	{
 		for (Node *node in self.children)
+		{
+			depth++;
 			[node printChildren];
+		}
 	}
 	else
-		NSLog(@"%@", self.token);
+	{
+		for(int i = 0; i < depth; i++)
+			printf("\t");
+		printf("%s\n", [[self.token description] UTF8String]);
+	}
+
+	depth--;
 }
 
 
