@@ -64,16 +64,37 @@
 
 #pragma mark - Productions
 
-- (void) start
+
+/** T -> [S] //This is where we start. */
+- (Tree*) T:(Token*)t
 {
-	if (self.lookAhead.tag == '[')
-	{
-		[self match:'['];
+	Tree *tempTree = [[Tree alloc] init];
+    if (t.tag == '['){
+        [tempTree addChild:[[Tree alloc] initWithToken:t]];
+		
+        //S
+        t = [self getNextToken];
+        [tempTree addChild:[self S:t]];
         
-		if (self.lookAhead.tag == ']')
-			[self match:']'];
-	}
-    
+        t = [self getNextToken];
+        if (t.tag == ']'){
+            [tempTree addChild:[[Tree alloc] initWithToken:t]];
+            return tempTree;
+        } else {
+            [self error:@"syntax error"];
+        }
+    } else {
+        [self error:@"syntax error"];
+    }
+    return tempTree;
+}
+
+/** S -> [ ] | [S] | SS | expr */
+- (Tree*) S:(Token*)t
+{
+    //@todo: finish this method
+    Tree *tempTree = [[Tree alloc] init];
+    return tempTree;
 }
 
 /** expr -> oper | stmts */
