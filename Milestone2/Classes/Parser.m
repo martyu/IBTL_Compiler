@@ -66,8 +66,51 @@
 	}
 }
 
+/** stmts -> ifstmts | whilestmts | letstmts | printsmts */
+- (void) stmts
+{
+	[self ifstmts];
+	[self whilestmts];
+    [self letstmts];
+    [self printsmts];
+}
 
 
+/** ifstmts -> [if expr expr expr] | [if expr expr] */
+-(void) ifstmts
+{
+    
+}
+
+/** whilestmts -> [while expr exprlist] */
+-(void) whilestmts
+{
+    
+}
+
+/** letstmts -> [let [varlist]] */
+-(void) letstmts
+{
+    
+}
+
+/** varlist -> [name type] | [name type] varlist */
+-(void) varlist
+{
+    
+}
+
+/** printstmts -> [stdout oper] */
+-(void) printsmts
+{
+    
+}
+
+/** expr | expr exprlist */
+-(void) exprlist
+{
+    
+}
 
 - (Stmt*)block
 {
