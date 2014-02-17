@@ -50,10 +50,24 @@
 		[self error:@"syntax error"];
 }
 
-- (void)decls
+/** expr -> oper | stmts */
+- (void)expr
 {
-	while (self.lookAhead == [Tag Basic])
+	[self oper];
+	[self stmts];
 }
+
+/** oper -> [:= name oper] | [binops oper oper] | [unops oper] | constants | name */
+- (void) oper
+{
+	if ([self match:'['])
+	{
+		[self match:':']
+	}
+}
+
+
+
 
 - (Stmt*)block
 {
