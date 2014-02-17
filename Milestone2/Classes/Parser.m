@@ -318,7 +318,7 @@
 	{
 		[self match:'['];
         [self match:STDOUT];
-        [self oper];
+//        [self oper];
         [self match:']'];
     } else {
         //@todo: Error?
