@@ -16,8 +16,6 @@
 @interface Parser ()
 
 @property (strong, nonatomic) LexicalAnalyzer *lex;
-@property (strong, nonatomic) Token *lookAhead;
-@property (strong, nonatomic) Token *lookAhead2;
 @property (nonatomic) int used;
 @property (strong, nonatomic) Environment *top;
 
@@ -69,7 +67,6 @@
 
 }
 
-
 /** expr -> oper | stmts */
 - (void) expr
 {
@@ -90,10 +87,15 @@
 		[tempTree addChildNode:[[Tree alloc] initWithToken:t]];
 		[self move];
 		t = self.lookAhead;
-		[tempTree addChildNode:[self oper:t]];
+        [tempTree addChildNode:[[Tree alloc] initWithToken:t]];
+		[self move];
+		t = self.lookAhead;
+        [tempTree addChildNode:[self oper:t]];
+        [self move];
+		t = self.lookAhead;
 		[tempTree addChildNode:[self oper:t]];
 		[self move];
-		t = self.lookAhead; // Get next token
+		t = self.lookAhead;
 		if (t.tag == ']')
 		{
 			[tempTree addChildNode:[[Tree alloc] initWithToken:t]];

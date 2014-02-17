@@ -8,6 +8,9 @@
 
 #import "AppDelegate.h"
 #import "LexicalAnalyzer.h"
+#import "Parser.h"
+#import "Tree.h"
+
 
 @implementation AppDelegate
 
@@ -21,12 +24,9 @@
 	NSString *source = @"[+ 1 1]";
 
 	LexicalAnalyzer *lex = [[LexicalAnalyzer alloc] initWithSource:source];
-	Token *token = [lex scan];
-
-	while (token) {
-		printf("%s \n",  [[token description] UTF8String]);
-		token = [lex scan];
-	}
+    Parser *parser = [[Parser alloc] initWithLexicalAnalyzer:lex];
+    Tree *t = [parser oper:parser.lookAhead];
+    [t printChildren];
 }
 
 @end

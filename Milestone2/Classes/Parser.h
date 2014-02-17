@@ -7,9 +7,12 @@
 //
 
 #import "LexicalAnalyzer.h"
+@class Tree;
 
 @interface Parser : NSObject
 
+@property (strong, nonatomic) Token *lookAhead;
 - (instancetype)initWithLexicalAnalyzer:(LexicalAnalyzer*)theLex;
+- (Tree*) oper:(Token*)t;
 
 @end
