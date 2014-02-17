@@ -10,11 +10,13 @@
 #import "Environment.h"
 #import "Stmt.h"
 #import "Defines.h"
+#import "Word.h"
 
 @interface Parser ()
 
 @property (strong, nonatomic) LexicalAnalyzer *lex;
 @property (strong, nonatomic) Token *lookAhead;
+@property (strong, nonatomic) Token *lookAhead2;
 @property (nonatomic) int used;
 @property (strong, nonatomic) Environment *top;
 
@@ -57,8 +59,16 @@
 
 - (void) start
 {
-	
+	if (self.lookAhead.tag == '[')
+	{
+		[self match:'['];
+
+		if (self.lookAhead.tag == ']')
+			[self match:']'];
+	}
+
 }
+
 
 /** expr -> oper | stmts */
 - (void) expr
@@ -82,12 +92,12 @@
 		}
 		else if (self.lookAhead.tokType == TokenTypeBinOp)
 		{
-			[self binOp];
+			[self binOps];
 			[self oper];
 		}
 		else if (self.lookAhead.tokType == TokenTypeUnOp)
 		{
-			[self unOp];
+			[self unOps];
 		}
 
 		[self oper];
@@ -107,34 +117,163 @@
 	}
 }
 
+/** binops -> + | - | * | / | % | ^ | = | > | >= | < | <= | != | or | and */
+- (void) binOps
+{
+	switch (self.lookAhead.tag) {
+		case '+':
+			[self match:'+'];
+			break;
+
+		case '-':
+			[self match:'-'];
+			break;
+
+		case '*':
+			[self match:'*'];
+			break;
+
+		case '/':
+			[self match:'/'];
+			break;
+
+		case '%':
+			[self match:'%'];
+			break;
+
+		case '^':
+			[self match:'^'];
+			break;
+
+		case '=':
+			[self match:'='];
+			break;
+
+		case '>':
+			[self match:'>'];
+			break;
+
+		case GE:
+			[self match:GE];
+			break;
+
+		case '<':
+			[self match:'<'];
+			break;
+
+		case LE:
+			[self match:LE];
+			break;
+
+		case NEQ:
+			[self match:NEQ];
+			break;
+
+		case OR:
+			[self match:OR];
+			break;
+
+		case AND:
+			[self match:AND];
+			break;
+
+		default:
+			break;
+	}
+}
+
+- (void) unOps
+{
+	switch (self.lookAhead.tag) {
+		case '-':
+			[self match:'-'];
+			break;
+
+		case NOT:
+			[self match:NOT];
+			break;
+
+		case SIN:
+			[self match:SIN];
+			break;
+
+		case COS:
+			[self match:COS];
+			break;
+
+		case TAN:
+			[self match:TAN];
+			break;
+
+		default:
+			break;
+	}
+}
+
 - (void) constants
 {
-
+	if ([self.lookAhead isMemberOfClass:[Word class]])
+		[self strings];
+	else if (self.lookAhead.tag == INT)
+		[self ints];
+	else if (self.lookAhead.tag == FLOAT)
+		[self floats];
+	else
+		[self error:@"syntax error"];
 }
 
-/** binops -> + | - | * | / | % | ^ | = | > | >= | < | <= | != | or | and */
-- (void) binOp
+- (void) strings
 {
-
-}
-
-- (void) unOp
-{
-
+	if (self.lookAhead.tag == TRUE_)
+		[self match:TRUE_];
+	else if (self.lookAhead.tag == FALSE_)
+		[self match:TRUE_];
+	else if (self.lookAhead.tag == STRING)
+		[self match:STRING];
+	else
+		[self error:@"syntax error"];
 }
 
 - (void) name
 {
+	[self match:ID];
+}
 
+- (void) ints
+{
+	[self match:INT];
+}
+
+- (void) floats
+{
+	[self match:FLOAT];
 }
 
 /** stmts -> ifstmts | whilestmts | letstmts | printsmts */
 - (void) stmts
 {
-	[self ifstmts];
-	[self whilestmts];
-    [self letstmts];
-    [self printsmts];
+	[self match:'['];
+	switch (self.lookAhead.tag)
+	{
+		case IF:
+			[self ifstmts];
+			break;
+
+		case WHILE:
+			[self whilestmts];
+			break;
+
+		case LET:
+			[self letstmts];
+			break;
+
+		case STDOUT:
+			[self printsmts];
+			break;
+
+		default:
+			break;
+	}
 }
 
 
