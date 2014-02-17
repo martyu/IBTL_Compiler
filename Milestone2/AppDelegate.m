@@ -21,11 +21,11 @@
     //Have lots of tests
     //To do: Have output be translated so token type will show up as the category name as a string
     //To do: Have input be a file by default
-	NSString *source = @"[+ 1 1]";
+	NSString *source = @"[[+ 1 1]]";
 
 	LexicalAnalyzer *lex = [[LexicalAnalyzer alloc] initWithSource:source];
     Parser *parser = [[Parser alloc] initWithLexicalAnalyzer:lex];
-    Tree *t = [parser oper:parser.lookAhead];
+    Tree *t = [parser T:parser.lookAhead];
     [t printChildren];
 }
 

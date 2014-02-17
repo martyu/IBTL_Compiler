@@ -77,12 +77,11 @@
         [tempTree addChild:[self S:t]];
         
         t = [self getNextToken];
-        if (t.tag == ']'){
-            [tempTree addChild:[[Tree alloc] initWithToken:t]];
-            return tempTree;
-        } else {
+        if (t.tag != ']'){
             [self error:@"syntax error"];
         }
+        [tempTree addChild:[[Tree alloc] initWithToken:t]];
+        return tempTree;
     } else {
         [self error:@"syntax error"];
     }
@@ -92,16 +91,36 @@
 /** S -> [ ] | [S] | SS | expr */
 - (Tree*) S:(Token*)t
 {
-    //@todo: finish this method
     Tree *tempTree = [[Tree alloc] init];
+    
+    // [ ] and [S] productions
+    if (t.tag == '['){
+        [tempTree addChild:[[Tree alloc] initWithToken:t]];
+        
+		t = [self getNextToken];
+        if (t.tag == ']'){ //Since we don't tokenize spaces
+            [tempTree addChild:[[Tree alloc] initWithToken:t]];
+            return tempTree;
+        } else {
+            // [S] production. Recurse.
+            [tempTree addChild:[self S:t]];
+            t = [self getNextToken];
+            if (t.tag != ']'){
+                [self error:@"syntax error"];
+            }
+            [tempTree addChild:[[Tree alloc] initWithToken:t]];
+            return tempTree;
+        }
+    } //@todo: how to deal with SS and expr productions? What if we had [SS]?
+    
     return tempTree;
 }
 
 /** expr -> oper | stmts */
-- (void) expr
+- (Tree*) expr:(Token*)t
 {
-//	[self oper];
-	[self stmts];
+    Tree *tempTree = [[Tree alloc] init];
+    return tempTree;
 }
 
 /** oper -> [:= name oper] | [binops oper oper] | [unops oper] | constants | name */
@@ -149,7 +168,6 @@
         else if (t.tag == ':' && self.lookAhead.tag == '!')
         {
             // Production: [:= name oper]
-            
             //Add the ':' and the '=' to the tree
             [tempTree addChild:[[Tree alloc] initWithToken:t]];
             t = [self getNextToken];
@@ -158,271 +176,247 @@
             t = [self getNextToken];
             if(t.tokType == TokenTypeName)
             {
-                    [tempTree addChild:[[Tree alloc] initWithToken:t]];
-            }
-            else
-            {
+                [tempTree addChild:[[Tree alloc] initWithToken:t]];
+            } else {
                 [self error:@"syntax error"];
             }
             
             //oper
             t = [self getNextToken];
             [tempTree addChild:[self oper:t]];
-        }
-        else
-        {
+        } else {
             [self error:@"syntax error"];
         }
 
-        // Finish all these productions that opened with '['
-        
+        // Finish all of these productions that opened with '['
         t = [self getNextToken];
-        if (t.tag == ']')
-        {
-            [tempTree addChild:[[Tree alloc] initWithToken:t]];
-            return tempTree;
-        }
-        else {
+        if (t.tag != ']'){
             [self error:@"syntax error"];
         }
+        [tempTree addChild:[[Tree alloc] initWithToken:t]];
+        return tempTree;
 	} else {
         [self error:@"syntax error"];
     }
-    //@todo delete this
     return tempTree;
 }
 
-/** binops -> + | - | * | / | % | ^ | = | > | >= | < | <= | != | or | and */
-- (void) binOps
-{
-	switch (self.lookAhead.tag) {
-		case '+':
-			[self match:'+'];
-			break;
-            
-		case '-':
-			[self match:'-'];
-			break;
-            
-		case '*':
-			[self match:'*'];
-			break;
-            
-		case '/':
-			[self match:'/'];
-			break;
-            
-		case '%':
-			[self match:'%'];
-			break;
-            
-		case '^':
-			[self match:'^'];
-			break;
-            
-		case '=':
-			[self match:'='];
-			break;
-            
-		case '>':
-			[self match:'>'];
-			break;
-            
-		case GE:
-			[self match:GE];
-			break;
-            
-		case '<':
-			[self match:'<'];
-			break;
-            
-		case LE:
-			[self match:LE];
-			break;
-            
-		case NEQ:
-			[self match:NEQ];
-			break;
-            
-		case OR:
-			[self match:OR];
-			break;
-            
-		case AND:
-			[self match:AND];
-			break;
-            
-		default:
-			break;
-	}
-}
-
-- (void) unOps
-{
-	switch (self.lookAhead.tag) {
-		case '-':
-			[self match:'-'];
-			break;
-            
-		case NOT:
-			[self match:NOT];
-			break;
-            
-		case SIN:
-			[self match:SIN];
-			break;
-            
-		case COS:
-			[self match:COS];
-			break;
-            
-		case TAN:
-			[self match:TAN];
-			break;
-            
-		default:
-			break;
-	}
-}
-
-- (void) constants
-{
-	if ([self.lookAhead isMemberOfClass:[Word class]])
-		[self strings];
-	else if (self.lookAhead.tag == INT)
-		[self ints];
-	else if (self.lookAhead.tag == FLOAT)
-		[self floats];
-	else
-		[self error:@"syntax error"];
-}
-
-- (void) strings
-{
-	if (self.lookAhead.tag == TRUE_)
-		[self match:TRUE_];
-	else if (self.lookAhead.tag == FALSE_)
-		[self match:TRUE_];
-	else if (self.lookAhead.tag == STRING)
-		[self match:STRING];
-	else
-		[self error:@"syntax error"];
-}
-
-- (void) name
-{
-	[self match:ID];
-}
-
-- (void) ints
-{
-	[self match:INT];
-}
-
-- (void) floats
-{
-	[self match:FLOAT];
-}
-
 /** stmts -> ifstmts | whilestmts | letstmts | printsmts */
-- (void) stmts
+- (Tree*) stmts:(Token*)t
 {
-	[self match:'['];
-	switch (self.lookAhead.tag)
-	{
-		case IF:
-			[self ifstmts];
-			break;
-            
-		case WHILE:
-			[self whilestmts];
-			break;
-            
-		case LET:
-			[self letstmts];
-			break;
-            
-		case STDOUT:
-			[self printsmts];
-			break;
-            
-		default:
-			break;
-	}
+    Tree *tempTree = [[Tree alloc] init];
+    t = [self getNextToken];
+    if(self.lookAhead.tag == IF){
+        [tempTree addChild:[self ifstmts:t]];
+    } else if(self.lookAhead.tag == WHILE){
+        [tempTree addChild:[self whilestmts:t]];
+    } else if(self.lookAhead.tag == LET){
+        [tempTree addChild:[self letstmts:t]];
+    } else if(self.lookAhead.tag == STDOUT){
+        [tempTree addChild:[self printstmts:t]];
+    } else {
+        [self error:@"syntax error"];
+    }
+    return tempTree;
 }
 
 /** ifstmts -> [if expr expr expr] | [if expr expr] */
--(void) ifstmts
+- (Tree*) ifstmts:(Token*)t
 {
-    
+    Tree *tempTree = [[Tree alloc] init];
+    if (t.tag == '['){
+        [tempTree addChild:[[Tree alloc] initWithToken:t]];
+        
+		t = [self getNextToken];
+        if(t.tag != IF){
+            [self error:@"syntax error"];
+        }
+        [tempTree addChild:[[Tree alloc] initWithToken:t]];
+        
+        //expr
+        t = [self getNextToken];
+        [tempTree addChild:[self expr:t]];
+        
+        //expr
+        t = [self getNextToken];
+        [tempTree addChild:[self expr:t]];
+        
+        //Use lookahead to check if there is a third expression
+        if(self.lookAhead.tag == '['){
+            //expr
+            t = [self getNextToken];
+            [tempTree addChild:[self expr:t]];
+        }
+        
+        //Finish both productions
+        t = [self getNextToken];
+        if (t.tag != ']'){
+            [self error:@"syntax error"];
+        }
+        [tempTree addChild:[[Tree alloc] initWithToken:t]];
+        return tempTree;
+    } else {
+        [self error:@"syntax error"];
+    }
+    return tempTree;
 }
 
 /** whilestmts -> [while expr exprlist] */
--(void) whilestmts
+- (Tree*) whilestmts:(Token*)t
 {
-    
+    Tree *tempTree = [[Tree alloc] init];
+    if (t.tag == '['){
+        [tempTree addChild:[[Tree alloc] initWithToken:t]];
+        
+        //while
+		t = [self getNextToken];
+        if(t.tag != WHILE){
+            [self error:@"syntax error"];
+        }
+        [tempTree addChild:[[Tree alloc] initWithToken:t]];
+        
+        //expr
+        t = [self getNextToken];
+        [tempTree addChild:[self expr:t]];
+        
+        //exprlist
+        t = [self getNextToken];
+        [tempTree addChild:[self exprlist:t]];
+        
+        t = [self getNextToken];
+        if (t.tag != ']'){
+            [self error:@"syntax error"];
+        }
+        [tempTree addChild:[[Tree alloc] initWithToken:t]];
+        return tempTree;
+    } else {
+        [self error:@"syntax error"];
+    }
+    return tempTree;
 }
 
 /** letstmts -> [let [varlist]] */
--(void) letstmts
+- (Tree*) letstmts:(Token*)t
 {
-    
+    Tree *tempTree = [[Tree alloc] init];
+    if(t.tag == '['){
+        [tempTree addChild:[[Tree alloc] initWithToken:t]];
+        
+        //let
+        t = [self getNextToken];
+        if(t.tag != LET){
+            [self error:@"syntax error"];
+        }
+        
+        t = [self getNextToken];
+        if(t.tag != '['){
+            [self error:@"syntax error"];
+        }
+        
+        //varlist
+        t = [self getNextToken];
+        [tempTree addChild:[self varlist:t]];
+        
+        //Need 2 closing brackets
+        t = [self getNextToken];
+        if (t.tag != ']'){
+            [self error:@"syntax error"];
+        }
+        [tempTree addChild:[[Tree alloc] initWithToken:t]];
+        
+        if (t.tag != ']'){
+            [self error:@"syntax error"];
+        }
+        [tempTree addChild:[[Tree alloc] initWithToken:t]];
+        return tempTree;
+    } else {
+        [self error:@"syntax error"];
+    }
+    return tempTree;
 }
 
 /** varlist -> [name type] | [name type] varlist */
--(void) varlist
+- (Tree*) varlist:(Token*)t
 {
-    if (self.lookAhead.tag == '[')
-	{
-		[self match:'['];
-        [self name];
-        if(self.lookAhead.tokType == TokenTypeType){
-            [self match:']'];
-        } else {
-            //@todo: error? Another varlist?
-        }
+    Tree *tempTree = [[Tree alloc] init];
+    if (t.tag == '['){
+        [tempTree addChild:[[Tree alloc] initWithToken:t]];
         
+        //name
+        t = [self getNextToken];
+        if(t.tokType != TokenTypeName){
+            [self error:@"syntax error"];
+        }
+        [tempTree addChild:[[Tree alloc] initWithToken:t]];
+        
+        //type
+        t = [self getNextToken];
+        if(t.tokType != TokenTypeType){
+            [self error:@"syntax error"];
+        }
+        [tempTree addChild:[[Tree alloc] initWithToken:t]];
+        
+        //type
+        t = [self getNextToken];
+        if(t.tokType != TokenTypeType){
+            [self error:@"syntax error"];
+        }
+        [tempTree addChild:[[Tree alloc] initWithToken:t]];
+        
+        t = [self getNextToken];
+        if (t.tag != ']'){
+            [self error:@"syntax error"];
+        }
+        [tempTree addChild:[[Tree alloc] initWithToken:t]];
+        
+        //Use the lookahead to determine if there's another varlist
+        if(self.lookAhead.tag == '['){
+            t = [self getNextToken];
+            [tempTree addChild:[self varlist:t]];
+        }
+        return tempTree;
+    } else {
+        [self error:@"syntax error"];
     }
+    return tempTree;
 }
 
 /** printstmts -> [stdout oper] */
--(void) printsmts
+- (Tree*) printstmts:(Token*)t
 {
-    if (self.lookAhead.tag == '[')
-	{
-		[self match:'['];
-        [self match:STDOUT];
-//        [self oper];
-        [self match:']'];
+    Tree *tempTree = [[Tree alloc] init];
+    if (t.tag == '['){
+        [tempTree addChild:[[Tree alloc] initWithToken:t]];
+        
+        //stdout
+        t = [self getNextToken];
+        if(t.tag != STDOUT){
+            [self error:@"syntax error"];
+        }
+        [tempTree addChild:[[Tree alloc] initWithToken:t]];
+        
+        //oper
+        t = [self getNextToken];
+        [tempTree addChild:[self oper:t]];
+        
+        //Finish production
+        t = [self getNextToken];
+        if (t.tag != ']'){
+            [self error:@"syntax error"];
+        }
+        [tempTree addChild:[[Tree alloc] initWithToken:t]];
+        return tempTree;
     } else {
-        //@todo: Error?
+        [self error:@"syntax error"];
     }
+    return tempTree;
 }
 
 /** exprlist -> expr | expr exprlist */
--(void) exprlist
+- (Tree*) exprlist:(Token*)t
 {
-    //How to do this one?!
-    /*
-     if([self expr]){
-     return TRUE;
-     } else if([self expr] || [self exprlist]){
-     return true;
-     } else {
-     return false;
-     }
-     */
+    Tree *tempTree = [[Tree alloc] init];
+    return tempTree;
 }
-
-//- (void)program
-//{
-//	Stmt *s = [self block];
-//	int begin = [s newLabel];
-//	int after = [s newLabel];
-//	[s emitLabel:begin];
-//	// this is what it looks like to send anonymous arguments.  check gen's signature.
-//	[s gen:begin:after];
-//	[s emitLabel:after];
-//}
 
 @end

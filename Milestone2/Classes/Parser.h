@@ -13,6 +13,6 @@
 
 @property (strong, nonatomic) Token *lookAhead;
 - (instancetype)initWithLexicalAnalyzer:(LexicalAnalyzer*)theLex;
-- (Tree*) oper:(Token*)t;
+- (Tree*) T:(Token*)t;
 
 @end
