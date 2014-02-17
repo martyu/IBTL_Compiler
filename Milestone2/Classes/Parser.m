@@ -57,7 +57,6 @@
 
 #pragma mark - Productions
 
-
 - (void) start
 {
 	if (self.lookAhead.tag == '[')
@@ -277,7 +276,6 @@
 	}
 }
 
-
 /** ifstmts -> [if expr expr expr] | [if expr expr] */
 -(void) ifstmts
 {
@@ -299,19 +297,46 @@
 /** varlist -> [name type] | [name type] varlist */
 -(void) varlist
 {
-    
+    if (self.lookAhead.tag == '[')
+	{
+		[self match:'['];
+        [self name];
+        if(self.lookAhead.tokType == TokenTypeType){
+            [self match:']'];
+        } else {
+            //@todo: error? Another varlist?
+        }
+
+    }
 }
 
 /** printstmts -> [stdout oper] */
 -(void) printsmts
 {
-    
+    if (self.lookAhead.tag == '[')
+	{
+		[self match:'['];
+        [self match:STDOUT];
+        [self oper];
+        [self match:']'];
+    } else {
+        //@todo: Error?
+    }
 }
 
-/** expr | expr exprlist */
+/** exprlist -> expr | expr exprlist */
 -(void) exprlist
 {
-    
+    //How to do this one?!
+    /*
+    if([self expr]){
+        return TRUE;
+    } else if([self expr] || [self exprlist]){
+        return true;
+     } else {
+        return false;
+     }
+     */
 }
 
 //- (void)program
