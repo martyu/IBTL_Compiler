@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "NSString+Utils.h"
 #import "LexicalAnalyzer.h"
 
 @implementation AppDelegate

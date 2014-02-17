@@ -45,10 +45,6 @@
 			return @"OR";
 			break;
 
-		case REAL:
-			return @"REAL";
-			break;
-
 		case NOT:
 			return @"NOT";
 			break;

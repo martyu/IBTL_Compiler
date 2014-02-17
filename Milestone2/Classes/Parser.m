@@ -9,6 +9,7 @@
 #import "Parser.h"
 #import "Environment.h"
 #import "Stmt.h"
+#import "Defines.h"
 
 @interface Parser ()
 
@@ -50,8 +51,17 @@
 		[self error:@"syntax error"];
 }
 
+
+#pragma mark - Productions
+
+
+- (void) start
+{
+	
+}
+
 /** expr -> oper | stmts */
-- (void)expr
+- (void) expr
 {
 	[self oper];
 	[self stmts];
@@ -60,10 +70,62 @@
 /** oper -> [:= name oper] | [binops oper oper] | [unops oper] | constants | name */
 - (void) oper
 {
-	if ([self match:'['])
+	if (self.lookAhead.tag == '[')
 	{
-		[self match:':']
+		[self match:'['];
+
+		if (self.lookAhead.tag == ':')
+		{
+			[self match:':'];
+			[self match:'='];
+			[self name];
+		}
+		else if (self.lookAhead.tokType == TokenTypeBinOp)
+		{
+			[self binOp];
+			[self oper];
+		}
+		else if (self.lookAhead.tokType == TokenTypeUnOp)
+		{
+			[self unOp];
+		}
+
+		[self oper];
+		[self match:']'];
 	}
+	else if (self.lookAhead.tokType == TokenTypeConstant)
+	{
+		[self constants];
+	}
+	else if (self.lookAhead.tokType == TokenTypeName)
+	{
+		[self name];
+	}
+	else
+	{
+		[self error:@"syntax error"];
+	}
+}
+
+- (void) constants
+{
+
+}
+
+/** binops -> + | - | * | / | % | ^ | = | > | >= | < | <= | != | or | and */
+- (void) binOp
+{
+
+}
+
+- (void) unOp
+{
+
+}
+
+- (void) name
+{
+
 }
 
 /** stmts -> ifstmts | whilestmts | letstmts | printsmts */
@@ -112,27 +174,15 @@
     
 }
 
-- (Stmt*)block
-{
-	[self match:'{'];
-	Environment *savedEnv = self.top;
-	self.top = [[Environment alloc] initWithParentEnvironment:self.top];
-	[self decls];
-	Stmt *s = [[Stmt alloc] init];
-	[self match:'}'];
-	self.top = savedEnv;
-	return s;
-}
-
-- (void)program
-{
-	Stmt *s = [self block];
-	int begin = [s newLabel];
-	int after = [s newLabel];
-	[s emitLabel:begin];
-	// this is what it looks like to send anonymous arguments.  check gen's signature.
-	[s gen:begin:after];
-	[s emitLabel:after];
-}
+//- (void)program
+//{
+//	Stmt *s = [self block];
+//	int begin = [s newLabel];
+//	int after = [s newLabel];
+//	[s emitLabel:begin];
+//	// this is what it looks like to send anonymous arguments.  check gen's signature.
+//	[s gen:begin:after];
+//	[s emitLabel:after];
+//}
 
 @end

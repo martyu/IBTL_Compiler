@@ -1,5 +1,5 @@
 //
-//  Real.h
+//  Float.h
 //  Milestone2
 //
 //  Created by Marty Ulrich on 1/28/14.
@@ -8,10 +8,10 @@
 
 #import "Token.h"
 
-@interface Real : Token
+@interface Float : Token
 
 @property (nonatomic, readonly) float value;
 
-+ (instancetype) realWithValue:(float)val;
++ (instancetype) floatWithValue:(float)val;
 
 @end

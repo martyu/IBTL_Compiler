@@ -14,7 +14,7 @@
 #define FALSE_	305
 #define AND		306
 #define OR		307
-#define REAL	308
+#define FLOAT	308
 #define NOT		309
 #define SIN		310
 #define COS		311
@@ -25,7 +25,6 @@
 #define LET		316
 #define INT		317
 #define STRING	318
-#define FLOAT	319
 #define BOOL_	320
 // not sure why we skipped 321/322...
 #define NEG		323 // '-' (negative).  '-' (minus) uses itself as a tag.

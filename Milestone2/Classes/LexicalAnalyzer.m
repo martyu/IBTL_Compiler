@@ -9,7 +9,7 @@
 #import "LexicalAnalyzer.h"
 #import "Word.h"
 #import "Num.h"
-#import "Real.h"
+#import "Float.h"
 #import "Defines.h"
 
 
@@ -223,10 +223,10 @@ static int _line;
                 } while (self.peek != '"' && self.peek != '\0'); // '\0' condition to prevent potential infinite loop
                     Token *word = self.words[buffer];
                     if ([self readCharacter:')']){
-                        word = [[Word alloc] initWithLexeme:buffer tag:ID type:TokenTypeString];
+                        word = [[Word alloc] initWithLexeme:buffer tag:ID type:TokenTypeConstant];
                     } else {
                         [self reportError];
-                        word = [[Word alloc] initWithLexeme:buffer tag:ID type:TokenTypeWord];
+                        word = [[Word alloc] initWithLexeme:buffer tag:ID type:TokenTypeName];
                     }
                     return word;
                 }
@@ -261,7 +261,7 @@ static int _line;
 			x = x + atoi(&_peek) / d;
 			d *= 10.0;
 		}
-		return [Real realWithValue:v];
+		return [Float floatWithValue:v];
 	}
 
 
@@ -280,7 +280,7 @@ static int _line;
 		if (word)
 			return word;
 
-		word = [[Word alloc] initWithLexeme:buffer tag:ID type:TokenTypeWord];
+		word = [[Word alloc] initWithLexeme:buffer tag:ID type:TokenTypeName];
 		self.words[buffer] = word;
 		return word;
 	}

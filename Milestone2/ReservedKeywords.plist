@@ -14,7 +14,7 @@
 	<array>
 		<string>bool</string>
 		<string>int</string>
-		<string>real</string>
+		<string>float</string>
 		<string>string</string>
 	</array>
 	<key>trig</key>

@@ -13,6 +13,6 @@
 @interface Expr : Node
 
 @property(nonatomic, strong) Token *op;
-@property(nonatomic, strong) Type type;
+//@property(nonatomic, strong) Type type;
 
 @end

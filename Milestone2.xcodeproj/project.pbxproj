@@ -16,7 +16,7 @@
 		765A62491895E2250097F8C1 /* ReservedKeywords.plist in Resources */ = {isa = PBXBuildFile; fileRef = 765A62481895E2250097F8C1 /* ReservedKeywords.plist */; };
 		766B4187189889DB00B17587 /* Word.m in Sources */ = {isa = PBXBuildFile; fileRef = 766B4186189889DB00B17587 /* Word.m */; };
 		766B418A189892B400B17587 /* Num.m in Sources */ = {isa = PBXBuildFile; fileRef = 766B4189189892B400B17587 /* Num.m */; };
-		766B41901898A20700B17587 /* Real.m in Sources */ = {isa = PBXBuildFile; fileRef = 766B418F1898A20700B17587 /* Real.m */; };
+		766B41901898A20700B17587 /* Float.m in Sources */ = {isa = PBXBuildFile; fileRef = 766B418F1898A20700B17587 /* Float.m */; };
 		766B69F118973C8D00579586 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 766B69F018973C8D00579586 /* MainMenu.xib */; };
 		7677FF5618AC582A009B1912 /* Defines.m in Sources */ = {isa = PBXBuildFile; fileRef = 7677FF5518AC582A009B1912 /* Defines.m */; };
 		76990CBD18ADB34900775DE3 /* Node.m in Sources */ = {isa = PBXBuildFile; fileRef = 76990CBC18ADB34900775DE3 /* Node.m */; };
@@ -51,8 +51,8 @@
 		766B4186189889DB00B17587 /* Word.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Word.m; sourceTree = "<group>"; };
 		766B4188189892B400B17587 /* Num.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Num.h; sourceTree = "<group>"; };
 		766B4189189892B400B17587 /* Num.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Num.m; sourceTree = "<group>"; };
-		766B418E1898A20700B17587 /* Real.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Real.h; sourceTree = "<group>"; };
-		766B418F1898A20700B17587 /* Real.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Real.m; sourceTree = "<group>"; };
+		766B418E1898A20700B17587 /* Float.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Float.h; sourceTree = "<group>"; };
+		766B418F1898A20700B17587 /* Float.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Float.m; sourceTree = "<group>"; };
 		766B69F018973C8D00579586 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		7677FF5518AC582A009B1912 /* Defines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Defines.m; sourceTree = "<group>"; };
 		76990CBB18ADB34900775DE3 /* Node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Node.h; path = Classes/Node.h; sourceTree = "<group>"; };
@@ -179,8 +179,8 @@
 				766B4186189889DB00B17587 /* Word.m */,
 				766B4188189892B400B17587 /* Num.h */,
 				766B4189189892B400B17587 /* Num.m */,
-				766B418E1898A20700B17587 /* Real.h */,
-				766B418F1898A20700B17587 /* Real.m */,
+				766B418E1898A20700B17587 /* Float.h */,
+				766B418F1898A20700B17587 /* Float.m */,
 			);
 			name = "Token Classes";
 			path = "Classes/Token Classes";
@@ -265,7 +265,7 @@
 				76990CC918ADBC2900775DE3 /* Type.m in Sources */,
 				76575F26189486E100E1BFDD /* LexicalAnalyzer.m in Sources */,
 				76575F04189484D500E1BFDD /* AppDelegate.m in Sources */,
-				766B41901898A20700B17587 /* Real.m in Sources */,
+				766B41901898A20700B17587 /* Float.m in Sources */,
 				76E3FCDA18AC90DB005ED87F /* Parser.m in Sources */,
 				76575F421894BCE700E1BFDD /* Token.m in Sources */,
 				7677FF5618AC582A009B1912 /* Defines.m in Sources */,
