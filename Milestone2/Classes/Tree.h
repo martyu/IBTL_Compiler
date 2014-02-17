@@ -13,7 +13,7 @@
 @property(nonatomic, strong) NSMutableArray *children;
 @property(nonatomic, strong) Token *token;
 
-- (void) addChildNode:(Tree*)node;
+- (void) addChild:(Tree*)node;
 - (void) printChildren;
 
 - (instancetype)initWithToken:(Token*)tok;

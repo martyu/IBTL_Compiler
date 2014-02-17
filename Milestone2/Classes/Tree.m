@@ -37,7 +37,7 @@
 
 }
 
-- (void) addChildNode:(Tree*)node
+- (void) addChild:(Tree*)node
 {
 	[self.children addObject:node];
 }
@@ -63,6 +63,5 @@
 
 	depth--;
 }
-
 
 @end

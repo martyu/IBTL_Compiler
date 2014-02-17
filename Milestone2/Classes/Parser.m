@@ -34,6 +34,17 @@
     return self;
 }
 
+-(Token *)getNextToken
+{
+    
+    self.lookAhead = [self.lex scan];
+    Token *current_token = self.lookAhead;
+    //Make sure lookAhead always has the next one
+    self.lookAhead = [self.lex scan];
+    return current_token;
+}
+
+// Use getNextToken instead
 - (void)move
 {
 	self.lookAhead = [self.lex scan];
@@ -80,36 +91,80 @@
 	Tree *tempTree = [[Tree alloc] init];
 	if (t.tokType == TokenTypeConstant)
 	{
-		[tempTree addChildNode:[[Tree alloc] initWithToken:t]];
+		[tempTree addChild:[[Tree alloc] initWithToken:t]];
 		return tempTree;
 	}
-	else if (t.tag == '[')
+    else if (t.tokType == TokenTypeName)
 	{
-        [tempTree addChildNode:[[Tree alloc] initWithToken:t]];
+		[tempTree addChild:[[Tree alloc] initWithToken:t]];
+		return tempTree;
+	}
+    else if (t.tag == '[')
+	{
+        [tempTree addChild:[[Tree alloc] initWithToken:t]];
         
-        // Case: [binops oper oper]
-		[self move];
-		t = self.lookAhead;
+		t = [self getNextToken];
         
-        // Check for binop
-        [tempTree addChildNode:[[Tree alloc] initWithToken:t]];
-		[self move];
+        if (t.tokType == TokenTypeBinOp)
+        {
+            // Production: [binops oper oper]
+            [tempTree addChild:[[Tree alloc] initWithToken:t]];
+            
+            // oper
+            t = [self getNextToken];
+            [tempTree addChild:[self oper:t]];
+            
+            // oper
+            t = [self getNextToken];
+            [tempTree addChild:[self oper:t]];
+        }
+        else if (t.tokType == TokenTypeUnOp)
+        {
+            // Production: [unops oper]
+            [tempTree addChild:[[Tree alloc] initWithToken:t]];
+            
+            // oper
+            t = [self getNextToken];
+            [tempTree addChild:[self oper:t]];
+        }
+        else if (t.tag == ':' && self.lookAhead.tag == '!')
+        {
+            // Production: [:= name oper]
+            
+            //Add the ':' and the '=' to the tree
+            [tempTree addChild:[[Tree alloc] initWithToken:t]];
+            t = [self getNextToken];
+            [tempTree addChild:[[Tree alloc] initWithToken:t]];
+            
+            t = [self getNextToken];
+            if(t.tokType == TokenTypeName)
+            {
+                    [tempTree addChild:[[Tree alloc] initWithToken:t]];
+            }
+            else
+            {
+                [self error:@"syntax error"];
+            }
+            
+            //oper
+            t = [self getNextToken];
+            [tempTree addChild:[self oper:t]];
+        }
+        else
+        {
+            [self error:@"syntax error"];
+        }
+
+        // Finish all these productions that opened with '['
         
-		t = self.lookAhead;
-        [tempTree addChildNode:[self oper:t]];
-        
-        [self move];
-		t = self.lookAhead;
-		[tempTree addChildNode:[self oper:t]];
-		[self move];
-		t = self.lookAhead;
-		if (t.tag == ']')
-		{
-			[tempTree addChildNode:[[Tree alloc] initWithToken:t]];
-			return tempTree;
-		}
-		else {
-			[self error:@"syntax error"];
+        t = [self getNextToken];
+        if (t.tag == ']')
+        {
+            [tempTree addChild:[[Tree alloc] initWithToken:t]];
+            return tempTree;
+        }
+        else {
+            [self error:@"syntax error"];
         }
 	} else {
         [self error:@"syntax error"];
