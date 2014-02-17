@@ -27,6 +27,16 @@
     return self;
 }
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+		_children = [NSMutableArray array];
+    }
+    return self;
+
+}
+
 - (void) addChildNode:(Tree*)node
 {
 	[self.children addObject:node];
@@ -38,7 +48,7 @@
 
 	if (self.children.count)
 	{
-		for (Node *node in self.children)
+		for (Tree *node in self.children)
 		{
 			depth++;
 			[node printChildren];
