@@ -36,11 +36,9 @@
 
 -(Token *)getNextToken
 {
-    
-    self.lookAhead = [self.lex scan];
-    Token *current_token = self.lookAhead;
-    //Make sure lookAhead always has the next one
-    self.lookAhead = [self.lex scan];
+    Token *current_token = [self.lex scan];
+    //@todo: Make sure lookAhead always has the next one
+    //self.lookAhead = [self.lex scan];
     return current_token;
 }
 
