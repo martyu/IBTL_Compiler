@@ -6,11 +6,11 @@
 //  Copyright (c) 2014 Marty Ulrich/David Merrick. All rights reserved.
 //
 
-#import "Node.h"
+#import "Tree.h"
 
 @class Token;
 
-@interface Expr : Node
+@interface Expr : Tree
 
 @property(nonatomic, strong) Token *op;
 //@property(nonatomic, strong) Type type;

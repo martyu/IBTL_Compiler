@@ -8,12 +8,12 @@
 
 #import "Token Classes/Token.h"
 
-@interface Node : NSObject
+@interface Tree : NSObject
 
 @property(nonatomic, strong) NSMutableArray *children;
 @property(nonatomic, strong) Token *token;
 
-- (void) addChildNode:(Node*)node;
+- (void) addChildNode:(Tree*)node;
 - (void) printChildren;
 
 - (instancetype)initWithToken:(Token*)tok;

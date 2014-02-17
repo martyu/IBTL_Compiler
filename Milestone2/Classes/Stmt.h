@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 Marty Ulrich/David Merrick. All rights reserved.
 //
 
-#import "Node.h"
+#import "Tree.h"
 
-@interface Stmt : Node
+@interface Stmt : Tree
 
 - (void)gen:(int)b :(int)a;
 

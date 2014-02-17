@@ -6,17 +6,16 @@
 //  Copyright (c) 2014 Marty Ulrich/David Merrick. All rights reserved.
 //
 
-#import "Node.h"
+#import "Tree.h"
 #import "LexicalAnalyzer.h"
 
-@interface Node ()
+@interface Tree ()
 
 @property(nonatomic)int lexLine;
 
 @end
 
-
-@implementation Node
+@implementation Tree
 
 - (instancetype)initWithToken:(Token*)tok
 {
@@ -28,8 +27,7 @@
     return self;
 }
 
-
-- (void) addChildNode:(Node*)node
+- (void) addChildNode:(Tree*)node
 {
 	[self.children addObject:node];
 }
@@ -38,7 +36,7 @@
 {
 	if (self.children.count)
 	{
-		for (Node *node in self.children)
+		for (Tree *node in self.children)
 			[node printChildren];
 	}
 	else
