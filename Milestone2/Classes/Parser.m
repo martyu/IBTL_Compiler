@@ -93,8 +93,19 @@
 {
     Tree *tempTree = [[Tree alloc] init];
     
-    // [ ] and [S] productions
     if (t.tag == '['){
+        if(self.lookAhead.tokType == TokenTypeBinOp ||
+           self.lookAhead.tokType == TokenTypeUnOp ||
+           self.lookAhead.tokType == TokenTypeConstant ||
+           self.lookAhead.tokType == TokenTypeName ||
+           self.lookAhead.tag == IF ||
+           self.lookAhead.tag == WHILE ||
+           self.lookAhead.tag == STDOUT ||
+           self.lookAhead.tag == LET){
+            //expr production
+            [tempTree addChild:[self expr:t]];
+        }
+        
         [tempTree addChild:[[Tree alloc] initWithToken:t]];
         
 		t = [self getNextToken];
@@ -109,9 +120,15 @@
                 [self error:@"syntax error"];
             }
             [tempTree addChild:[[Tree alloc] initWithToken:t]];
+            
+            //Check for another S production (because we can have S -> SS)
+            if(self.lookAhead.tag == '['){
+                t = [self getNextToken];
+                [tempTree addChild:[self S:t]];
+            }
             return tempTree;
         }
-    } //@todo: how to deal with SS and expr productions? What if we had [SS]?
+    }
     
     return tempTree;
 }
@@ -120,6 +137,21 @@
 - (Tree*) expr:(Token*)t
 {
     Tree *tempTree = [[Tree alloc] init];
+    if(self.lookAhead.tag == IF ||
+       self.lookAhead.tag == WHILE ||
+       self.lookAhead.tag == STDOUT ||
+       self.lookAhead.tag == LET){
+        [tempTree addChild:[self oper:t]];
+        return tempTree;
+    } else if(self.lookAhead.tokType == TokenTypeBinOp ||
+              self.lookAhead.tokType == TokenTypeUnOp ||
+              self.lookAhead.tokType == TokenTypeConstant ||
+              self.lookAhead.tokType == TokenTypeName){
+        [tempTree addChild:[self stmts:t]];
+        return tempTree;
+    } else {
+        [self error:@"syntax error"];
+    }
     return tempTree;
 }
 
