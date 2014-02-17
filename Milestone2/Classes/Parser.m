@@ -21,6 +21,9 @@
 
 @end
 
+
+//@todo: Need to either left factor or use 2 lookaheads
+
 @implementation Parser
 
 - (instancetype)initWithLexicalAnalyzer:(LexicalAnalyzer*)theLex
