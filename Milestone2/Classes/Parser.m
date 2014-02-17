@@ -77,6 +77,33 @@
 	[self stmts];
 }
 
+- (Node*) oper:(Token*)t
+{
+	Node *root = [[Node alloc] init];
+	if (t.tokType == TokenTypeConstant)
+	{
+		[root addChildNode:[[Node alloc] initWithToken:t]];
+		return root;
+	}
+	else if (t.tag == '[')
+	{
+		[root addChildNode:[[Node alloc] initWithToken:t]];
+		[self move];
+		t = self.lookAhead;
+		[root addChildNode:[self oper:t]];
+		[root addChildNode:[self oper:t]];
+		[self move];
+		t = self.lookAhead;
+		if (t.tag == ']')
+		{
+			[root addChildNode:[[Node alloc] initWithToken:t]];
+			return root;
+		}
+		else
+			[self error:@"syntax error"];
+	}
+}
+
 /** oper -> [:= name oper] | [binops oper oper] | [unops oper] | constants | name */
 - (void) oper
 {
