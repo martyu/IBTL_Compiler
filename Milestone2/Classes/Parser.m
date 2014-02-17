@@ -11,13 +11,11 @@
 #import "Stmt.h"
 #import "Defines.h"
 #import "Word.h"
-#import "Node.h"
+#import "Tree.h"
 
 @interface Parser ()
 
 @property (strong, nonatomic) LexicalAnalyzer *lex;
-@property (strong, nonatomic) Token *lookAhead;
-@property (strong, nonatomic) Token *lookAhead2;
 @property (nonatomic) int used;
 @property (strong, nonatomic) Environment *top;
 
@@ -69,7 +67,6 @@
 
 }
 
-
 /** expr -> oper | stmts */
 - (void) expr
 {
@@ -77,31 +74,41 @@
 	[self stmts];
 }
 
-- (Node*) oper:(Token*)t
+- (Tree*) oper:(Token*)t
 {
-	Node *root = [[Node alloc] init];
+	Tree *tempTree = [[Tree alloc] init];
 	if (t.tokType == TokenTypeConstant)
 	{
-		[root addChildNode:[[Node alloc] initWithToken:t]];
-		return root;
+		[tempTree addChildNode:[[Tree alloc] initWithToken:t]];
+		return tempTree;
 	}
 	else if (t.tag == '[')
 	{
-		[root addChildNode:[[Node alloc] initWithToken:t]];
+		[tempTree addChildNode:[[Tree alloc] initWithToken:t]];
 		[self move];
 		t = self.lookAhead;
-		[root addChildNode:[self oper:t]];
-		[root addChildNode:[self oper:t]];
+        [tempTree addChildNode:[[Tree alloc] initWithToken:t]];
+		[self move];
+		t = self.lookAhead;
+        [tempTree addChildNode:[self oper:t]];
+        [self move];
+		t = self.lookAhead;
+		[tempTree addChildNode:[self oper:t]];
 		[self move];
 		t = self.lookAhead;
 		if (t.tag == ']')
 		{
-			[root addChildNode:[[Node alloc] initWithToken:t]];
-			return root;
+			[tempTree addChildNode:[[Tree alloc] initWithToken:t]];
+			return tempTree;
 		}
-		else
+		else {
 			[self error:@"syntax error"];
-	}
+        }
+	} else {
+        [self error:@"syntax error"];
+    }
+    //@todo delete this
+    return tempTree;
 }
 
 /** oper -> [:= name oper] | [binops oper oper] | [unops oper] | constants | name */
