@@ -43,6 +43,15 @@
 	return next;
 }
 
+- (char)prevCharacter
+{
+	if (self.index >= self.sourceText.length)
+		return '\0';
+    
+	char prev = [self.sourceText characterAtIndex:--self.index];
+	return prev;
+}
+
 @end
 
 
@@ -133,6 +142,11 @@ static int _line;
 	self.peek = [self.sourceServer nextCharacter];
 }
 
+- (void)pushBack
+{
+	self.peek = [self.sourceServer prevCharacter];
+}
+
 - (BOOL)readCharacter:(char)c
 {
 	[self readCharacter];
@@ -147,12 +161,32 @@ static int _line;
 {
 	for (;;[self readCharacter])
 	{
-		if (self.peek == ' ' || self.peek == '\t')
-			continue;
-		else if (self.peek == '\n')
-			_line++;
-		else
+		if (self.peek == ' ' || self.peek == '\t'){
+            //Skip spaces and tabs
+            continue;
+		} else if (self.peek == '\n'){
+            //Keep track of what line number we're on
+            _line++;
+        } else if(self.peek == '/'){
+            //Skip over comments formatted like /* comment */
+            [self readCharacter];
+            if(self.peek != '*'){
+                [self pushBack];
+            } else {
+                [self readCharacter];
+                while(self.peek != '\0'){
+                    if(self.peek == '*'){
+                        [self readCharacter];
+                        if(self.peek == '/'){
+                            break;
+                        }
+                    }
+                    [self readCharacter];
+                }
+            }
+        } else {
 			break;
+        }
 	}
 
 	switch (self.peek) {
