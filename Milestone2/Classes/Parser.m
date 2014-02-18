@@ -11,13 +11,13 @@
 #import "Stmt.h"
 #import "Defines.h"
 #import "Word.h"
-#import "Tree.h"
+#import "Node.h"
 
 @interface Parser ()
 
 @property (strong, nonatomic) LexicalAnalyzer *lex;
 @property (strong, nonatomic) Environment *top;
-@property (strong, nonatomic) Tree *rootNode;
+@property (strong, nonatomic) Node *rootNode;
 
 @end
 
@@ -45,24 +45,10 @@
     return self.currentToken;
 }
 
-// Use getNextToken instead
-- (void)move
-{
-	self.lookAhead = [self.lex scan];
-}
-
 - (void)error:(NSString*)errorType
 {
 	NSLog(@"%@", self.rootNode);
 	[NSException raise:errorType format:@"Error near line %i, token %@", [[self.lex class] line], self.currentToken];
-}
-
-- (void)match:(int)aTag
-{
-	if (self.lookAhead.tag == aTag)
-		[self move];
-	else
-		[self error:@"syntax error"];
 }
 
 
@@ -70,160 +56,161 @@
 
 
 /** T -> [S] //This is where we start. */
-- (Tree*) T:(Token*)t
+- (Node*) T:(Token*)t
 {
-	Tree *tempTree = [[Tree alloc] init];
-	self.rootNode = tempTree;
+	Node *tempNode = [[Node alloc] initWithProduction:ProductionTypeT];
+	self.rootNode = tempNode;
 
     if (t.tag == '['){
-        [tempTree addChild:[[Tree alloc] initWithToken:t]];
+        [tempNode addChild:[[Node alloc] initWithToken:t]];
 		
         //S
         t = [self getNextToken];
-        [tempTree addChild:[self S:t]];
+
+        [tempNode addChild:[self S:t]];
         
         t = [self getNextToken];
-        if (t.tag != ']'){
+        if (t.tag != ']') {
             [self error:@"syntax error"];
         }
-        [tempTree addChild:[[Tree alloc] initWithToken:t]];
-        return tempTree;
+        [tempNode addChild:[[Node alloc] initWithToken:t]];
+        return tempNode;
     } else {
         [self error:@"syntax error"];
     }
-    return tempTree;
+    return tempNode;
 }
 
 /** S -> [ ] | [S] | SS | expr */
-- (Tree*) S:(Token*)t
+- (Node*) S:(Token*)t
 {
-    Tree *tempTree = [[Tree alloc] init];
-    
+    Node *tempNode = [[Node alloc] initWithProduction:ProductionTypeS];
+
+	if(self.lookAhead.tokType == TokenTypeBinOp ||
+	   self.lookAhead.tokType == TokenTypeUnOp ||
+	   self.lookAhead.tokType == TokenTypeConstant ||
+	   self.lookAhead.tokType == TokenTypeName ||
+	   self.lookAhead.tag == IF ||
+	   self.lookAhead.tag == WHILE ||
+	   self.lookAhead.tag == STDOUT ||
+	   self.lookAhead.tag == LET)
+	{
+		//expr production
+		[tempNode addChild:[self expr:t]];
+		return tempNode;
+	}
     if (t.tag == '[')
 	{
-        if(self.lookAhead.tokType == TokenTypeBinOp ||
-           self.lookAhead.tokType == TokenTypeUnOp ||
-           self.lookAhead.tokType == TokenTypeConstant ||
-           self.lookAhead.tokType == TokenTypeName ||
-           self.lookAhead.tag == IF ||
-           self.lookAhead.tag == WHILE ||
-           self.lookAhead.tag == STDOUT ||
-           self.lookAhead.tag == LET)
-		{
-            //expr production
-            [tempTree addChild:[self expr:t]];
-        }
-        
-        [tempTree addChild:[[Tree alloc] initWithToken:t]];
+        [tempNode addChild:[[Node alloc] initWithToken:t]];
 
 		t = [self getNextToken];
         if (t.tag == ']'){ //Since we don't tokenize spaces
-            [tempTree addChild:[[Tree alloc] initWithToken:t]];
-            return tempTree;
+            [tempNode addChild:[[Node alloc] initWithToken:t]];
+            return tempNode;
         } else {
             // [S] production. Recurse.
-            [tempTree addChild:[self S:t]];
+            [tempNode addChild:[self S:t]];
             t = [self getNextToken];
             if (t.tag != ']'){
                 [self error:@"syntax error"];
             }
-            [tempTree addChild:[[Tree alloc] initWithToken:t]];
+            [tempNode addChild:[[Node alloc] initWithToken:t]];
             
             //Check for another S production (because we can have S -> SS)
             if(self.lookAhead.tag == '['){
                 t = [self getNextToken];
-                [tempTree addChild:[self S:t]];
+                [tempNode addChild:[self S:t]];
             }
-            return tempTree;
+            return tempNode;
         }
     }
     
-    return tempTree;
+    return tempNode;
 }
 
 /** expr -> oper | stmts */
-- (Tree*) expr:(Token*)t
+- (Node*) expr:(Token*)t
 {
-    Tree *tempTree = [[Tree alloc] init];
+    Node *tempNode = [[Node alloc] initWithProduction:ProductionTypeExpr];
     if(self.lookAhead.tag == IF || self.lookAhead.tag == WHILE ||
 	   self.lookAhead.tag == STDOUT || self.lookAhead.tag == LET)
 	{
-        [tempTree addChild:[self stmts:t]];
-        return tempTree;
+        [tempNode addChild:[self stmts:t]];
+        return tempNode;
     }
 	else if(self.lookAhead.tokType == TokenTypeBinOp || self.lookAhead.tokType == TokenTypeUnOp ||
 			self.lookAhead.tokType == TokenTypeConstant || self.lookAhead.tokType == TokenTypeName)
 	{
-        [tempTree addChild:[self oper:t]];
-        return tempTree;
+        [tempNode addChild:[self oper:t]];
+        return tempNode;
     }
 	else
         [self error:@"syntax error"];
 
-    return tempTree;
+    return tempNode;
 }
 
 /** oper -> [:= name oper] | [binops oper oper] | [unops oper] | constants | name */
-- (Tree*) oper:(Token*)t
+- (Node*) oper:(Token*)t
 {
-	Tree *tempTree = [[Tree alloc] init];
+	Node *tempNode = [[Node alloc] initWithProduction:ProductionTypeOper];
 	if (t.tokType == TokenTypeConstant)
 	{
-		[tempTree addChild:[[Tree alloc] initWithToken:t]];
-		return tempTree;
+		[tempNode addChild:[[Node alloc] initWithToken:t]];
+		return tempNode;
 	}
     else if (t.tokType == TokenTypeName)
 	{
-		[tempTree addChild:[[Tree alloc] initWithToken:t]];
-		return tempTree;
+		[tempNode addChild:[[Node alloc] initWithToken:t]];
+		return tempNode;
 	}
     else if (t.tag == '[')
 	{
-        [tempTree addChild:[[Tree alloc] initWithToken:t]];
+        [tempNode addChild:[[Node alloc] initWithToken:t]];
         
 		t = [self getNextToken];
         
         if (t.tokType == TokenTypeBinOp)
         {
             // Production: [binops oper oper]
-            [tempTree addChild:[[Tree alloc] initWithToken:t]];
+            [tempNode addChild:[[Node alloc] initWithToken:t]];
             
             // oper
             t = [self getNextToken];
-            [tempTree addChild:[self oper:t]];
+            [tempNode addChild:[self oper:t]];
             
             // oper
             t = [self getNextToken];
-            [tempTree addChild:[self oper:t]];
+            [tempNode addChild:[self oper:t]];
         }
         else if (t.tokType == TokenTypeUnOp)
         {
             // Production: [unops oper]
-            [tempTree addChild:[[Tree alloc] initWithToken:t]];
+            [tempNode addChild:[[Node alloc] initWithToken:t]];
             
             // oper
             t = [self getNextToken];
-            [tempTree addChild:[self oper:t]];
+            [tempNode addChild:[self oper:t]];
         }
         else if (t.tag == ':' && self.lookAhead.tag == '!')
         {
             // Production: [:= name oper]
-            //Add the ':' and the '=' to the tree
-            [tempTree addChild:[[Tree alloc] initWithToken:t]];
+            //Add the ':' and the '=' to the Node
+            [tempNode addChild:[[Node alloc] initWithToken:t]];
             t = [self getNextToken];
-            [tempTree addChild:[[Tree alloc] initWithToken:t]];
+            [tempNode addChild:[[Node alloc] initWithToken:t]];
             
             t = [self getNextToken];
             if(t.tokType == TokenTypeName)
             {
-                [tempTree addChild:[[Tree alloc] initWithToken:t]];
+                [tempNode addChild:[[Node alloc] initWithToken:t]];
             } else {
                 [self error:@"syntax error"];
             }
             
             //oper
             t = [self getNextToken];
-            [tempTree addChild:[self oper:t]];
+            [tempNode addChild:[self oper:t]];
         } else {
             [self error:@"syntax error"];
         }
@@ -233,59 +220,59 @@
         if (t.tag != ']'){
             [self error:@"syntax error"];
         }
-        [tempTree addChild:[[Tree alloc] initWithToken:t]];
-        return tempTree;
+        [tempNode addChild:[[Node alloc] initWithToken:t]];
+        return tempNode;
 	} else {
         [self error:@"syntax error"];
     }
-    return tempTree;
+    return tempNode;
 }
 
 /** stmts -> ifstmts | whilestmts | letstmts | printsmts */
-- (Tree*) stmts:(Token*)t
+- (Node*) stmts:(Token*)t
 {
-    Tree *tempTree = [[Tree alloc] init];
+    Node *tempNode = [[Node alloc] initWithProduction:ProductionTypeStmts];
     t = [self getNextToken];
     if(self.lookAhead.tag == IF){
-        [tempTree addChild:[self ifstmts:t]];
+        [tempNode addChild:[self ifstmts:t]];
     } else if(self.lookAhead.tag == WHILE){
-        [tempTree addChild:[self whilestmts:t]];
+        [tempNode addChild:[self whilestmts:t]];
     } else if(self.lookAhead.tag == LET){
-        [tempTree addChild:[self letstmts:t]];
+        [tempNode addChild:[self letstmts:t]];
     } else if(self.lookAhead.tag == STDOUT){
-        [tempTree addChild:[self printstmts:t]];
+        [tempNode addChild:[self printstmts:t]];
     } else {
         [self error:@"syntax error"];
     }
-    return tempTree;
+    return tempNode;
 }
 
 /** ifstmts -> [if expr expr expr] | [if expr expr] */
-- (Tree*) ifstmts:(Token*)t
+- (Node*) ifstmts:(Token*)t
 {
-    Tree *tempTree = [[Tree alloc] init];
+    Node *tempNode = [[Node alloc] initWithProduction:ProductionTypeIfStmt];
     if (t.tag == '['){
-        [tempTree addChild:[[Tree alloc] initWithToken:t]];
+        [tempNode addChild:[[Node alloc] initWithToken:t]];
         
 		t = [self getNextToken];
         if(t.tag != IF){
             [self error:@"syntax error"];
         }
-        [tempTree addChild:[[Tree alloc] initWithToken:t]];
+        [tempNode addChild:[[Node alloc] initWithToken:t]];
         
         //expr
         t = [self getNextToken];
-        [tempTree addChild:[self expr:t]];
+        [tempNode addChild:[self expr:t]];
         
         //expr
         t = [self getNextToken];
-        [tempTree addChild:[self expr:t]];
+        [tempNode addChild:[self expr:t]];
         
         //Use lookahead to check if there is a third expression
         if(self.lookAhead.tag == '['){
             //expr
             t = [self getNextToken];
-            [tempTree addChild:[self expr:t]];
+            [tempNode addChild:[self expr:t]];
         }
         
         //Finish both productions
@@ -293,54 +280,54 @@
         if (t.tag != ']'){
             [self error:@"syntax error"];
         }
-        [tempTree addChild:[[Tree alloc] initWithToken:t]];
-        return tempTree;
+        [tempNode addChild:[[Node alloc] initWithToken:t]];
+        return tempNode;
     } else {
         [self error:@"syntax error"];
     }
-    return tempTree;
+    return tempNode;
 }
 
 /** whilestmts -> [while expr exprlist] */
-- (Tree*) whilestmts:(Token*)t
+- (Node*) whilestmts:(Token*)t
 {
-    Tree *tempTree = [[Tree alloc] init];
+    Node *tempNode = [[Node alloc] initWithProduction:ProductionTypeWhileStmt];
     if (t.tag == '['){
-        [tempTree addChild:[[Tree alloc] initWithToken:t]];
+        [tempNode addChild:[[Node alloc] initWithToken:t]];
         
         //while
 		t = [self getNextToken];
         if(t.tag != WHILE){
             [self error:@"syntax error"];
         }
-        [tempTree addChild:[[Tree alloc] initWithToken:t]];
+        [tempNode addChild:[[Node alloc] initWithToken:t]];
         
         //expr
         t = [self getNextToken];
-        [tempTree addChild:[self expr:t]];
+        [tempNode addChild:[self expr:t]];
         
         //exprlist
         t = [self getNextToken];
-        [tempTree addChild:[self exprlist:t]];
+        [tempNode addChild:[self exprlist:t]];
         
         t = [self getNextToken];
         if (t.tag != ']'){
             [self error:@"syntax error"];
         }
-        [tempTree addChild:[[Tree alloc] initWithToken:t]];
-        return tempTree;
+        [tempNode addChild:[[Node alloc] initWithToken:t]];
+        return tempNode;
     } else {
         [self error:@"syntax error"];
     }
-    return tempTree;
+    return tempNode;
 }
 
 /** letstmts -> [let [varlist]] */
-- (Tree*) letstmts:(Token*)t
+- (Node*) letstmts:(Token*)t
 {
-    Tree *tempTree = [[Tree alloc] init];
+    Node *tempNode = [[Node alloc] initWithProduction:ProductionTypeLetStmt];
     if(t.tag == '['){
-        [tempTree addChild:[[Tree alloc] initWithToken:t]];
+        [tempNode addChild:[[Node alloc] initWithToken:t]];
         
         //let
         t = [self getNextToken];
@@ -355,108 +342,108 @@
         
         //varlist
         t = [self getNextToken];
-        [tempTree addChild:[self varlist:t]];
+        [tempNode addChild:[self varlist:t]];
         
         //Need 2 closing brackets
         t = [self getNextToken];
         if (t.tag != ']'){
             [self error:@"syntax error"];
         }
-        [tempTree addChild:[[Tree alloc] initWithToken:t]];
+        [tempNode addChild:[[Node alloc] initWithToken:t]];
         
         if (t.tag != ']'){
             [self error:@"syntax error"];
         }
-        [tempTree addChild:[[Tree alloc] initWithToken:t]];
-        return tempTree;
+        [tempNode addChild:[[Node alloc] initWithToken:t]];
+        return tempNode;
     } else {
         [self error:@"syntax error"];
     }
-    return tempTree;
+    return tempNode;
 }
 
 /** varlist -> [name type] | [name type] varlist */
-- (Tree*) varlist:(Token*)t
+- (Node*) varlist:(Token*)t
 {
-    Tree *tempTree = [[Tree alloc] init];
+    Node *tempNode = [[Node alloc] initWithProduction:ProductionTypeVarlistStmt];
     if (t.tag == '['){
-        [tempTree addChild:[[Tree alloc] initWithToken:t]];
+        [tempNode addChild:[[Node alloc] initWithToken:t]];
         
         //name
         t = [self getNextToken];
         if(t.tokType != TokenTypeName){
             [self error:@"syntax error"];
         }
-        [tempTree addChild:[[Tree alloc] initWithToken:t]];
+        [tempNode addChild:[[Node alloc] initWithToken:t]];
         
         //type
         t = [self getNextToken];
         if(t.tokType != TokenTypeType){
             [self error:@"syntax error"];
         }
-        [tempTree addChild:[[Tree alloc] initWithToken:t]];
+        [tempNode addChild:[[Node alloc] initWithToken:t]];
         
         //type
         t = [self getNextToken];
         if(t.tokType != TokenTypeType){
             [self error:@"syntax error"];
         }
-        [tempTree addChild:[[Tree alloc] initWithToken:t]];
+        [tempNode addChild:[[Node alloc] initWithToken:t]];
         
         t = [self getNextToken];
         if (t.tag != ']'){
             [self error:@"syntax error"];
         }
-        [tempTree addChild:[[Tree alloc] initWithToken:t]];
+        [tempNode addChild:[[Node alloc] initWithToken:t]];
         
         //Use the lookahead to determine if there's another varlist
         if(self.lookAhead.tag == '['){
             t = [self getNextToken];
-            [tempTree addChild:[self varlist:t]];
+            [tempNode addChild:[self varlist:t]];
         }
-        return tempTree;
+        return tempNode;
     } else {
         [self error:@"syntax error"];
     }
-    return tempTree;
+    return tempNode;
 }
 
 /** printstmts -> [stdout oper] */
-- (Tree*) printstmts:(Token*)t
+- (Node*) printstmts:(Token*)t
 {
-    Tree *tempTree = [[Tree alloc] init];
+    Node *tempNode = [[Node alloc] initWithProduction:ProductionTypePrintStmts];
     if (t.tag == '['){
-        [tempTree addChild:[[Tree alloc] initWithToken:t]];
+        [tempNode addChild:[[Node alloc] initWithToken:t]];
         
         //stdout
         t = [self getNextToken];
         if(t.tag != STDOUT){
             [self error:@"syntax error"];
         }
-        [tempTree addChild:[[Tree alloc] initWithToken:t]];
+        [tempNode addChild:[[Node alloc] initWithToken:t]];
         
         //oper
         t = [self getNextToken];
-        [tempTree addChild:[self oper:t]];
+        [tempNode addChild:[self oper:t]];
         
         //Finish production
         t = [self getNextToken];
         if (t.tag != ']'){
             [self error:@"syntax error"];
         }
-        [tempTree addChild:[[Tree alloc] initWithToken:t]];
-        return tempTree;
+        [tempNode addChild:[[Node alloc] initWithToken:t]];
+        return tempNode;
     } else {
         [self error:@"syntax error"];
     }
-    return tempTree;
+    return tempNode;
 }
 
 /** exprlist -> expr | expr exprlist */
-- (Tree*) exprlist:(Token*)t
+- (Node*) exprlist:(Token*)t
 {
-    Tree *tempTree = [[Tree alloc] init];
-    return tempTree;
+    Node *tempNode = [[Node alloc] initWithProduction:ProductionTypeExprList];
+    return tempNode;
 }
 
 @end

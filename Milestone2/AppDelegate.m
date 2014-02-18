@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "LexicalAnalyzer.h"
 #import "Parser.h"
-#import "Tree.h"
+#import "Node.h"
 
 
 @implementation AppDelegate
@@ -28,7 +28,7 @@
 //	[self printTokensForLex:lex];
 
     Parser *parser = [[Parser alloc] initWithLexicalAnalyzer:lex];
-    Tree *t = [parser T:parser.currentToken];
+    Node *t = [parser T:parser.currentToken];
     [t printChildren];
 }
 

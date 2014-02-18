@@ -19,7 +19,7 @@
 		766B41901898A20700B17587 /* Float.m in Sources */ = {isa = PBXBuildFile; fileRef = 766B418F1898A20700B17587 /* Float.m */; };
 		766B69F118973C8D00579586 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 766B69F018973C8D00579586 /* MainMenu.xib */; };
 		7677FF5618AC582A009B1912 /* Defines.m in Sources */ = {isa = PBXBuildFile; fileRef = 7677FF5518AC582A009B1912 /* Defines.m */; };
-		76990CBD18ADB34900775DE3 /* Tree.m in Sources */ = {isa = PBXBuildFile; fileRef = 76990CBC18ADB34900775DE3 /* Tree.m */; };
+		76990CBD18ADB34900775DE3 /* Node.m in Sources */ = {isa = PBXBuildFile; fileRef = 76990CBC18ADB34900775DE3 /* Node.m */; };
 		76990CC018ADB83700775DE3 /* Stmt.m in Sources */ = {isa = PBXBuildFile; fileRef = 76990CBF18ADB83700775DE3 /* Stmt.m */; };
 		76990CC318ADBBA800775DE3 /* Id.m in Sources */ = {isa = PBXBuildFile; fileRef = 76990CC218ADBBA800775DE3 /* Id.m */; };
 		76990CC618ADBBC400775DE3 /* Expr.m in Sources */ = {isa = PBXBuildFile; fileRef = 76990CC518ADBBC400775DE3 /* Expr.m */; };
@@ -55,8 +55,8 @@
 		766B418F1898A20700B17587 /* Float.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Float.m; sourceTree = "<group>"; };
 		766B69F018973C8D00579586 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		7677FF5518AC582A009B1912 /* Defines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Defines.m; sourceTree = "<group>"; };
-		76990CBB18ADB34900775DE3 /* Tree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Tree.h; path = Classes/Tree.h; sourceTree = "<group>"; };
-		76990CBC18ADB34900775DE3 /* Tree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Tree.m; path = Classes/Tree.m; sourceTree = "<group>"; };
+		76990CBB18ADB34900775DE3 /* Node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Node.h; path = Classes/Node.h; sourceTree = "<group>"; };
+		76990CBC18ADB34900775DE3 /* Node.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Node.m; path = Classes/Node.m; sourceTree = "<group>"; };
 		76990CBE18ADB83700775DE3 /* Stmt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Stmt.h; path = Classes/Stmt.h; sourceTree = "<group>"; };
 		76990CBF18ADB83700775DE3 /* Stmt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Stmt.m; path = Classes/Stmt.m; sourceTree = "<group>"; };
 		76990CC118ADBBA800775DE3 /* Id.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Id.h; path = Classes/Id.h; sourceTree = "<group>"; };
@@ -156,8 +156,8 @@
 				76E3FCD918AC90DB005ED87F /* Parser.m */,
 				76E3FCDB18AC9793005ED87F /* Environment.h */,
 				76E3FCDC18AC9793005ED87F /* Environment.m */,
-				76990CBB18ADB34900775DE3 /* Tree.h */,
-				76990CBC18ADB34900775DE3 /* Tree.m */,
+				76990CBB18ADB34900775DE3 /* Node.h */,
+				76990CBC18ADB34900775DE3 /* Node.m */,
 				76990CBE18ADB83700775DE3 /* Stmt.h */,
 				76990CBF18ADB83700775DE3 /* Stmt.m */,
 				76990CC118ADBBA800775DE3 /* Id.h */,
@@ -273,7 +273,7 @@
 				76990CC618ADBBC400775DE3 /* Expr.m in Sources */,
 				76575EFD189484D500E1BFDD /* main.m in Sources */,
 				766B4187189889DB00B17587 /* Word.m in Sources */,
-				76990CBD18ADB34900775DE3 /* Tree.m in Sources */,
+				76990CBD18ADB34900775DE3 /* Node.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
