@@ -135,7 +135,7 @@
 		76575EF7189484D500E1BFDD /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				765A623F1895D0490097F8C1 /* DFA plists */,
+				765A62481895E2250097F8C1 /* ReservedKeywords.plist */,
 				766B69F018973C8D00579586 /* MainMenu.xib */,
 				76575EF8189484D500E1BFDD /* Milestone2-Info.plist */,
 				76575EFC189484D500E1BFDD /* main.m */,
@@ -184,14 +184,6 @@
 			);
 			name = "Token Classes";
 			path = "Classes/Token Classes";
-			sourceTree = "<group>";
-		};
-		765A623F1895D0490097F8C1 /* DFA plists */ = {
-			isa = PBXGroup;
-			children = (
-				765A62481895E2250097F8C1 /* ReservedKeywords.plist */,
-			);
-			name = "DFA plists";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

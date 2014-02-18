@@ -17,7 +17,6 @@
 
 @property (strong, nonatomic) LexicalAnalyzer *lex;
 @property (strong, nonatomic) Environment *top;
-@property (strong, nonatomic) Node *rootNode;
 
 @end
 
@@ -51,6 +50,11 @@
 	[NSException raise:errorType format:@"Error near line %i, token %@", [[self.lex class] line], self.currentToken];
 }
 
+- (void) parse
+{
+	if (self.currentToken)
+		[self T:self.currentToken];
+}
 
 #pragma mark - Productions
 

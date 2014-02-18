@@ -20,25 +20,24 @@
     //Floats, etc
     //Have lots of tests
     //To do: Have output be translated so token type will show up as the category name as a string
-    //To do: Have input be a file by default
-	NSString *source = @"/* uhetuheu */";
+	//To do: Have input be a file by default
+
+	NSOpenPanel *open = [[NSOpenPanel alloc] initWithContentRect:NSRectFromCGRect(CGRectMake(0.0, 0.0, 400.0, 400.0)) styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
+	open.delegate = self;
+	[self.window addChildWindow:open ordered:NSWindowAbove];
+}
+
+- (BOOL)panel:(id)sender validateURL:(NSURL *)url error:(NSError **)outError
+{
+	NSString *source = [NSString stringWithContentsOfURL:url encoding:nil error:NULL];
 
 	LexicalAnalyzer *lex = [[LexicalAnalyzer alloc] initWithSource:source];
 
-//	[self printTokensForLex:lex];
-
     Parser *parser = [[Parser alloc] initWithLexicalAnalyzer:lex];
-    Node *t = [parser T:parser.currentToken];
-    [t printChildren];
-}
+	[parser parse];
+	[parser.rootNode printChildren];
 
-- (void)printTokensForLex:(LexicalAnalyzer *)lex
-{
-	Token *tok = [lex scan];
-	while (tok) {
-		NSLog(@"%@", tok);
-		tok = [lex scan];
-	}
+	return YES;
 }
 
 @end

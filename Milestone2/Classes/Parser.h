@@ -13,8 +13,11 @@
 
 @property (strong, nonatomic) Token *lookAhead;
 @property (strong, nonatomic) Token *currentToken;
+@property (strong, nonatomic) Node *rootNode;
 
 - (instancetype)initWithLexicalAnalyzer:(LexicalAnalyzer*)theLex;
 - (Node*) T:(Token*)t;
+
+- (void) parse;
 
 @end
