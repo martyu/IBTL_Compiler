@@ -16,8 +16,8 @@
 @interface Parser ()
 
 @property (strong, nonatomic) LexicalAnalyzer *lex;
-@property (nonatomic) int used;
 @property (strong, nonatomic) Environment *top;
+@property (strong, nonatomic) Tree *rootNode;
 
 @end
 
@@ -28,18 +28,18 @@
     self = [super init];
     if (self) {
         _lex = theLex;
-		_used = 0;
-		[self move];
+		_lookAhead = [self.lex scan];
+		[self getNextToken];
     }
     return self;
 }
 
 -(Token *)getNextToken
 {
-    Token *current_token = [self.lex scan];
+    self.currentToken = self.lookAhead;
     //@todo: Make sure lookAhead always has the next one
-    //self.lookAhead = [self.lex scan];
-    return current_token;
+    self.lookAhead = [self.lex scan];
+    return self.currentToken;
 }
 
 // Use getNextToken instead
@@ -50,7 +50,8 @@
 
 - (void)error:(NSString*)errorType
 {
-	[NSException raise:errorType format:@"Error near line %i", [[self.lex class] line]];
+	NSLog(@"%@", self.rootNode);
+	[NSException raise:errorType format:@"Error near line %i, token %@", [[self.lex class] line], self.currentToken];
 }
 
 - (void)match:(int)aTag
@@ -69,6 +70,8 @@
 - (Tree*) T:(Token*)t
 {
 	Tree *tempTree = [[Tree alloc] init];
+	self.rootNode = tempTree;
+
     if (t.tag == '['){
         [tempTree addChild:[[Tree alloc] initWithToken:t]];
 		
@@ -93,7 +96,8 @@
 {
     Tree *tempTree = [[Tree alloc] init];
     
-    if (t.tag == '['){
+    if (t.tag == '[')
+	{
         if(self.lookAhead.tokType == TokenTypeBinOp ||
            self.lookAhead.tokType == TokenTypeUnOp ||
            self.lookAhead.tokType == TokenTypeConstant ||
@@ -101,13 +105,14 @@
            self.lookAhead.tag == IF ||
            self.lookAhead.tag == WHILE ||
            self.lookAhead.tag == STDOUT ||
-           self.lookAhead.tag == LET){
+           self.lookAhead.tag == LET)
+		{
             //expr production
             [tempTree addChild:[self expr:t]];
         }
         
         [tempTree addChild:[[Tree alloc] initWithToken:t]];
-        
+
 		t = [self getNextToken];
         if (t.tag == ']'){ //Since we don't tokenize spaces
             [tempTree addChild:[[Tree alloc] initWithToken:t]];
@@ -137,21 +142,21 @@
 - (Tree*) expr:(Token*)t
 {
     Tree *tempTree = [[Tree alloc] init];
-    if(self.lookAhead.tag == IF ||
-       self.lookAhead.tag == WHILE ||
-       self.lookAhead.tag == STDOUT ||
-       self.lookAhead.tag == LET){
-        [tempTree addChild:[self oper:t]];
-        return tempTree;
-    } else if(self.lookAhead.tokType == TokenTypeBinOp ||
-              self.lookAhead.tokType == TokenTypeUnOp ||
-              self.lookAhead.tokType == TokenTypeConstant ||
-              self.lookAhead.tokType == TokenTypeName){
+    if(self.lookAhead.tag == IF || self.lookAhead.tag == WHILE ||
+	   self.lookAhead.tag == STDOUT || self.lookAhead.tag == LET)
+	{
         [tempTree addChild:[self stmts:t]];
         return tempTree;
-    } else {
-        [self error:@"syntax error"];
     }
+	else if(self.lookAhead.tokType == TokenTypeBinOp || self.lookAhead.tokType == TokenTypeUnOp ||
+			self.lookAhead.tokType == TokenTypeConstant || self.lookAhead.tokType == TokenTypeName)
+	{
+        [tempTree addChild:[self oper:t]];
+        return tempTree;
+    }
+	else
+        [self error:@"syntax error"];
+
     return tempTree;
 }
 

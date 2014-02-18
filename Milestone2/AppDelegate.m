@@ -24,9 +24,21 @@
 	NSString *source = @"[[+ 1 1]]";
 
 	LexicalAnalyzer *lex = [[LexicalAnalyzer alloc] initWithSource:source];
+
+//	[self printTokensForLex:lex];
+
     Parser *parser = [[Parser alloc] initWithLexicalAnalyzer:lex];
-    Tree *t = [parser T:parser.lookAhead];
+    Tree *t = [parser T:parser.currentToken];
     [t printChildren];
+}
+
+- (void)printTokensForLex:(LexicalAnalyzer *)lex
+{
+	Token *tok = [lex scan];
+	while (tok) {
+		NSLog(@"%@", tok);
+		tok = [lex scan];
+	}
 }
 
 @end

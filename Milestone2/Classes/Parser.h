@@ -12,6 +12,8 @@
 @interface Parser : NSObject
 
 @property (strong, nonatomic) Token *lookAhead;
+@property (strong, nonatomic) Token *currentToken;
+
 - (instancetype)initWithLexicalAnalyzer:(LexicalAnalyzer*)theLex;
 - (Tree*) T:(Token*)t;
 

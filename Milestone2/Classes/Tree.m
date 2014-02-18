@@ -21,25 +21,24 @@
 {
     self = [super init];
     if (self) {
-		_children = [NSMutableArray array];
 		_token = tok;
     }
     return self;
 }
 
-- (instancetype)init
-{
-    self = [super init];
-    if (self) {
-		_children = [NSMutableArray array];
-    }
-    return self;
-
-}
 
 - (void) addChild:(Tree*)node
 {
 	[self.children addObject:node];
+}
+
+- (NSString*)description
+{
+	if (!self.children.count)
+		return @"empty tree";
+	
+	[self printChildren];
+	return @" ";
 }
 
 - (void) printChildren
@@ -48,8 +47,14 @@
 
 	if (self.children.count)
 	{
+		for(int i = 0; i < depth; i++)
+			printf("\t");
+		printf("production\n");
 		for (Tree *node in self.children)
 		{
+			for(int i = 0; i < depth; i++)
+				printf("\t");
+			printf("{\n");
 			depth++;
 			[node printChildren];
 		}
@@ -62,6 +67,19 @@
 	}
 
 	depth--;
+
+	for(int i = 0; i < depth; i++)
+		printf("\t");
+	printf("}\n");
+}
+
+
+- (NSMutableArray*)children
+{
+	if (!_children)
+		_children =  [NSMutableArray array];
+
+	return _children;
 }
 
 @end

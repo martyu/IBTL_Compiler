@@ -26,7 +26,7 @@
 
 -(NSString*)description
 {
-	NSString *str = [NSString stringWithFormat:@"<%@, val:%i, tag:%@, type:%i>", [self class], self.value, [Defines descriptionForConstant:self.tag], self.tokType];
+	NSString *str = [NSString stringWithFormat:@"<%@, val:%i, tag:%@, type:%i>", [super description], self.value, [Defines descriptionForConstant:self.tag], self.tokType];
 	return str;
 }
 
