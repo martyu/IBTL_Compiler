@@ -29,11 +29,17 @@
 
 - (BOOL)panel:(id)sender validateURL:(NSURL *)url error:(NSError **)outError
 {
-	NSString *source = [NSString stringWithContentsOfURL:url encoding:nil error:NULL];
+	NSString *source = [NSString stringWithContentsOfURL:url encoding:NSStringEncodingConversionAllowLossy error:NULL];
 
 	LexicalAnalyzer *lex = [[LexicalAnalyzer alloc] initWithSource:source];
 
     Parser *parser = [[Parser alloc] initWithLexicalAnalyzer:lex];
+	[parser parse];
+	[parser.rootNode printChildren];
+
+	printf("\n\n\n\n");
+
+
 	[parser parse];
 	[parser.rootNode printChildren];
 

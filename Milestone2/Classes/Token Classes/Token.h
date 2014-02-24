@@ -11,7 +11,6 @@
 typedef enum {
 	TokenTypeBinOp,
 	TokenTypeUnOp,
-	TokenTypeTypeDef,
 	TokenTypeBool,
 	TokenTypeName,
     TokenTypeConstant,

@@ -105,6 +105,10 @@
 			return @"INTEGER";
 			break;
 
+		case TYPE:
+			return @"TYPE";
+			break;
+
 		default:
 			break;
 	}

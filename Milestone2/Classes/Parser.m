@@ -41,13 +41,14 @@
     self.currentToken = self.lookAhead;
     //@todo: Make sure lookAhead always has the next one
     self.lookAhead = [self.lex scan];
+	printf("%s \n", [[self.currentToken description] UTF8String]);
     return self.currentToken;
 }
 
 - (void)error:(NSString*)errorType
 {
 	NSLog(@"%@", self.rootNode);
-	[NSException raise:errorType format:@"Error near line %i, token %@", [[self.lex class] line], self.currentToken];
+	[NSException raise:errorType format:@"Error on line %i, column %i, token %@", [[self.lex class] line], [[self.lex class] column], self.currentToken];
 }
 
 - (void) parse
@@ -78,11 +79,16 @@
             [self error:@"syntax error"];
         }
         [tempNode addChild:[[Node alloc] initWithToken:t]];
+
+		// get next token so we're ready to parse the next statement.
+		[self getNextToken];
+
         return tempNode;
     } else {
         [self error:@"syntax error"];
     }
-    return tempNode;
+
+    return nil;
 }
 
 /** S -> [ ] | [S] | SS | expr */
@@ -236,7 +242,7 @@
 - (Node*) stmts:(Token*)t
 {
     Node *tempNode = [[Node alloc] initWithProduction:ProductionTypeStmts];
-    t = [self getNextToken];
+
     if(self.lookAhead.tag == IF){
         [tempNode addChild:[self ifstmts:t]];
     } else if(self.lookAhead.tag == WHILE){
@@ -345,7 +351,7 @@
         }
         
         //varlist
-        t = [self getNextToken];
+		t = [self getNextToken];
         [tempNode addChild:[self varlist:t]];
         
         //Need 2 closing brackets
@@ -354,7 +360,7 @@
             [self error:@"syntax error"];
         }
         [tempNode addChild:[[Node alloc] initWithToken:t]];
-        
+
         if (t.tag != ']'){
             [self error:@"syntax error"];
         }
@@ -386,14 +392,13 @@
             [self error:@"syntax error"];
         }
         [tempNode addChild:[[Node alloc] initWithToken:t]];
-        
-        //type
+                
         t = [self getNextToken];
-        if(t.tokType != TokenTypeType){
+        if (t.tag != ']'){
             [self error:@"syntax error"];
         }
         [tempNode addChild:[[Node alloc] initWithToken:t]];
-        
+
         t = [self getNextToken];
         if (t.tag != ']'){
             [self error:@"syntax error"];

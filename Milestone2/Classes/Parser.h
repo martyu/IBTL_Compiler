@@ -20,4 +20,6 @@
 
 - (void) parse;
 
+-(Token *)getNextToken;
+
 @end

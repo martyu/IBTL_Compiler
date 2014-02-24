@@ -77,26 +77,26 @@
 
 		case WordSetupTypeBool:
 			lex = @"bool";
-			theTag = BOOL_;
-			tokType = TokenTypeTypeDef;
+			theTag = TYPE;
+			tokType = TokenTypeType;
 			break;
 
 		case WordSetupTypeFloat:
 			lex = @"float";
-			theTag = FLOAT;
-			tokType = TokenTypeTypeDef;
+			theTag = TYPE;
+			tokType = TokenTypeType;
 			break;
 
 		case WordSetupTypeString:
 			lex = @"string";
-			theTag = STRING;
-			tokType = TokenTypeTypeDef;
+			theTag = TYPE;
+			tokType = TokenTypeType;
 			break;
 
 		case WordSetupTypeInt:
 			lex = @"int";
-			theTag = INT;
-			tokType = TokenTypeTypeDef;
+			theTag = TYPE;
+			tokType = TokenTypeType;
 			break;
 
 		case WordSetupTypeIf:

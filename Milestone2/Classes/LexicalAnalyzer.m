@@ -13,8 +13,12 @@
 #import "Defines.h"
 
 
+#define END_OF_FILE ';'
+
 @interface SourceServer : NSObject
 @end
+
+static int _column = 1;
 
 @interface SourceServer ()
 
@@ -40,6 +44,10 @@
 		return '\0';
 
 	char next = [self.sourceText characterAtIndex:self.index++];
+
+//	if (next == END_OF_FILE)
+//		return '\0';
+
 	return next;
 }
 
@@ -49,6 +57,10 @@
 		return '\0';
     
 	char prev = [self.sourceText characterAtIndex:--self.index];
+
+//	if (prev == END_OF_FILE)
+//		return '\0';
+
 	return prev;
 }
 
@@ -140,6 +152,14 @@ static int _line;
 - (void)readCharacter
 {
 	self.peek = [self.sourceServer nextCharacter];
+
+	_column++;
+
+	//Keep track of what line number we're on
+	if (self.peek == '\n') {
+		_line++;
+		_column = 1;
+	}
 }
 
 - (void)pushBack
@@ -161,12 +181,9 @@ static int _line;
 {
 	for (;;[self readCharacter])
 	{
-		if (self.peek == ' ' || self.peek == '\t'){
-            //Skip spaces and tabs
+		if (self.peek == ' ' || self.peek == '\t' || self.peek == '\n') {
+            //Skip spaces and tabs and newlines
             continue;
-		} else if (self.peek == '\n'){
-            //Keep track of what line number we're on
-            _line++;
         } else if(self.peek == '/'){
             //Skip over comments formatted like /* comment */
             [self readCharacter];
@@ -341,6 +358,11 @@ static int _line;
 + (void)setLine:(int)line
 {
 	_line = line;
+}
+
++ (int)column
+{
+	return _column;
 }
 
 @end

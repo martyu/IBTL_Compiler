@@ -17,6 +17,7 @@
 - (Token*)scan;
 
 + (int)line;
++ (int)column;
 + (void)setLine:(int)newLine;
 
 @end
