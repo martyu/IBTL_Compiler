@@ -59,7 +59,6 @@
 
 #pragma mark - Productions
 
-
 /** T -> [S] //This is where we start. */
 - (Node*) T:(Token*)t
 {
@@ -71,7 +70,6 @@
 		
         //S
         t = [self getNextToken];
-
         [tempNode addChild:[self S:t]];
         
         t = [self getNextToken];
@@ -344,11 +342,13 @@
         if(t.tag != LET){
             [self error:@"syntax error"];
         }
+        [tempNode addChild:[[Node alloc] initWithToken:t]];
         
         t = [self getNextToken];
         if(t.tag != '['){
             [self error:@"syntax error"];
         }
+        [tempNode addChild:[[Node alloc] initWithToken:t]];
         
         //varlist
 		t = [self getNextToken];
@@ -393,12 +393,6 @@
         }
         [tempNode addChild:[[Node alloc] initWithToken:t]];
                 
-        t = [self getNextToken];
-        if (t.tag != ']'){
-            [self error:@"syntax error"];
-        }
-        [tempNode addChild:[[Node alloc] initWithToken:t]];
-
         t = [self getNextToken];
         if (t.tag != ']'){
             [self error:@"syntax error"];
