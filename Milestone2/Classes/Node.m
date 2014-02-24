@@ -111,7 +111,7 @@
 			break;
 
 		case ProductionTypeLetStmt:
-			return @"let";
+			return @"letstmts";
 			break;
 
 		case ProductionTypeWhileStmt:
