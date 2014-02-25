@@ -195,21 +195,18 @@
             t = [self getNextToken];
             [tempNode addChild:[self oper:t]];
         }
-        else if (t.tag == ':' && self.lookAhead.tag == '!')
+        else if (t.tokType == TokenTypeAssign)
         {
             // Production: [:= name oper]
             //Add the ':' and the '=' to the Node
             [tempNode addChild:[[Node alloc] initWithToken:t]];
-            t = [self getNextToken];
-            [tempNode addChild:[[Node alloc] initWithToken:t]];
             
+            //name
             t = [self getNextToken];
-            if(t.tokType == TokenTypeName)
-            {
-                [tempNode addChild:[[Node alloc] initWithToken:t]];
-            } else {
+            if(t.tokType != TokenTypeName){
                 [self error:@"syntax error"];
             }
+            [tempNode addChild:[[Node alloc] initWithToken:t]];
             
             //oper
             t = [self getNextToken];
