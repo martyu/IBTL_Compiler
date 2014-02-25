@@ -17,6 +17,7 @@
 
 @property (strong, nonatomic) LexicalAnalyzer *lex;
 @property (strong, nonatomic) Environment *top;
+@property (strong, nonatomic) NSMutableArray *tokenArray;
 
 @end
 
@@ -28,6 +29,7 @@
     if (self) {
         _lex = theLex;
 		_lookAhead = [self.lex scan];
+		_tokenArray = [NSMutableArray array];
 		[self getNextToken];
     }
     return self;
@@ -37,9 +39,8 @@
 {
     self.currentToken = self.lookAhead;
     self.lookAhead = [self.lex scan];
-
+	[self.tokenArray addObject:self.currentToken];
 	printf("%s\n", [[self.currentToken description] UTF8String]);
-
     return self.currentToken;
 }
 
