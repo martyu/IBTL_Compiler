@@ -30,7 +30,8 @@
     //To do: Have output be translated so token type will show up as the category name as a string
 	//To do: Have input be a file by default
 
-	[self startWithURL:[NSURL fileURLWithPath:@"/Users/martyulrich/Dropbox/School/Winter 2014/CS 480/Milestone2/Milestone2/testcases.txt"]];
+	NSString *path = [[NSBundle mainBundle] pathForResource:@"testcases" ofType:@"txt"];
+	[self startWithURL:[NSURL fileURLWithPath:path]];
 
 //	NSOpenPanel *open = [[NSOpenPanel alloc] initWithContentRect:NSRectFromCGRect(CGRectMake(0.0, 0.0, 400.0, 400.0)) styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
 //	open.delegate = self;
