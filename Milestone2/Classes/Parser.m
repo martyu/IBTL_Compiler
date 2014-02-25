@@ -106,7 +106,20 @@
 		}
 		if(self.lookAhead.tag == ']'){
 			break;
-		} else {
+		}
+		else if(self.lookAhead.tag == '[')
+		{
+			//another S production
+			t = [self getNextToken];
+			[tempNode addChild:[self S:t]];
+			t = [self getNextToken];
+			if(self.lookAhead.tag != ']'){
+				[self error:@"syntax error"];
+			}
+			[tempNode addChild:[self S:t]];
+		}
+		else
+		{
 			t = [self getNextToken];
 		}
 	}
