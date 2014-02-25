@@ -34,4 +34,7 @@ typedef enum {
 - (instancetype)initWithToken:(Token*)tok;
 - (instancetype)initWithProduction:(ProductionType)prodType;
 
++ (instancetype)nodeWithToken:(Token*)tok;
++ (instancetype)nodeWithProduction:(ProductionType)prodType;
+
 @end

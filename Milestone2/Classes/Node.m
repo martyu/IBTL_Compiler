@@ -35,6 +35,16 @@
     return self;
 }
 
++ (instancetype)nodeWithToken:(Token*)tok
+{
+	return [[[self class] alloc] initWithToken:tok];
+}
+
++ (instancetype)nodeWithProduction:(ProductionType)prodType
+{
+	return [[[self class] alloc] initWithProduction:prodType];
+}
+
 - (void) addChild:(Node*)node
 {
 	[self.children addObject:node];
