@@ -140,7 +140,7 @@
 {
     Node *tempNode = [[Node alloc] initWithProduction:ProductionTypeExpr];
     if(self.lookAhead.tag == IF || self.lookAhead.tag == WHILE ||
-	   self.lookAhead.tag == STDOUT || self.lookAhead.tag == LET)
+	   self.lookAhead.tag == STDOUT || self.lookAhead.tag == LET )
 	{
         [tempNode addChild:[self stmts:t]];
         return tempNode;
