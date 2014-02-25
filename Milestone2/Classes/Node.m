@@ -45,14 +45,12 @@
 	if (!self.children.count)
 		return @"empty Node";
 	
-	[self printChildren];
+	[self printChildren:0];
 	return @" ";
 }
 
-- (void) printChildren
+- (void) printChildren:(int)depth
 {
-	static int depth = 0;
-
 	if (self.children.count)
 	{
 		for(int i = 0; i < depth; i++)
@@ -63,8 +61,7 @@
 			for(int i = 0; i < depth; i++)
 				printf("\t");
 			printf("{\n");
-			depth++;
-			[node printChildren];
+			[node printChildren:depth+1];
 		}
 	}
 	else
@@ -74,11 +71,14 @@
 		printf("%s\n", [[self.token description] UTF8String]);
 	}
 
-	depth--;
-
-	for(int i = 0; i < depth; i++)
+	for(int i = 0; i < depth-1; i++)
 		printf("\t");
 	printf("}\n");
+}
+
+- (void) printChildren
+{
+	[self printChildren:0];
 }
 
 

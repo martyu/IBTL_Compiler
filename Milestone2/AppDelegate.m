@@ -21,27 +21,35 @@
     //To do: Have output be translated so token type will show up as the category name as a string
 	//To do: Have input be a file by default
 
-	NSOpenPanel *open = [[NSOpenPanel alloc] initWithContentRect:NSRectFromCGRect(CGRectMake(0.0, 0.0, 400.0, 400.0)) styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
-	open.delegate = self;
-	[self.window addChildWindow:open ordered:NSWindowAbove];
+	[self startWithURL:[NSURL fileURLWithPath:@"/Users/martyulrich/Dropbox/School/Winter 2014/CS 480/Milestone2/Milestone2/testcases.txt"]];
+
+//	NSOpenPanel *open = [[NSOpenPanel alloc] initWithContentRect:NSRectFromCGRect(CGRectMake(0.0, 0.0, 400.0, 400.0)) styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
+//	open.delegate = self;
+//	[self.window addChildWindow:open ordered:NSWindowAbove];
 }
 
 - (BOOL)panel:(id)sender validateURL:(NSURL *)url error:(NSError **)outError
+{
+	[self startWithURL:url];
+	return YES;
+}
+
+- (void)startWithURL:(NSURL*)url
 {
 	NSString *source = [NSString stringWithContentsOfURL:url encoding:NSStringEncodingConversionAllowLossy error:NULL];
 
 	LexicalAnalyzer *lex = [[LexicalAnalyzer alloc] initWithSource:source];
 
     Parser *parser = [[Parser alloc] initWithLexicalAnalyzer:lex];
-	[parser parse];
-	[parser.rootNode printChildren];
 
-	printf("\n\n\n\n");
+	while (parser.currentToken)
+	{
+		[parser parse];
+		[parser.rootNode printChildren];
 
-	[parser parse];
-	[parser.rootNode printChildren];
-
-	return YES;
+		printf("\n\n\n\n");
+	}
+	
 }
 
 @end
