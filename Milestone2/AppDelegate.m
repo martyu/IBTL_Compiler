@@ -41,15 +41,16 @@
 	LexicalAnalyzer *lex = [[LexicalAnalyzer alloc] initWithSource:source];
 
     Parser *parser = [[Parser alloc] initWithLexicalAnalyzer:lex];
+	[parser parse];
+	[parser.rootNode printChildren];
 
-	while (parser.currentToken)
-	{
-		[parser parse];
-		[parser.rootNode printChildren];
+	/*
+	printf("\n\n\n\n");
 
-		printf("\n\n\n\n");
-	}
-	
+	[parser parse];
+	[parser.rootNode printChildren];
+	 */
+	return YES;
 }
 
 @end
