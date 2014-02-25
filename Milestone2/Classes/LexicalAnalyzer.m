@@ -214,10 +214,17 @@ static int _line;
 		case '%':
 		case '^':
 		case '=':
+		{
+			Token *tok = [Token tokenWithTag:self.peek type:TokenTypeBinOp];
+			// just to move index ahead 1.
+			[self readCharacter];
+			return tok;
+			break;
+		}
 		case '[':
 		case ']':
 		{
-			Token *tok = [Token tokenWithTag:self.peek type:TokenTypeBinOp];
+			Token *tok = [Token tokenWithTag:self.peek type:TokenTypeNone];
 			// just to move index ahead 1.
 			[self readCharacter];
 			return tok;

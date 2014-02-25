@@ -39,7 +39,6 @@
 -(Token *)getNextToken
 {
     self.currentToken = self.lookAhead;
-    //@todo: Make sure lookAhead always has the next one
     self.lookAhead = [self.lex scan];
 	printf("%s \n", [[self.currentToken description] UTF8String]);
     return self.currentToken;
