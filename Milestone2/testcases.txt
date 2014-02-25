@@ -14,9 +14,11 @@ bool thisisfalse = true;
 
 /* Binops */
 
-/* Works: [1] */
-[1 2]
-[[let [[y float]]] [:= y 3]]
+/* [1 2] */
+[y 2]
+[1 [2]]
+[[let [[x float] [y int] [z float]]]]
+[[let [[y float]]] [:= y 3.0]]
 [[let [[y int]]] [:= y 3]]
 [[+ 3 5]]
 [[+ 4.0 3.0]]

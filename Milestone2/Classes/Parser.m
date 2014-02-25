@@ -90,28 +90,27 @@
 - (Node*) S:(Token*)t
 {
     Node *tempNode = [[Node alloc] initWithProduction:ProductionTypeS];
-    
-	if(self.lookAhead.tokType == TokenTypeBinOp ||
-	   self.lookAhead.tokType == TokenTypeUnOp ||
-	   self.lookAhead.tokType == TokenTypeConstant ||
-	   self.lookAhead.tokType == TokenTypeName ||
-	   self.lookAhead.tokType == TokenTypeAssign ||
-	   self.lookAhead.tag == IF ||
-	   self.lookAhead.tag == WHILE ||
-	   self.lookAhead.tag == STDOUT ||
-	   self.lookAhead.tag == LET)
-	{
-		//expr production
-		[tempNode addChild:[self expr:t]];
+    while(1){
+		if(self.lookAhead.tokType == TokenTypeBinOp ||
+		   self.lookAhead.tokType == TokenTypeUnOp ||
+		   t.tokType == TokenTypeConstant ||
+		   t.tokType == TokenTypeName ||
+		   self.lookAhead.tokType == TokenTypeAssign ||
+		   self.lookAhead.tag == IF ||
+		   self.lookAhead.tag == WHILE ||
+		   self.lookAhead.tag == STDOUT ||
+		   self.lookAhead.tag == LET)
+		{
+			//expr production
+			[tempNode addChild:[self expr:t]];
+		}
+		if(self.lookAhead.tag == ']'){
+			break;
+		} else {
+			t = [self getNextToken];
+		}
 	}
-	//Check for another S production (because we can have S -> SS)
-	if(self.lookAhead.tag == ']'){
-		return tempNode;
-	} else {
-		t = [self getNextToken];
-		[tempNode addChild:[self S:t]];
-	}
-    return nil;
+    return tempNode;
 }
 
 /** expr -> oper | stmts */
@@ -125,7 +124,7 @@
         return tempNode;
     }
 	else if(self.lookAhead.tokType == TokenTypeBinOp || self.lookAhead.tokType == TokenTypeUnOp ||
-			self.lookAhead.tokType == TokenTypeConstant || self.lookAhead.tokType == TokenTypeName
+			t.tokType == TokenTypeConstant || t.tokType == TokenTypeName
             || self.lookAhead.tokType == TokenTypeAssign)
 	{
         [tempNode addChild:[self oper:t]];
