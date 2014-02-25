@@ -14,6 +14,8 @@ bool thisisfalse = true;
 
 /* Binops */
 
+/* Works: [1] */
+[1 2]
 [[let [[y float]]] [:= y 3]]
 [[let [[y int]]] [:= y 3]]
 [[+ 3 5]]

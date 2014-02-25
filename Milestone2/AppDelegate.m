@@ -36,11 +36,12 @@
 	[parser parse];
 	[parser.rootNode printChildren];
 
+	/*
 	printf("\n\n\n\n");
 
 	[parser parse];
 	[parser.rootNode printChildren];
-
+	 */
 	return YES;
 }
 
