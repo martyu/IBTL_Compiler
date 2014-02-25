@@ -24,6 +24,7 @@ static int _column = 1;
 
 @property(strong, nonatomic)NSString *sourceText;
 @property(nonatomic)int index;
+@property(nonatomic)BOOL inCommentBlock;
 
 @end
 
@@ -45,8 +46,11 @@ static int _column = 1;
 
 	char next = [self.sourceText characterAtIndex:self.index++];
 
-//	if (next == END_OF_FILE)
-//		return '\0';
+	if (next == END_OF_FILE && !self.inCommentBlock)
+	{
+		[self nextCharacter];
+		return '\0';
+	}
 
 	return next;
 }
@@ -58,8 +62,11 @@ static int _column = 1;
     
 	char prev = [self.sourceText characterAtIndex:--self.index];
 
-//	if (prev == END_OF_FILE)
-//		return '\0';
+	if (prev == END_OF_FILE && !self.inCommentBlock)
+	{
+		[self prevCharacter];
+		return '\0';
+	}
 
 	return prev;
 }
@@ -187,19 +194,28 @@ static int _line;
         } else if(self.peek == '/'){
             //Skip over comments formatted like /* comment */
             [self readCharacter];
-            if(self.peek != '*'){
+            if(self.peek != '*')
+			{
                 [self pushBack];
-            } else {
+            }
+			else
+			{
+				self.sourceServer.inCommentBlock = YES;
                 [self readCharacter];
-                while(self.peek != '\0'){
-                    if(self.peek == '*'){
+                while(self.peek != '\0')
+				{
+                    if(self.peek == '*')
+					{
                         [self readCharacter];
-                        if(self.peek == '/'){
+                        if(self.peek == '/')
+						{
+							self.sourceServer.inCommentBlock = NO;
                             break;
-                        }
+						}
                     }
                     [self readCharacter];
                 }
+				[self readCharacter];
             }
         } else {
 			break;

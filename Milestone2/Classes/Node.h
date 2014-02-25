@@ -9,7 +9,7 @@
 #import "Token Classes/Token.h"
 
 typedef enum {
-	ProductionTypeStmts,
+	ProductionTypeStmts = 1,
 	ProductionTypeT,
 	ProductionTypeS,
 	ProductionTypeS_,

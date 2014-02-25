@@ -47,7 +47,10 @@
 
 - (void) addChild:(Node*)node
 {
-	[self.children addObject:node];
+	if (node)
+		[self.children addObject:node];
+	else
+		return;
 }
 
 - (NSString*)description
@@ -74,17 +77,24 @@
 			printf("{\n");
 			[node printChildren:depth+1];
 		}
+
+		for(int i = 0; i < depth-1; i++)
+			printf("\t");
+		printf("}\n");
+
 	}
-	else
+	else if (!self.production)
 	{
 		for(int i = 0; i < depth; i++)
 			printf("\t");
 		printf("%s\n", [[self.token description] UTF8String]);
-	}
 
-	for(int i = 0; i < depth-1; i++)
-		printf("\t");
-	printf("}\n");
+		for(int i = 0; i < depth-1; i++)
+			printf("\t");
+		printf("}\n");
+
+
+	}
 }
 
 - (void) printChildren

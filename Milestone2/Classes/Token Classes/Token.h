@@ -9,7 +9,7 @@
 #import "Defines.h"
 
 typedef enum {
-	TokenTypeBinOp,
+	TokenTypeBinOp = 1,
 	TokenTypeUnOp,
 	TokenTypeBool,
 	TokenTypeName,

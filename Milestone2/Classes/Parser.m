@@ -37,8 +37,9 @@
 {
     self.currentToken = self.lookAhead;
     self.lookAhead = [self.lex scan];
-	self.currentTokenLabel.stringValue = [self.currentToken description];
-	self.nextTokenLabel.stringValue = [self.lookAhead description];
+
+	printf("%s\n", [[self.currentToken description] UTF8String]);
+
     return self.currentToken;
 }
 
@@ -123,7 +124,8 @@
 	{
 		// S -> [S]S_
 		[tempNode addChild:[Node nodeWithToken:t]]; // [
-		[tempNode addChild:[self S:[self getNextToken]]]; // S
+		t = [self getNextToken];
+		[tempNode addChild:[self S:t]]; // S
 		t = [self getNextToken];
 		if (t.tag != ']') {
 			[self error:@"syntax error"];
@@ -132,8 +134,10 @@
 
 		[tempNode addChild:[self S_:[self getNextToken]]]; // S_
 	}
+	else
+		return nil;
 
-    return tempNode;
+	return tempNode;
 }
 
 /** S_ -> SS_ | empty */
@@ -142,13 +146,19 @@
     Node *tempNode = [[Node alloc] initWithProduction:ProductionTypeS_];
 
 	Node *SNode = [self S:t];
-	t = [self getNextToken];
-	Node *S_Node = [self S_:t];
-	if (S_Node)
+	if (SNode)
 	{
 		[tempNode addChild:SNode]; // S
-		[tempNode addChild:S_Node]; // S_
+		t = [self getNextToken];
+		Node *S_Node = [self S_:t];
+		if (S_Node)
+		{
+			[tempNode addChild:S_Node]; // S_
+		}
+		return tempNode;
 	}
+	else
+		return nil;
 
 	return tempNode;
 }
