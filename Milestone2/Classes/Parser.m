@@ -20,9 +20,6 @@
 
 @end
 
-
-//@todo: Need to either left factor or use 2 lookaheads
-
 @implementation Parser
 
 - (instancetype)initWithLexicalAnalyzer:(LexicalAnalyzer*)theLex
@@ -39,7 +36,6 @@
 -(Token *)getNextToken
 {
     self.currentToken = self.lookAhead;
-    //@todo: Make sure lookAhead always has the next one
     self.lookAhead = [self.lex scan];
 	printf("%s \n", [[self.currentToken description] UTF8String]);
     return self.currentToken;
