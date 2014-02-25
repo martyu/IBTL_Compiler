@@ -111,15 +111,15 @@
 			break;
 
 		case ProductionTypeLetStmt:
-			return @"letstmts";
+			return @"letstmt";
 			break;
 
 		case ProductionTypeWhileStmt:
-			return @"while";
+			return @"whilestmt";
 			break;
 
 		case ProductionTypeIfStmt:
-			return @"if";
+			return @"ifstmt";
 			break;
 
 		case ProductionTypeStmts:
