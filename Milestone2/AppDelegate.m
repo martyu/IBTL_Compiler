@@ -11,7 +11,6 @@
 #import "Parser.h"
 #import "Node.h"
 
-
 @implementation AppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
@@ -38,7 +37,6 @@
 	[parser.rootNode printChildren];
 
 	printf("\n\n\n\n");
-
 
 	[parser parse];
 	[parser.rootNode printChildren];
