@@ -12,6 +12,7 @@ typedef enum {
 	ProductionTypeStmts,
 	ProductionTypeT,
 	ProductionTypeS,
+	ProductionTypeS_,
 	ProductionTypeExpr,
 	ProductionTypeOper,
 	ProductionTypeIfStmt,

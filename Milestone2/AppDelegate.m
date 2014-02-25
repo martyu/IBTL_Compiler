@@ -11,6 +11,15 @@
 #import "Parser.h"
 #import "Node.h"
 
+@interface AppDelegate ()
+
+@property (weak) IBOutlet NSTextField *currentTokenLabel;
+@property (weak) IBOutlet NSTextField *nextTokenLabel;
+@property (weak) IBOutlet NSTextField *tempNodeLabel;
+@property (weak) IBOutlet NSTextField *rootNodeLabel;
+
+@end
+
 @implementation AppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
@@ -41,16 +50,17 @@
 	LexicalAnalyzer *lex = [[LexicalAnalyzer alloc] initWithSource:source];
 
     Parser *parser = [[Parser alloc] initWithLexicalAnalyzer:lex];
-	[parser parse];
-	[parser.rootNode printChildren];
+	parser.currentTokenLabel = self.currentTokenLabel;
+	parser.nextTokenLabel = self.nextTokenLabel;
+	parser.tempNodeLabel = self.tempNodeLabel;
+	parser.rootNodeLabel = self.rootNodeLabel;
 
-	/*
-	printf("\n\n\n\n");
-
-	[parser parse];
-	[parser.rootNode printChildren];
-	 */
-	return YES;
+	while (parser.currentToken)
+	{
+		[parser parse];
+		[parser.rootNode printChildren];
+		printf("\n\n\n\n");
+	}
 }
 
 @end

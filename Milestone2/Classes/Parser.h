@@ -15,6 +15,12 @@
 @property (strong, nonatomic) Token *currentToken;
 @property (strong, nonatomic) Node *rootNode;
 
+@property (weak) IBOutlet NSTextField *currentTokenLabel;
+@property (weak) IBOutlet NSTextField *nextTokenLabel;
+@property (weak) IBOutlet NSTextField *tempNodeLabel;
+@property (weak) IBOutlet NSTextField *rootNodeLabel;
+
+
 - (instancetype)initWithLexicalAnalyzer:(LexicalAnalyzer*)theLex;
 - (Node*) T:(Token*)t;
 

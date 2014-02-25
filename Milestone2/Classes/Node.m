@@ -53,7 +53,8 @@
 - (NSString*)description
 {
 	if (!self.children.count)
-		return @"empty Node";
+		if (self.production)
+			return [self productionDescription];
 	
 	[self printChildren:0];
 	return @" ";
@@ -146,6 +147,10 @@
 
 		case ProductionTypeT:
 			return @"T";
+			break;
+
+		case ProductionTypeS_:
+			return @"S_";
 			break;
 
 		default:

@@ -37,7 +37,8 @@
 {
     self.currentToken = self.lookAhead;
     self.lookAhead = [self.lex scan];
-	printf("%s \n", [[self.currentToken description] UTF8String]);
+	self.currentTokenLabel.stringValue = [self.currentToken description];
+	self.nextTokenLabel.stringValue = [self.lookAhead description];
     return self.currentToken;
 }
 
@@ -61,10 +62,12 @@
 	Node *tempNode = [[Node alloc] initWithProduction:ProductionTypeT];
 	self.rootNode = tempNode;
 
-    if (t.tag == '['){
+    if (t.tag == '[')
+	{
+		// [
         [tempNode addChild:[[Node alloc] initWithToken:t]];
 		
-        //S
+        // S
         t = [self getNextToken];
         [tempNode addChild:[self S:t]];
         
@@ -79,51 +82,75 @@
 		[self getNextToken];
 
         return tempNode;
-    } else {
+    }
+	else
+	{
         [self error:@"syntax error"];
     }
 
     return nil;
 }
 
-/** S -> [ ] | [S] | SS | expr */
+/** S -> expr S_ | []S_ | [S]S_ */
 - (Node*) S:(Token*)t
 {
     Node *tempNode = [[Node alloc] initWithProduction:ProductionTypeS];
-    while(1){
-		if(self.lookAhead.tokType == TokenTypeBinOp ||
-		   self.lookAhead.tokType == TokenTypeUnOp ||
-		   t.tokType == TokenTypeConstant ||
-		   t.tokType == TokenTypeName ||
-		   self.lookAhead.tokType == TokenTypeAssign ||
-		   self.lookAhead.tag == IF ||
-		   self.lookAhead.tag == WHILE ||
-		   self.lookAhead.tag == STDOUT ||
-		   self.lookAhead.tag == LET)
-		{
-			//expr production
-			[tempNode addChild:[self expr:t]];
-		}
-		if(self.lookAhead.tag == ']'){
-			break;
-		}
-		else if(self.lookAhead.tag == '[')
-		{
-			//another S production
-			t = [self getNextToken];
-			[tempNode addChild:[self S:t]];
-			t = [self getNextToken];
-			if(self.lookAhead.tag != ']'){
-				[self error:@"syntax error"];
-			}
-			[tempNode addChild:[self S:t]];
-		}
-		else
-		{
-			t = [self getNextToken];
-		}
+
+	if(self.lookAhead.tokType == TokenTypeBinOp ||
+	   self.lookAhead.tokType == TokenTypeUnOp ||
+	   t.tokType == TokenTypeConstant ||
+	   t.tokType == TokenTypeName ||
+	   self.lookAhead.tokType == TokenTypeAssign ||
+	   self.lookAhead.tag == IF ||
+	   self.lookAhead.tag == WHILE ||
+	   self.lookAhead.tag == STDOUT ||
+	   self.lookAhead.tag == LET)
+	{
+		// S -> expr S_
+		[tempNode addChild:[self expr:t]];
+		t = [self getNextToken];
+		Node *aNode = [self S_:t];
+		[tempNode addChild:aNode];
 	}
+	else if(t.tag == '[' && self.lookAhead.tag == ']')
+	{
+		// S -> []S_
+		[tempNode addChild:[Node nodeWithToken:t]]; // [
+		[tempNode addChild:[Node nodeWithToken:[self getNextToken]]]; // ]
+		[tempNode addChild:[self S_:[self getNextToken]]]; // S_
+	}
+	else if (t.tag == '[')
+	{
+		// S -> [S]S_
+		[tempNode addChild:[Node nodeWithToken:t]]; // [
+		[tempNode addChild:[self S:[self getNextToken]]]; // S
+		t = [self getNextToken];
+		if (t.tag != ']') {
+			[self error:@"syntax error"];
+		}
+		[tempNode addChild:[Node nodeWithToken:t]]; // ]
+
+		[tempNode addChild:[self S_:[self getNextToken]]]; // S_
+	}
+
     return tempNode;
+}
+
+/** S_ -> SS_ | empty */
+- (Node*) S_:(Token*)t
+{
+    Node *tempNode = [[Node alloc] initWithProduction:ProductionTypeS_];
+
+	Node *SNode = [self S:t];
+	t = [self getNextToken];
+	Node *S_Node = [self S_:t];
+	if (S_Node)
+	{
+		[tempNode addChild:SNode]; // S
+		[tempNode addChild:S_Node]; // S_
+	}
+
+	return tempNode;
 }
 
 /** expr -> oper | stmts */
