@@ -14,6 +14,7 @@
 @property (strong, nonatomic) Token *lookAhead;
 @property (strong, nonatomic) Token *currentToken;
 @property (strong, nonatomic) Node *rootNode;
+@property (strong, nonatomic) NSMutableArray *tokenArray;
 
 @property (weak) IBOutlet NSTextField *currentTokenLabel;
 @property (weak) IBOutlet NSTextField *nextTokenLabel;

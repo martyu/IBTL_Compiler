@@ -17,7 +17,6 @@
 
 @property (strong, nonatomic) LexicalAnalyzer *lex;
 @property (strong, nonatomic) Environment *top;
-@property (strong, nonatomic) NSMutableArray *tokenArray;
 
 @end
 
@@ -42,7 +41,8 @@
 	if(self.currentToken){
 		[self.tokenArray addObject:self.currentToken];
 	}
-	printf("%s\n", [[self.currentToken description] UTF8String]);
+	// @debug:
+	// printf("%s\n", [[self.currentToken description] UTF8String]);
     return self.currentToken;
 }
 
@@ -63,9 +63,12 @@
 /** T -> [S] //This is where we start. */
 - (Node*) T:(Token*)t
 {
+	//Clear the token array
+	[self.tokenArray removeAllObjects];
+	
 	Node *tempNode = [[Node alloc] initWithProduction:ProductionTypeT];
 	self.rootNode = tempNode;
-
+	
     if (t.tag == '[')
 	{
 		// [
@@ -81,9 +84,6 @@
             [self error:@"syntax error"];
         }
         [tempNode addChild:[[Node alloc] initWithToken:t]];
-
-		// get next token so we're ready to parse the next statement.
-		[self getNextToken];
 
         return tempNode;
     }

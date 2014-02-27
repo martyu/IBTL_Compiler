@@ -59,7 +59,13 @@
 	while (parser.currentToken)
 	{
 		[parser parse];
+		
+		//@debug:
 		[parser.rootNode printChildren];
+		NSLog(@"tokenArray: %@", parser.tokenArray);
+		
+		// get next token so we're ready to parse the next statement.
+		[parser getNextToken];
 		printf("\n\n\n\n");
 	}
 }

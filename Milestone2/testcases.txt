@@ -1,19 +1,74 @@
-/* Test cases for our parser */
-
-
-/* Assignment operators */
-/*
-int x = 5; 
-float y = 2.0;
-string hello = ("hi")
-string tricky_string = ("there are lots of ++---... spaces and n4mb3r$ in here.");
-bool thisisfalse = true;
-*/
+/* Test cases for our parser
+ * @todo: write test cases for lexical analyzer AND parser
+ * @todo: write test cases for assignment operators
+ */
 
 /* Statements and expressions */
 
 /* Binops */
 
-/* [1 2] */
-/* [y 2] */
+[1 2]
+[y 2]
 [y [2]]
+[[let [[y float]]] [:= y 3.0]];
+[[let [[y int]]] [:= y 3]];
+[[+ 3 5]];
+[[+ 4.0 3.0]];
+[[- 3 5]];
+[[- 4.0 3.0]];
+[[* 3 5]];
+[[* 4.0 3.0]];
+[[/ 3 5]];
+[[/ 4.0 3.0]];
+[[^ 3 5]];
+[[^ 4.0 3.0]];
+[[!= 3 5]];
+[[!= 4.0 3.0]];
+[[>= 3 5]];
+[[>= 4.0 3.0]];
+[[<= 3 5]];
+[[<= 4.0 3.0]];
+[[< 3 5]];
+[[< 4.0 3.0]];
+[[> 3 5]];
+[[> 4.0 3.0]];
+[[= 3 5]];
+[[= 4.0 3.0]];
+[[% 3 5]];
+[[% 4.0 3.0]];
+[[^ 3 5]];
+[[^ 4.0 3.0]];
+[[or 1 1]];
+[[or false false]];
+[[or 1.0 1.0]];
+[[or true false]];
+[[or true true]];
+[[and true true]];
+[[and true false]];
+[[and false false]];
+[[and 1 1]];
+[[and 1.0 1.0]];
+[[+ ("Hello ") ("World”)]];
+
+/* Unops */
+
+[[- 5]];
+[[- 5.0]];
+[[not 0]];
+[[not false]];
+[[not true]];
+[[tan 45]];
+[[tan 45.0]];
+[[cos 45]];
+[[cos 45.0]];
+[[sin 45]];
+[[sin 45.0]];
+
+
+/* Statements */
+/* If 1==1, y = 3
+[[if [= 1 1] [let [y int] [:= y 3]]];
+[[while [= 5 x] [:= x [- x 1]]]];
+
+/* This should work syntactically. Binop and 2 floats with no spaces */
+/* [+10.1.1] */
