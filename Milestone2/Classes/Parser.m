@@ -110,9 +110,11 @@
 	{
 		// S -> expr S_
 		[tempNode addChild:[self expr:t]];
-		t = [self getNextToken];
-		Node *aNode = [self S_:t];
-		[tempNode addChild:aNode];
+		if(self.lookAhead.tag != ']'){
+			t = [self getNextToken];
+			Node *aNode = [self S_:t];
+			[tempNode addChild:aNode];
+		}
 	}
 	else if(t.tag == '[' && self.lookAhead.tag == ']')
 	{
@@ -145,11 +147,15 @@
 - (Node*) S_:(Token*)t
 {
     Node *tempNode = [[Node alloc] initWithProduction:ProductionTypeS_];
-
+	
 	Node *SNode = [self S:t];
 	if (SNode)
 	{
 		[tempNode addChild:SNode]; // S
+		//Handle empty case
+		if(self.lookAhead.tag == ']'){
+			return tempNode;
+		}
 		t = [self getNextToken];
 		Node *S_Node = [self S_:t];
 		if (S_Node)
