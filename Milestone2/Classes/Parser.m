@@ -39,7 +39,9 @@
 {
     self.currentToken = self.lookAhead;
     self.lookAhead = [self.lex scan];
-	[self.tokenArray addObject:self.currentToken];
+	if(self.currentToken){
+		[self.tokenArray addObject:self.currentToken];
+	}
 	printf("%s\n", [[self.currentToken description] UTF8String]);
     return self.currentToken;
 }
@@ -109,11 +111,11 @@
 	   self.lookAhead.tag == LET)
 	{
 		// S -> expr S_
-		[tempNode addChild:[self expr:t]];
+		[tempNode addChild:[self expr:t]]; // expr
 		if(self.lookAhead.tag != ']'){
 			t = [self getNextToken];
 			Node *aNode = [self S_:t];
-			[tempNode addChild:aNode];
+			[tempNode addChild:aNode]; // S_
 		}
 	}
 	else if(t.tag == '[' && self.lookAhead.tag == ']')
@@ -121,7 +123,11 @@
 		// S -> []S_
 		[tempNode addChild:[Node nodeWithToken:t]]; // [
 		[tempNode addChild:[Node nodeWithToken:[self getNextToken]]]; // ]
-		[tempNode addChild:[self S_:[self getNextToken]]]; // S_
+		if(self.lookAhead.tag != ']'){
+			t = [self getNextToken];
+			Node *aNode = [self S_:t];
+			[tempNode addChild:aNode]; // S_
+		}
 	}
 	else if (t.tag == '[')
 	{
@@ -134,8 +140,11 @@
 			[self error:@"syntax error"];
 		}
 		[tempNode addChild:[Node nodeWithToken:t]]; // ]
-
-		[tempNode addChild:[self S_:[self getNextToken]]]; // S_
+		if(self.lookAhead.tag != ']'){
+			t = [self getNextToken];
+			Node *aNode = [self S_:t];
+			[tempNode addChild:aNode]; // S_
+		}
 	}
 	else
 		return nil;
