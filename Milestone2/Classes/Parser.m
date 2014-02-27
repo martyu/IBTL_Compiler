@@ -222,7 +222,29 @@
         
 		t = [self getNextToken];
         
-        if (t.tokType == TokenTypeBinOp)
+		//special case for '-' sign, because it can be binop OR unop
+		if(t.tag == '-'){
+			// Production: [binops oper oper] OR [unops oper]
+            [tempNode addChild:[[Node alloc] initWithToken:t]];
+            
+            // oper
+            t = [self getNextToken];
+            [tempNode addChild:[self oper:t]];
+            
+			if(self.lookAhead.tag != ']'){
+				// oper ([binops oper oper] production
+				t = [self getNextToken];
+				[tempNode addChild:[self oper:t]];
+			}
+			t = [self getNextToken];
+			if (t.tag != ']'){
+				[self error:@"syntax error"];
+			}
+			[tempNode addChild:[[Node alloc] initWithToken:t]];
+			return tempNode;
+		}
+		
+		if (t.tokType == TokenTypeBinOp)
         {
             // Production: [binops oper oper]
             [tempNode addChild:[[Node alloc] initWithToken:t]];
@@ -488,7 +510,16 @@
 - (Node*) exprlist:(Token*)t
 {
     Node *tempNode = [[Node alloc] initWithProduction:ProductionTypeExprList];
-    return tempNode;
+    //expr
+	[tempNode addChild:[self expr:t]];
+	
+	//optional exprlist
+	if(self.lookAhead.tag != ']'){
+		t = [self getNextToken];
+		[tempNode addChild:[self exprlist:t]];
+	}
+	
+	return tempNode;
 }
 
 @end

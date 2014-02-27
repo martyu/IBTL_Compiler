@@ -6,8 +6,6 @@
 /* Statements and expressions */
 
 /* Binops */
-
-/* These all parse
 [1 2]
 [y 2]
 [y [2]]
@@ -44,7 +42,26 @@
 [[and 1 1]]
 [[and 1.0 1.0]]
 [[+ ("Hello ") ("World")]]
-*/
+
+/* Unops */
+
+[[tan 45]]
+[[tan 45.0]]
+[[cos 45]]
+[[cos 45.0]]
+[[sin 45]]
+[[sin 45.0]]
+[[- 5]]
+[[- 5.0]]
+[[not 0]]
+
+/* Statements */
+
+[[if [= 1 1] [let [[y int]]] [:= y 3]]]
+[[if [= 1 1] [let [[y int]]] [:= y 3]] [:= x 2]]
+[[while [= 5 x] [:= x [- x 1]]]]
+
+/*Everything to here parses */
 
 /* @todo: does our language support these?
 [[or false false]]
@@ -53,26 +70,9 @@
 [[and true true]]
 [[and true false]]
 [[and false false]]
-*/
-
-/* Unops */
-
-[[- 5]]
-[[- 5.0]]
-[[not 0]]
 [[not false]]
 [[not true]]
-[[tan 45]]
-[[tan 45.0]]
-[[cos 45]]
-[[cos 45.0]]
-[[sin 45]]
-[[sin 45.0]]
-
-/* Statements */
-/* If 1==1, y = 3
-[[if [= 1 1] [let [y int] [:= y 3]]]
-[[while [= 5 x] [:= x [- x 1]]]]
+*/
 
 /* This should work syntactically. Binop and 2 floats with no spaces */
 /* [+10.1.1] */
