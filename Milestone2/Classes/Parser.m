@@ -42,7 +42,7 @@
 		[self.tokenArray addObject:self.currentToken];
 	}
 	// @debug:
-	// printf("%s\n", [[self.currentToken description] UTF8String]);
+	printf("%s\n", [[self.currentToken description] UTF8String]);
     return self.currentToken;
 }
 
@@ -402,6 +402,7 @@
         }
         [tempNode addChild:[[Node alloc] initWithToken:t]];
 
+		t = [self getNextToken];
         if (t.tag != ']'){
             [self error:@"syntax error"];
         }
@@ -417,7 +418,7 @@
 - (Node*) varlist:(Token*)t
 {
     Node *tempNode = [[Node alloc] initWithProduction:ProductionTypeVarlistStmt];
-    if (t.tag == '['){
+    if (t.tag == '['){ // [
         [tempNode addChild:[[Node alloc] initWithToken:t]];
         
         //name
