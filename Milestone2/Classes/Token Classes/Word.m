@@ -138,6 +138,13 @@
 
 - (NSString*)codeOutput
 {
+	if (self.tokType == TokenTypeName && self.tag == ID && [self.lexeme characterAtIndex:0] == '"')
+	{
+		NSMutableString *string = [NSMutableString stringWithFormat:@"s%@", self.lexeme];
+		[string insertString:@" " atIndex:2];
+		return string;
+	}
+
 	return self.lexeme;
 }
 
