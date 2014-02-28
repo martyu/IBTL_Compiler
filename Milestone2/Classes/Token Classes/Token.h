@@ -18,7 +18,7 @@ typedef enum {
 	TokenTypeLet,
 	TokenTypeStdOut,
 	TokenTypeAssign,
-	TokenTypeType, // weird, huh?
+	TokenTypeType,
 	TokenTypeNone
 } TokenType;
 
@@ -36,6 +36,9 @@ typedef NSString Lexeme;
 
 @property (nonatomic, readonly) int tag;
 @property (nonatomic) TokenType tokType;
+/** The string to use for this token in the gforth output. */
+@property (nonatomic, readonly) NSString *codeOutput;
+
 
 - (instancetype) initWithTag:(int)theTag type:(TokenType)theType;
 + (instancetype) tokenWithTag:(int)theTag type:(TokenType)theType;

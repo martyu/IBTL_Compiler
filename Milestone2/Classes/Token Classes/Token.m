@@ -31,6 +31,14 @@
 	return [NSString stringWithFormat:@"<%@, tag:%@, type:%i>", [super description], [Defines descriptionForConstant:self.tag], self.tokType];
 }
 
+- (NSString*)codeOutput
+{
+	if (self.tag != ']' && self.tag != '[')
+		return [Defines descriptionForConstant:self.tag];
+
+	return nil;
+}
+
 struct TokenLocation tokenLocationMake(int theLine, int theRow)
 {
 	struct TokenLocation loc;

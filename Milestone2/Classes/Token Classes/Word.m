@@ -136,6 +136,11 @@
 	return str;
 }
 
+- (NSString*)codeOutput
+{
+	return self.lexeme;
+}
+
 
 @end
 

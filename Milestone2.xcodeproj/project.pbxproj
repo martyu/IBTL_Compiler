@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7619294E18C0131E0001848E /* CodeGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7619294D18C0131E0001848E /* CodeGenerator.m */; };
 		7626F42018BC0BA600712998 /* testcases.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7626F41F18BC0BA600712998 /* testcases.txt */; };
 		76575EF1189484D500E1BFDD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76575EF0189484D500E1BFDD /* Cocoa.framework */; };
 		76575EFD189484D500E1BFDD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 76575EFC189484D500E1BFDD /* main.m */; };
@@ -30,6 +31,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7619294C18C0131E0001848E /* CodeGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CodeGenerator.h; sourceTree = "<group>"; };
+		7619294D18C0131E0001848E /* CodeGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CodeGenerator.m; sourceTree = "<group>"; };
 		7626F41F18BC0BA600712998 /* testcases.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = testcases.txt; sourceTree = "<group>"; };
 		76575EED189484D500E1BFDD /* Milestone2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Milestone2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76575EF0189484D500E1BFDD /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -167,6 +170,8 @@
 				76990CC218ADBBA800775DE3 /* Id.m */,
 				76990CC418ADBBC400775DE3 /* Expr.h */,
 				76990CC518ADBBC400775DE3 /* Expr.m */,
+				7619294C18C0131E0001848E /* CodeGenerator.h */,
+				7619294D18C0131E0001848E /* CodeGenerator.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -267,6 +272,7 @@
 				7677FF5618AC582A009B1912 /* Defines.m in Sources */,
 				76E3FCDD18AC9793005ED87F /* Environment.m in Sources */,
 				76990CC618ADBBC400775DE3 /* Expr.m in Sources */,
+				7619294E18C0131E0001848E /* CodeGenerator.m in Sources */,
 				76575EFD189484D500E1BFDD /* main.m in Sources */,
 				766B4187189889DB00B17587 /* Word.m in Sources */,
 				76990CBD18ADB34900775DE3 /* Node.m in Sources */,
