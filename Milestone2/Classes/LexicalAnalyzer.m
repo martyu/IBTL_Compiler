@@ -287,26 +287,25 @@ static int _line;
 				return [Token tokenWithTag:':' type:TokenTypeNone];
 			}
 			break;
-        case '(':
-			if ([self readCharacter:'"']){
-                NSMutableString *buffer = [NSMutableString string];
-                do
-                {
-                    [buffer appendFormat:@"%c", self.peek];
-                    [self readCharacter];
-                } while (self.peek != '"' && self.peek != '\0'); // '\0' condition to prevent potential infinite loop
-                    Token *word = self.words[buffer];
-                    if ([self readCharacter:')']){
-                        word = [[Word alloc] initWithLexeme:buffer tag:ID type:TokenTypeConstant];
-                    } else {
-                        [self reportError];
-                        word = [[Word alloc] initWithLexeme:buffer tag:ID type:TokenTypeName];
-                    }
-                    return word;
-                }
-			else
+        case '"':
 			{
-				return [Token tokenWithTag:'(' type:TokenTypeNone];
+                NSMutableString *buffer = [NSMutableString stringWithFormat:@"%c", self.peek];
+				[self readCharacter];
+
+				while (self.peek != '"' && self.peek != '\0') // '\0' condition to prevent potential infinite loop
+				{
+					[buffer appendFormat:@"%c", self.peek];
+					[self readCharacter];
+				}
+
+				[buffer appendFormat:@"%c", self.peek];
+				[self readCharacter];
+				Token *word = self.words[buffer];
+				if (!word) {
+					word = [[Word alloc] initWithLexeme:buffer tag:ID type:TokenTypeName];
+				}
+
+				return word;
 			}
 			break;
 

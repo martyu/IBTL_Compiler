@@ -14,15 +14,15 @@
 {
 	switch (val) {
 		case NEQ:
-			return @"NEQ";
+			return @"!=";
 			break;
 
 		case LE:
-			return @"LE";
+			return @"<=";
 			break;
 
 		case GE:
-			return @"GE";
+			return @">=";
 			break;
 
 		case ID:
@@ -30,83 +30,83 @@
 			break;
 
 		case TRUE_:
-			return @"TRUE";
+			return @"true";
 			break;
 
 		case FALSE_:
-			return @"FALSE";
+			return @"false";
 			break;
 
 		case AND:
-			return @"AND";
+			return @"and";
 			break;
 
 		case OR:
-			return @"OR";
+			return @"or";
 			break;
 
 		case NOT:
-			return @"NOT";
+			return @"not";
 			break;
 
 		case SIN:
-			return @"SIN";
+			return @"sin";
 			break;
 
 		case COS:
-			return @"COS";
+			return @"cos";
 			break;
 
 		case TAN:
-			return @"TAN";
+			return @"tan";
 			break;
 
 		case STDOUT:
-			return @"STDOUT";
+			return @"stdout";
 			break;
 
 		case IF:
-			return @"IF";
+			return @"if";
 			break;
 
 		case WHILE:
-			return @"WHILE";
+			return @"while";
 			break;
 
 		case LET:
-			return @"LET";
+			return @"let";
 			break;
 
 		case INT:
-			return @"INT";
+			return @"int";
 			break;
 
 		case STRING:
-			return @"STRING";
+			return @"string";
 			break;
 
 		case FLOAT:
-			return @"FLOAT";
+			return @"float";
 			break;
 
 		case BOOL_:
-			return @"BOOL";
+			return @"bool";
 			break;
 
 		case NEG:
-			return @"NEG";
+			return @"-";
 			break;
 
 		case ASSIGN:
-			return @"ASSIGN";
+			return @":=";
 			break;
 
 		case INTEGER:
-			return @"INTEGER";
+			return @"integer";
 			break;
 
 		case TYPE:
-			return @"TYPE";
+			return @"type";
 			break;
 
 		default:
@@ -115,7 +115,7 @@
 
 	if (isascii(val))
 	{
-		NSString *str = [NSString stringWithFormat:@"'%c'", (char)val];
+		NSString *str = [NSString stringWithFormat:@"%c", (char)val];
 		return str;
 	}
 

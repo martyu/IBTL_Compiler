@@ -33,10 +33,13 @@
 
 - (NSString*)codeOutput
 {
-	if (self.tag != ']' && self.tag != '[')
-		return [Defines descriptionForConstant:self.tag];
+	if (self.tag == ']' || self.tag == '[')
+		return nil;
 
-	return nil;
+	if (self.tag == ASSIGN)
+		return @":=";
+
+	return [Defines descriptionForConstant:self.tag];
 }
 
 struct TokenLocation tokenLocationMake(int theLine, int theRow)
