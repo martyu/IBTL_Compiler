@@ -197,6 +197,8 @@ static int _line;
             if(self.peek != '*')
 			{
                 [self pushBack];
+				[self pushBack];
+				break;
             }
 			else
 			{
@@ -355,7 +357,7 @@ static int _line;
 			[self readCharacter];
 		} while (isdigit(self.peek));
 		if(sign == '-'){
-			power = pow(.1, power); //@todo: This is usually getting reduced to zero
+			power = pow(.1, power);
 		} else {
 			power = pow(10, power);
 		}

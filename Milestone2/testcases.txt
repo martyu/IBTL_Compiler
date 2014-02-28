@@ -5,6 +5,7 @@
 
 /* Statements and expressions */
 
+[[/ 10 5]]
 [2.45e-1 3.56]
 
 
