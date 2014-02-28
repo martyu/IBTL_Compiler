@@ -44,7 +44,7 @@
 [[+ "Hello" "World"]]
 
 /* Unops */
-
+/*
 [[tan 45]]
 [[tan 45.0]]
 [[cos 45]]
@@ -54,13 +54,13 @@
 [[- 5]]
 [[- 5.0]]
 [[not 0]]
-
+*/
 /* Statements */
-
+/*
 [[if [= 1 1] [let [[y int]]] [:= y 3]]]
 [[if [= 1 1] [let [[y int]]] [:= y 3]] [:= x 2]]
 [[while [= 5 x] [:= x [- x 1]]]]
-
+*/
 /*Everything to here parses */
 
 

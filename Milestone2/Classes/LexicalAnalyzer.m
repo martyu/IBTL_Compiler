@@ -197,6 +197,8 @@ static int _line;
             if(self.peek != '*')
 			{
                 [self pushBack];
+				[self pushBack];
+				break;
             }
 			else
 			{
@@ -334,7 +336,32 @@ static int _line;
 			x = x + atoi(&_peek) / d;
 			d *= 10.0;
 		}
-		return [Float floatWithValue:v];
+		if (self.peek != 'e')
+			return [Float floatWithValue:x];
+		// Else number looks like 9.45e10 or 9.45e+10
+		[self readCharacter];
+		char sign;
+		if(self.peek == '-' || self.peek == '+'){
+			sign = self.peek; // Store whether power is positive or negative
+		} else if(!isdigit(self.peek)){
+			[self reportError]; // e must be followed by a digit
+		}else {
+			sign = '+'; //default to positive
+		}
+		
+		int power = 0;
+		do
+		{
+			power = 10 * power + atoi(&_peek);
+			[self readCharacter];
+		} while (isdigit(self.peek));
+		if(sign == '-'){
+			power = pow(.1, power);
+		} else {
+			power = pow(10, power);
+		}
+		x = x * power;
+		return [Float floatWithValue:x];
 	}
 
 

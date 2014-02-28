@@ -92,8 +92,6 @@
 		for(int i = 0; i < depth-1; i++)
 			printf("\t");
 		printf("}\n");
-
-
 	}
 }
 
@@ -102,6 +100,15 @@
 	[self printChildren:0];
 }
 
+- (void) postOrderTraversal:(int)depth
+{
+	
+}
+
+-(void) postOrderTraversal
+{
+	
+}
 
 - (NSMutableArray*)children
 {
@@ -110,7 +117,6 @@
 
 	return _children;
 }
-
 
 - (NSString*) productionDescription
 {
