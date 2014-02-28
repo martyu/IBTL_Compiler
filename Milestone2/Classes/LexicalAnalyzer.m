@@ -24,7 +24,6 @@ static int _column = 1;
 
 @property(strong, nonatomic)NSString *sourceText;
 @property(nonatomic)int index;
-@property(nonatomic)BOOL inCommentBlock;
 
 @end
 
@@ -46,12 +45,6 @@ static int _column = 1;
 
 	char next = [self.sourceText characterAtIndex:self.index++];
 
-	if (!self.inCommentBlock)
-	{
-		[self nextCharacter];
-		return '\0';
-	}
-
 	return next;
 }
 
@@ -61,12 +54,6 @@ static int _column = 1;
 		return '\0';
 
 	char prev = [self.sourceText characterAtIndex:--self.index-1];
-
-	if (!self.inCommentBlock)
-	{
-		[self prevCharacter];
-		return '\0';
-	}
 
 	return prev;
 }
@@ -201,7 +188,6 @@ static int _line;
             }
 			else
 			{
-				self.sourceServer.inCommentBlock = YES;
                 [self readCharacter];
                 while(self.peek != '\0')
 				{
@@ -210,7 +196,6 @@ static int _line;
                         [self readCharacter];
                         if(self.peek == '/')
 						{
-							self.sourceServer.inCommentBlock = NO;
                             break;
 						}
                     }
