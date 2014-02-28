@@ -28,97 +28,97 @@
 	switch (type) {
 
 		case WordSetupTypeFalse:
-			lex = @"false";
+			lex = [Defines descriptionForConstant:FALSE_];
 			theTag = FALSE_;
 			tokType = TokenTypeBool;
 			break;
 
 		case WordSetupTypeTrue:
-			lex = @"true";
+			lex = [Defines descriptionForConstant:TRUE_];
 			theTag = TRUE_;
 			tokType = TokenTypeBool;
 			break;
 
         case WordSetupTypeAnd:
-            lex = @"and";
+			lex = [Defines descriptionForConstant:AND];
 			theTag = AND;
 			tokType = TokenTypeBinOp;
 			break;
             
         case WordSetupTypeOr:
-            lex = @"or";
+			lex = [Defines descriptionForConstant:OR];
 			theTag = OR;
 			tokType = TokenTypeBinOp;
 			break;
 
 		case WordSetupTypeNot:
-			lex = @"not";
+			lex = [Defines descriptionForConstant:NOT];
 			theTag = NOT;
 			tokType = TokenTypeUnOp;
 			break;
 
 		case WordSetupTypeCos:
-			lex = @"cos";
+			lex = [Defines descriptionForConstant:COS];
 			theTag = COS;
 			tokType = TokenTypeUnOp;
 			break;
 
 		case WordSetupTypeSin:
-			lex = @"sin";
+			lex = [Defines descriptionForConstant:SIN];
 			theTag = SIN;
 			tokType = TokenTypeUnOp;
 			break;
 
 		case WordSetupTypeTan:
-			lex = @"tan";
+			lex = [Defines descriptionForConstant:TAN];
 			theTag = TAN;
 			tokType = TokenTypeUnOp;
 			break;
 
 		case WordSetupTypeBool:
-			lex = @"bool";
+			lex = [Defines descriptionForConstant:BOOL_];
 			theTag = TYPE;
 			tokType = TokenTypeType;
 			break;
 
 		case WordSetupTypeFloat:
-			lex = @"float";
+			lex = [Defines descriptionForConstant:FLOAT];
 			theTag = TYPE;
 			tokType = TokenTypeType;
 			break;
 
 		case WordSetupTypeString:
-			lex = @"string";
+			lex = [Defines descriptionForConstant:STRING];
 			theTag = TYPE;
 			tokType = TokenTypeType;
 			break;
 
 		case WordSetupTypeInt:
-			lex = @"int";
+			lex = [Defines descriptionForConstant:INT];
 			theTag = TYPE;
 			tokType = TokenTypeType;
 			break;
 
 		case WordSetupTypeIf:
-			lex = @"if";
+			lex = [Defines descriptionForConstant:IF];
 			theTag = IF;
 			tokType = TokenTypeConditional;
 			break;
 
 		case WordSetupTypeWhile:
-			lex = @"while";
+			lex = [Defines descriptionForConstant:WHILE];
 			theTag = WHILE;
 			tokType = TokenTypeConditional;
 			break;
 
 		case WordSetupTypeLet:
-			lex = @"let";
+			lex = [Defines descriptionForConstant:LET];
 			theTag = LET;
 			tokType = TokenTypeLet;
 			break;
 
 		case WordSetupTypeStdOut:
-			lex = @"stdout";
+			lex = [Defines descriptionForConstant:STDOUT];
 			theTag = STDOUT;
 			tokType = TokenTypeStdOut;
 			break;

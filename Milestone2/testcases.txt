@@ -20,7 +20,6 @@
 */
 
 /* Binops */
-/*
 [1 2]
 [y 2]
 [y [2]]
@@ -56,8 +55,7 @@
 [[or 1.0 1.0]]
 [[and 1 1]]
 [[and 1.0 1.0]]
-[[+ ("Hello ") ("World")]]
-*/
+[[+ "Hello" "World"]]
 
 /* Unops */
 /*
@@ -79,7 +77,7 @@
 */
 /*Everything to here parses */
 
-/* @todo: does our language support these?
+
 [[or false false]]
 [[or true false]]
 [[or true true]]
@@ -88,7 +86,7 @@
 [[and false false]]
 [[not false]]
 [[not true]]
-*/
+
 
 /* This should work syntactically. Binop and 2 floats with no spaces */
 /* [+10.1.1] */
