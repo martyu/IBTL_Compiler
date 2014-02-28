@@ -1,3 +1,5 @@
+[[+ [* 3 5] 7]]
+
 [[/ 3 5]]
 [[/ 4.0 3.0]]
 /* @todo: does our language support these? */
