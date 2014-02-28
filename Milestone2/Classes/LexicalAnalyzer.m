@@ -46,7 +46,7 @@ static int _column = 1;
 
 	char next = [self.sourceText characterAtIndex:self.index++];
 
-	if (next == END_OF_FILE && !self.inCommentBlock)
+	if (!self.inCommentBlock)
 	{
 		[self nextCharacter];
 		return '\0';
@@ -59,10 +59,10 @@ static int _column = 1;
 {
 	if (self.index >= self.sourceText.length)
 		return '\0';
-    
-	char prev = [self.sourceText characterAtIndex:--self.index];
 
-	if (prev == END_OF_FILE && !self.inCommentBlock)
+	char prev = [self.sourceText characterAtIndex:--self.index-1];
+
+	if (!self.inCommentBlock)
 	{
 		[self prevCharacter];
 		return '\0';
@@ -197,7 +197,6 @@ static int _line;
             if(self.peek != '*')
 			{
                 [self pushBack];
-				[self pushBack];
 				break;
             }
 			else
