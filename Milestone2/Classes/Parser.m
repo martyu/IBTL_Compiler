@@ -104,6 +104,7 @@
 	   self.lookAhead.tokType == TokenTypeUnOp ||
 	   t.tokType == TokenTypeConstant ||
 	   t.tokType == TokenTypeName ||
+	   t.tokType == TokenTypeBool ||
 	   self.lookAhead.tokType == TokenTypeAssign ||
 	   self.lookAhead.tag == IF ||
 	   self.lookAhead.tag == WHILE ||
@@ -190,7 +191,7 @@
         return tempNode;
     }
 	else if(self.lookAhead.tokType == TokenTypeBinOp || self.lookAhead.tokType == TokenTypeUnOp ||
-			t.tokType == TokenTypeConstant || t.tokType == TokenTypeName
+			t.tokType == TokenTypeConstant || t.tokType == TokenTypeName || t.tokType == TokenTypeBool
             || self.lookAhead.tokType == TokenTypeAssign)
 	{
         [tempNode addChild:[self oper:t]];
@@ -206,12 +207,7 @@
 - (Node*) oper:(Token*)t
 {
 	Node *tempNode = [[Node alloc] initWithProduction:ProductionTypeOper];
-	if (t.tokType == TokenTypeConstant)
-	{
-		[tempNode addChild:[[Node alloc] initWithToken:t]];
-		return tempNode;
-	}
-    else if (t.tokType == TokenTypeName)
+	if (t.tokType == TokenTypeConstant || t.tokType == TokenTypeBool || t.tokType == TokenTypeName)
 	{
 		[tempNode addChild:[[Node alloc] initWithToken:t]];
 		return tempNode;

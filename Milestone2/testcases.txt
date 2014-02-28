@@ -1,13 +1,23 @@
+/* @todo: does our language support these? */
+[[or false false]]
+[[or true false]]
+[[or true true]]
+[[and true true]]
+[[and true false]]
+[[and false false]]
+[[not false]]
+[[not true]]
+
 /* Test cases for our parser
  * @todo: write test cases for lexical analyzer AND parser
  * @todo: write test cases for assignment operators
  */
 
 /* Statements and expressions */
-
+/*
 [[/ 10 5]]
 [2.45e-1 3.56]
-
+*/
 
 /* Binops */
 /*
