@@ -30,4 +30,9 @@
 	return str;
 }
 
+- (NSString*)codeOutput
+{
+	return [NSString stringWithFormat:@"%i", self.value];
+}
+
 @end

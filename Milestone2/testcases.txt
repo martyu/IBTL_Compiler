@@ -5,7 +5,7 @@
 
 /* Statements and expressions */
 
-/* Binops */
+/* Binops
 [1 2]
 [y 2]
 [y [2]]

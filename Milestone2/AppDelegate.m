@@ -10,6 +10,7 @@
 #import "LexicalAnalyzer.h"
 #import "Parser.h"
 #import "Node.h"
+#import "CodeGenerator.h"
 
 @interface AppDelegate ()
 
@@ -61,12 +62,15 @@
 		[parser parse];
 		
 		//@debug:
-		[parser.rootNode printChildren];
-		NSLog(@"tokenArray: %@", parser.tokenArray);
-		
+//		[parser.rootNode printChildren];
+//		NSLog(@"tokenArray: %@", parser.tokenArray);
+
+		NSString *gforth = [CodeGenerator generateCodeFromTree:parser.rootNode];
+
+		printf("%s\n", [gforth UTF8String]);
+
 		// get next token so we're ready to parse the next statement.
 		[parser getNextToken];
-		printf("\n\n\n\n");
 	}
 }
 

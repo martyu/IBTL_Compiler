@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+@class Node;
+
 @interface CodeGenerator : NSObject
+
++ (NSString*) generateCodeFromTree:(Node*)treeRoot;
 
 @end
