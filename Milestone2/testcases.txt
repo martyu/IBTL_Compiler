@@ -5,7 +5,11 @@
 
 /* Statements and expressions */
 
+[2.45 3.56]
+
+
 /* Binops */
+/*
 [1 2]
 [y 2]
 [y [2]]
@@ -42,9 +46,10 @@
 [[and 1 1]]
 [[and 1.0 1.0]]
 [[+ ("Hello ") ("World")]]
+*/
 
 /* Unops */
-
+/*
 [[tan 45]]
 [[tan 45.0]]
 [[cos 45]]
@@ -54,13 +59,13 @@
 [[- 5]]
 [[- 5.0]]
 [[not 0]]
-
+*/
 /* Statements */
-
+/*
 [[if [= 1 1] [let [[y int]]] [:= y 3]]]
 [[if [= 1 1] [let [[y int]]] [:= y 3]] [:= x 2]]
 [[while [= 5 x] [:= x [- x 1]]]]
-
+*/
 /*Everything to here parses */
 
 /* @todo: does our language support these?
