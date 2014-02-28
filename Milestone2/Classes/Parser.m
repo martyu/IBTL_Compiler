@@ -42,7 +42,7 @@
 		[self.tokenArray addObject:self.currentToken];
 	}
 	// @debug:
-//	printf("%s\n", [[self.currentToken description] UTF8String]);
+	printf("%s\n", [[self.currentToken description] UTF8String]);
     return self.currentToken;
 }
 

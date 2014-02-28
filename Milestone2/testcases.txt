@@ -1,4 +1,7 @@
+[[/ 3 5]]
+[[/ 4.0 3.0]]
 /* @todo: does our language support these? */
+/*
 [[or false false]]
 [[or true false]]
 [[or true true]]
@@ -7,7 +10,7 @@
 [[and false false]]
 [[not false]]
 [[not true]]
-
+*/
 /* Test cases for our parser
  * @todo: write test cases for lexical analyzer AND parser
  * @todo: write test cases for assignment operators
@@ -20,6 +23,7 @@
 */
 
 /* Binops */
+/*
 [1 2]
 [y 2]
 [y [2]]
@@ -31,8 +35,7 @@
 [[- 4.0 3.0]]
 [[* 3 5]]
 [[* 4.0 3.0]]
-[[/ 3 5]]
-[[/ 4.0 3.0]]
+*/
 [[^ 3 5]]
 [[^ 4.0 3.0]]
 [[!= 3 5]]
@@ -76,16 +79,6 @@
 [[while [= 5 x] [:= x [- x 1]]]]
 */
 /*Everything to here parses */
-
-
-[[or false false]]
-[[or true false]]
-[[or true true]]
-[[and true true]]
-[[and true false]]
-[[and false false]]
-[[not false]]
-[[not true]]
 
 
 /* This should work syntactically. Binop and 2 floats with no spaces */
