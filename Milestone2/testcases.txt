@@ -1,8 +1,16 @@
+/* Test if our parse tree will typecheck and convert ints to floats */
+[[+ 3.0 3]]
+[[+ 3 3.0]]
+[[+ 3 [+ 3.0 3.0]]]
+[[:= x [+ 2 3.0]]]
+[[:= x [:= y [:= z [+ 5.2 4]]]]]
+[[+ 5.0 [-3 2]]]
+
 [[+ [* 3 5] 7]]
 
 [[/ 3 5]]
 [[/ 4.0 3.0]]
-/* @todo: does our language support these? */
+/*
 [[+ "Hello " "World"]]
 [[or false false]]
 [[or true false]]
@@ -14,8 +22,9 @@
 [[not true]]
 */
 /* Test cases for our parser
- * @todo: write test cases for lexical analyzer AND parser
  * @todo: write test cases for assignment operators
+ * @todo: Have "bye" output in gforth code after each statement
+ * @todo: Make this work: [+10.1.1]
  */
 
 /* Statements and expressions */
@@ -25,6 +34,7 @@
 */
 
 /* Binops */
+/*
 [[+ [+ 1 2] 2]]
 [1 2]
 [y 2]
@@ -37,7 +47,6 @@
 [[- 4.0 3.0]]
 [[* 3 5]]
 [[* 4.0 3.0]]
-*/
 [[^ 3 5]]
 [[^ 4.0 3.0]]
 [[!= 3 5]]
@@ -60,6 +69,7 @@
 [[or 1.0 1.0]]
 [[and 1 1]]
 [[and 1.0 1.0]]
+/*
 
 /* Unops */
 /*

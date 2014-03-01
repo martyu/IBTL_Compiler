@@ -10,6 +10,12 @@
 
 @class Node;
 
+//For typechecking the oper production
+typedef enum {
+	OpTypeFloat,
+	OpTypeInt
+} OpType;
+
 @interface CodeGenerator : NSObject
 
 + (NSString*) generateCodeFromTree:(Node*)treeRoot;
