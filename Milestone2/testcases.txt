@@ -1,4 +1,8 @@
 /* Test if our parse tree will typecheck and convert ints to floats */
+[[+ 3 2.5]]
+
+/*
+[3.2]
 [[+ 3.0 3]]
 [[+ 3 3.0]]
 [[+ 3 [+ 3.0 3.0]]]
@@ -10,6 +14,7 @@
 
 [[/ 3 5]]
 [[/ 4.0 3.0]]
+*/
 /*
 [[+ "Hello " "World"]]
 [[or false false]]
@@ -69,7 +74,7 @@
 [[or 1.0 1.0]]
 [[and 1 1]]
 [[and 1.0 1.0]]
-/*
+*/
 
 /* Unops */
 /*

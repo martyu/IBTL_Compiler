@@ -100,16 +100,6 @@
 	[self printChildren:0];
 }
 
-- (void) postOrderTraversal:(int)depth
-{
-	
-}
-
--(void) postOrderTraversal
-{
-	
-}
-
 - (NSMutableArray*)children
 {
 	if (!_children)

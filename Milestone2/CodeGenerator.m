@@ -34,8 +34,9 @@
 	{
 		if(child.production == ProductionTypeOper){
 			[self parseOper:child];
+		} else {
+			[self parseTreeWithRootNode:child];
 		}
-		[self parseTreeWithRootNode:child];
 	}
 
 	if (root.token.codeOutput)
@@ -43,23 +44,90 @@
 }
 
 // This method performs typechecking on oper productions and converts them if necessary
-
-//My idea: Simply use this for typechecking. Don't change the current position in the tree/current node.
-// Just recurse, do typechecking. If it passes, continue. If not, convert and then continue
+// It takes in an optional output stream for storing the output of the oper production
+// That way we can add conversion to that output if we need to
+//Remember:
+/** oper -> [:= name oper] | [binops oper oper] | [unops oper] | constants | name */
 - (OpType) parseOper:(Node*)root
 {
-	//for [binops oper oper] or [:= name oper]
+	NSMutableString *tempOutput = [NSMutableString stringWithString:@""];
+	OpType tempType = [self parseOper:root output:tempOutput];
+	[self.generatedCode appendFormat:@"%@ ", tempOutput];
+	return tempType;
+}
+
+- (OpType) parseOper:(Node*)root output:(NSMutableString *)tempOutput
+{
+	//Skip over nonterminal oper stuff
+	if([root.children count] == 1){
+		return [self parseOper:[root.children objectAtIndex:0] output:tempOutput];
+	}
+	
+	//oper -> constant | oper -> name
+	if (root.token.codeOutput){
+		[tempOutput appendFormat:@"%@ ", root.token.codeOutput];
+		if(root.token.tag == FLOAT){
+			return OpTypeFloat;
+		} else if(root.token.tag == INTEGER){
+			return OpTypeInt;
+		} else {
+			return OpTypeName;
+		}
+	}
+	
+	//[:= name oper] and [binops oper oper]
 	if([root.children count] == 5){
 		// Check if the production is [binops oper oper]
 		Node *BinOpTest = [root.children objectAtIndex:1];
 		if(BinOpTest.token.tokType == 1){ //@todo: This should be TokenTypeBinop
-			//Check the op type of each child and convert if necessary
+			//[binops oper oper]
+			//Inspect children in reverse order
+			
+			OpType returnType; // The type that we will return from this function
+			
+			//Typecheck Oper 2
+			Node *Oper2 = [root.children objectAtIndex:3];
+			NSMutableString *OutputOper2 = [NSMutableString stringWithString:@""];
+			OpType Oper2Type =[self parseOper:Oper2 output:OutputOper2];
+			
+			//Typecheck Oper 1
+			Node *Oper1 = [root.children objectAtIndex:2];
+			NSMutableString *OutputOper1 = [NSMutableString stringWithString:@""];
+			OpType Oper1Type =[self parseOper:Oper1 output:OutputOper1];
+			
+			//Compare them
+			if(Oper1Type != Oper2Type){
+				if(Oper1Type == OpTypeFloat && Oper2Type == OpTypeInt){
+					//Convert Oper2 to float
+					[OutputOper2 appendString:@"e"];
+				} else if (Oper1Type == OpTypeInt && Oper2Type == OpTypeFloat){
+					//Convert Oper1 to float
+					[OutputOper1 appendString:@"e"];
+				}
+				returnType = OpTypeFloat;
+			}
+			
+			//Set return type appropriately if it's not already set
+			if(!returnType){
+				//Need to check both in case one is a name
+				if(Oper1Type == OpTypeFloat || Oper2Type == OpTypeFloat){
+					returnType = OpTypeFloat;
+				} else {
+					returnType = OpTypeInt;
+				}
+			}
+			
+			[tempOutput appendFormat:@"%@ ", OutputOper2];
+			[tempOutput appendFormat:@"%@ ", OutputOper1];
+			[tempOutput appendFormat:@"%@ ", BinOpTest.token.codeOutput];
+			return returnType;
 		} else {
-			//it's gotta be [:= name oper]
+			//[:= name oper]
 		}
-	} else {
-		//It's [a constant or a name]
 	}
+	
+	
+	return OpTypeFloat;
 }
 
 @end

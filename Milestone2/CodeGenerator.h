@@ -13,7 +13,8 @@
 //For typechecking the oper production
 typedef enum {
 	OpTypeFloat,
-	OpTypeInt
+	OpTypeInt,
+	OpTypeName
 } OpType;
 
 @interface CodeGenerator : NSObject
