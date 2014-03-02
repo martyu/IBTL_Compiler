@@ -65,7 +65,8 @@
 	
 	//oper -> constant | oper -> name
 	if (root.token.codeOutput){
-		[tempOutput appendFormat:@"%@ ", root.token.codeOutput];
+		//@todo: This doesn't add a space. So make sure to clean up output elsewhere
+		[tempOutput appendFormat:@"%@", root.token.codeOutput];
 		if(root.token.tag == FLOAT){
 			return OpTypeFloat;
 		} else if(root.token.tag == INTEGER){
@@ -119,7 +120,13 @@
 			
 			[tempOutput appendFormat:@"%@ ", OutputOper2];
 			[tempOutput appendFormat:@"%@ ", OutputOper1];
-			[tempOutput appendFormat:@"%@ ", BinOpTest.token.codeOutput];
+			
+			//Change binop to be floating point if necessary
+			if(returnType == OpTypeFloat){
+				[tempOutput appendFormat:@"f%@ ", BinOpTest.token.codeOutput];
+			} else {
+				[tempOutput appendFormat:@"%@ ", BinOpTest.token.codeOutput];
+			}
 			return returnType;
 		} else {
 			//[:= name oper]
