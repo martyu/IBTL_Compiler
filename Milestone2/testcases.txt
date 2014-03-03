@@ -1,5 +1,6 @@
 /* Test if our parse tree will typecheck and convert ints to floats */
 
+[[not 3.0]]
 [[+ 2.5 3]]
 [[+ 3 2.5]]
 

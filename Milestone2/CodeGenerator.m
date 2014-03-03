@@ -79,8 +79,8 @@
 	//[:= name oper] and [binops oper oper]
 	if([root.children count] == 5){
 		// Check if the production is [binops oper oper]
-		Node *BinOpTest = [root.children objectAtIndex:1];
-		if(BinOpTest.token.tokType == 1){ //@todo: This should be TokenTypeBinop
+		Node *function = [root.children objectAtIndex:1];
+		if(function.token.tokType == 1){ //@todo: This should be TokenTypeBinop
 			//[binops oper oper]
 			//Inspect children in reverse order
 			
@@ -123,16 +123,37 @@
 			
 			//Change binop to be floating point if necessary
 			if(returnType == OpTypeFloat){
-				[tempOutput appendFormat:@"f%@ ", BinOpTest.token.codeOutput];
+				[tempOutput appendFormat:@"f%@ ", function.token.codeOutput];
 			} else {
-				[tempOutput appendFormat:@"%@ ", BinOpTest.token.codeOutput];
+				[tempOutput appendFormat:@"%@ ", function.token.codeOutput];
 			}
 			return returnType;
 		} else {
 			//[:= name oper]
 		}
 	}
-	
+		
+	// [unops oper]
+	if([root.children count] == 4){
+		OpType returnType; // The type that we will return from this function
+		
+		//Typecheck Oper 1
+		Node *Oper1 = [root.children objectAtIndex:2];
+		NSMutableString *OutputOper1 = [NSMutableString stringWithString:@""];
+		OpType OperType1 =[self parseOper:Oper1 output:OutputOper1];
+		
+		Node *function = [root.children objectAtIndex:1];
+		//need to have '-' right in front of the oper
+		if(function.token.tag == '-'){
+			[tempOutput appendFormat:@"%@", function.token.codeOutput];
+		} else {
+			//Otherwise add a space
+			[tempOutput appendFormat:@"%@ ", function.token.codeOutput];
+		}
+		[tempOutput appendFormat:@"%@ ", OutputOper1];
+		returnType = OperType1;
+		return returnType;
+	}
 	
 	return OpTypeFloat;
 }
