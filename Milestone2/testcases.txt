@@ -1,5 +1,7 @@
 /* Test if our parse tree will typecheck and convert ints to floats */
 
+[[+ 3 5.0]]
+
 [[:= x 5]]
 [[:= x 5.9]]
 

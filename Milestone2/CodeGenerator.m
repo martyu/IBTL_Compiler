@@ -22,7 +22,7 @@
 	CodeGenerator *codeGener = [[CodeGenerator alloc] init];
 	codeGener.generatedCode = [NSMutableString string];
 	[codeGener parseTreeWithRootNode:treeRoot];
-
+	[codeGener.generatedCode appendString:@"bye"];
 	return codeGener.generatedCode;
 }
 
@@ -68,6 +68,7 @@
 		//@todo: This doesn't add a space. So make sure to clean up output elsewhere
 		[tempOutput appendFormat:@"%@", root.token.codeOutput];
 		if(root.token.tag == FLOAT){
+			[tempOutput appendString:@"e"];
 			return OpTypeFloat;
 		} else if(root.token.tag == INTEGER){
 			return OpTypeInt;
@@ -99,10 +100,10 @@
 			if(Oper1Type != Oper2Type){
 				if(Oper1Type == OpTypeFloat && Oper2Type == OpTypeInt){
 					//Convert Oper2 to float
-					[OutputOper2 appendString:@"e"];
+					[OutputOper2 appendString:@" s>f"];
 				} else if (Oper1Type == OpTypeInt && Oper2Type == OpTypeFloat){
 					//Convert Oper1 to float
-					[OutputOper1 appendString:@"e"];
+					[OutputOper1 appendString:@" s>f"];
 				}
 				returnType = OpTypeFloat;
 			}
