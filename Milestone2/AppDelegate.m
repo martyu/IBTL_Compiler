@@ -66,7 +66,8 @@
 //		NSLog(@"tokenArray: %@", parser.tokenArray);
 
 		NSString *gforth = [CodeGenerator generateCodeFromTree:parser.rootNode];
-
+		
+		//@todo: Make this actually execute the forth code and show the output.
 		printf("%s\n", [gforth UTF8String]);
 
 		// get next token so we're ready to parse the next statement.
