@@ -82,7 +82,6 @@
 		Node *function = [root.children objectAtIndex:1];
 		if(function.token.tokType == 1){ //@todo: This should be TokenTypeBinop
 			//[binops oper oper]
-			//Inspect children in reverse order
 			
 			OpType returnType; // The type that we will return from this function
 			
@@ -118,18 +117,42 @@
 				}
 			}
 			
+			//Output the children in reverse order
 			[tempOutput appendFormat:@"%@ ", OutputOper2];
 			[tempOutput appendFormat:@"%@ ", OutputOper1];
 			
+			//@todo: can we do mod on 2 floating point numbers?
 			//Change binop to be floating point if necessary
 			if(returnType == OpTypeFloat){
-				[tempOutput appendFormat:@"f%@ ", function.token.codeOutput];
-			} else {
-				[tempOutput appendFormat:@"%@ ", function.token.codeOutput];
+				//Only add the 'f' on these productions: -, +, *, /
+				if(function.token.tag == '-' || function.token.tag == '+' || function.token.tag == '*' || function.token.tag == '/'){
+					[tempOutput appendString:@"f"];
+				}
 			}
+			
+			[tempOutput appendFormat:@"%@ ", function.token.codeOutput];
 			return returnType;
 		} else {
+			//@todo: is this where we use the symbol table? Do we need to check if the variable is defined and what type it is?
 			//[:= name oper]
+			OpType returnType; // The type that we will return from this function
+			
+			//Typecheck the Oper
+			Node *Oper2 = [root.children objectAtIndex:3];
+			NSMutableString *OutputOper2 = [NSMutableString stringWithString:@""];
+			OpType Oper2Type =[self parseOper:Oper2 output:OutputOper2];
+			
+			//Grab the name
+			Node *theName = [root.children objectAtIndex:2];
+			
+			//Output the children in reverse order
+			[tempOutput appendFormat:@"%@ ", OutputOper2];
+			[tempOutput appendFormat:@"%@ ", theName.token.codeOutput];
+			[tempOutput appendFormat:@"%@ ", function.token.codeOutput];
+			
+			returnType = Oper2Type;
+			return returnType;
+			
 		}
 	}
 		
