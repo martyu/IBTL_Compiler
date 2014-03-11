@@ -38,4 +38,7 @@ typedef enum {
 + (instancetype)nodeWithToken:(Token*)tok;
 + (instancetype)nodeWithProduction:(ProductionType)prodType;
 
+- (BOOL)isTrig;
+
+
 @end

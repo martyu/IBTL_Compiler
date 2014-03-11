@@ -15,6 +15,8 @@
 
 @end
 
+static int funcCounter = 0;
+
 @implementation CodeGenerator
 
 + (NSString*) generateCodeFromTree:(Node*)treeRoot
@@ -26,21 +28,43 @@
 	return codeGener.generatedCode;
 }
 
-- (void) parseTreeWithRootNode:(Node*)root
+- (OpType) parseTreeWithRootNode:(Node*)root
 {
+	OpType type = OpTypeNone;
+
 	// to recurse child nodes right to left.
 	NSArray *childrenReversed = [[root.children reverseObjectEnumerator] allObjects];
 	for (Node *child in childrenReversed)
 	{
-		if(child.production == ProductionTypeOper){
-			[self parseOper:child];
-		} else {
+		if ([child isTrig] && type == OpTypeInt)
+		{
+			[self.generatedCode appendString:@"s>f "];
+			type = OpTypeFloat;
+		}
+
+		if(child.production == ProductionTypeOper)
+		{
+			type = [self parseOper:child];
+		}
+		else if (child.production == ProductionTypeIfStmt)
+		{
+			// IF statement
+			[self parseIf:child];
+		}
+		else if (child.production == ProductionTypePrintStmts)
+		{
+			[self parsePrint:child];
+		}
+		else
+		{
 			[self parseTreeWithRootNode:child];
 		}
 	}
 
 	if (root.token.codeOutput)
 		[self.generatedCode appendFormat:@"%@ ", root.token.codeOutput];
+
+	return type;
 }
 
 // This method performs typechecking on oper productions and converts them if necessary
@@ -65,7 +89,6 @@
 	
 	//oper -> constant | oper -> name
 	if (root.token.codeOutput){
-		//@todo: This doesn't add a space. So make sure to clean up output elsewhere
 		[tempOutput appendFormat:@"%@", root.token.codeOutput];
 		if(root.token.tag == FLOAT){
 			[tempOutput appendString:@"e"];
@@ -81,7 +104,7 @@
 	if([root.children count] == 5){
 		// Check if the production is [binops oper oper]
 		Node *function = [root.children objectAtIndex:1];
-		if(function.token.tokType == 1){ //@todo: This should be TokenTypeBinop
+		if(function.token.tokType == TokenTypeBinOp){
 			//[binops oper oper]
 			
 			OpType returnType; // The type that we will return from this function
@@ -125,8 +148,10 @@
 			//@todo: can we do mod on 2 floating point numbers?
 			//Change binop to be floating point if necessary
 			if(returnType == OpTypeFloat){
-				//Only add the 'f' on these productions: -, +, *, /
-				if(function.token.tag == '-' || function.token.tag == '+' || function.token.tag == '*' || function.token.tag == '/'){
+				//Only add the 'f' on these productions: -, +, *, /, >, >=, <, <=
+				if(function.token.tag == '-' || function.token.tag == '+' || function.token.tag == '*' || function.token.tag == '/' ||
+				   function.token.tag == '>' || function.token.tag == '<' || function.token.tag == GE || function.token.tag == LE )
+				{
 					[tempOutput appendString:@"f"];
 				}
 			}
@@ -156,8 +181,8 @@
 			
 		}
 	}
-		
-	// [unops oper]
+
+	// [unops oper1]
 	if([root.children count] == 4){
 		OpType returnType; // The type that we will return from this function
 		
@@ -167,9 +192,11 @@
 		OpType OperType1 =[self parseOper:Oper1 output:OutputOper1];
 		
 		Node *function = [root.children objectAtIndex:1];
-		//need to have '-' right in front of the oper
-		if(function.token.tag == '-'){
+		if(function.token.tag == NEG){
+			//need to have '-' right in front of the oper
 			[tempOutput appendFormat:@"%@", function.token.codeOutput];
+		} else if ([function isTrig]) {
+			
 		} else {
 			//Otherwise add a space
 			[tempOutput appendFormat:@"%@ ", function.token.codeOutput];
@@ -182,4 +209,41 @@
 	return OpTypeFloat;
 }
 
+/** [if expr1 expr2]  or  [if expr1 expr2 expr3]  ->  : func[i] expr1 if expr2 . [else expr3 .] endif ; func[i] */
+- (void) parseIf:(Node*)root
+{
+	// [if expr1 expr2]
+	Node *_if = root.children[1];
+	Node *expr1 = root.children[2];
+	Node *expr2 = root.children[3];
+
+	[self.generatedCode appendFormat:@": func%i ", funcCounter];
+	[self parseTreeWithRootNode:expr1];
+	[self.generatedCode appendFormat:@"%@ ", _if.token.codeOutput];
+	[self parseTreeWithRootNode:expr2];
+	if (root.children.count == 6)
+	{
+		Node *expr3 = root.children[4];
+		[self.generatedCode appendFormat:@"else "];
+		[self parseTreeWithRootNode:expr3];
+	}
+
+	[self.generatedCode appendFormat:@"endif ; func%i ", funcCounter];
+}
+
+/** [stdout oper] -> oper [f]. */
+- (void) parsePrint:(Node*)root
+{
+	Node *operNode = root.children[2];
+
+	OpType type = [self parseTreeWithRootNode:operNode];
+
+	// print it.
+	if (type == OpTypeFloat)
+		[self.generatedCode appendString:@"f. "];
+	else
+		[self.generatedCode appendString:@". "];
+}
+
 @end
+

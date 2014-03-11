@@ -235,7 +235,7 @@ static int _line;
 		case '-':
 		{
 			[self readCharacter];
-			if (isnumber(self.peek))
+			if (isnumber(self.peek) || self.peek == '.')
 				return [Token tokenWithTag:NEG type:TokenTypeUnOp];
 			else
 				return [Token tokenWithTag:'-' type:TokenTypeBinOp];
@@ -299,53 +299,60 @@ static int _line;
 			break;
 	}
 
-	if (isdigit(self.peek))
+	if (isdigit(self.peek) || self.peek == '.')
 	{
-		int v = 0;
-		do
+		float v = 0;
+		while (isdigit(self.peek))
 		{
 			v = 10 * v + atoi(&_peek);
 			[self readCharacter];
-		} while (isdigit(self.peek));
+		}
 
-		if (self.peek != '.')
-			return [Num numWithValue:v];
+		float d = 10.0;
 
-		float x = v, d = 10.0;
-		while (YES)
+		if (self.peek == '.')
 		{
 			[self readCharacter];
+			while (isdigit(self.peek))
+			{
+				v = v + atoi(&_peek) / d;
+				d *= 10.0;
+				[self readCharacter];
+			}
+
+			if (self.peek != 'e')
+				return [Float floatWithValue:v];
+		}
+
+		if (self.peek == 'e')
+		{
+			[self readCharacter];
+			float expSign = 1.0;
+			if (self.peek == '-')
+			{
+				expSign = -1.0;
+				[self readCharacter];
+			}
+			else if (self.peek == '+')
+				[self readCharacter];
+
+			NSMutableString *exp = [NSMutableString string];
+
 			if (!isdigit(self.peek))
-				break;
-			x = x + atoi(&_peek) / d;
-			d *= 10.0;
+				[self reportError];
+
+			while (isdigit(self.peek))
+			{
+				[exp appendFormat:@"%c", self.peek];
+				[self readCharacter];
+			}
+
+			v *= pow(10.0, expSign * atof([exp UTF8String]));
+
+			return [Float floatWithValue:v];
 		}
-		if (self.peek != 'e')
-			return [Float floatWithValue:x];
-		// Else number looks like 9.45e10 or 9.45e+10
-		[self readCharacter];
-		char sign;
-		if(self.peek == '-' || self.peek == '+'){
-			sign = self.peek; // Store whether power is positive or negative
-		} else if(!isdigit(self.peek)){
-			[self reportError]; // e must be followed by a digit
-		}else {
-			sign = '+'; //default to positive
-		}
-		
-		int power = 0;
-		do
-		{
-			power = 10 * power + atoi(&_peek);
-			[self readCharacter];
-		} while (isdigit(self.peek));
-		if(sign == '-'){
-			power = pow(.1, power);
-		} else {
-			power = pow(10, power);
-		}
-		x = x * power;
-		return [Float floatWithValue:x];
+
+		return [Num numWithValue:v];
 	}
 
 

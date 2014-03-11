@@ -164,4 +164,12 @@
 	}
 }
 
+- (BOOL)isTrig
+{
+	if (self.token.tag == COS || self.token.tag == SIN || self.token.tag == TAN)
+		return YES;
+
+	return NO;
+}
+
 @end

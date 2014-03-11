@@ -12,6 +12,7 @@
 
 //For typechecking the oper production
 typedef enum {
+	OpTypeNone = -1,
 	OpTypeFloat,
 	OpTypeInt,
 	OpTypeName

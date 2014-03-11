@@ -48,7 +48,6 @@
 
 - (void)error:(NSString*)errorType
 {
-	NSLog(@"%@", self.rootNode);
 	[NSException raise:errorType format:@"Error on line %i, column %i, token %@", [[self.lex class] line], [[self.lex class] column], self.currentToken];
 }
 

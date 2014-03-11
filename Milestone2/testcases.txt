@@ -1,5 +1,5 @@
 /* Test if our parse tree will typecheck and convert ints to floats */
-
+/*
 [[+ 2.5 [+ 2 4]]]
 
 [[+ 3 5.0]]
@@ -10,7 +10,7 @@
 [[not 3.0]]
 [[+ 2.5 3]]
 [[+ 3 2.5]]
-
+*/
 /*
 [3.2]
 [[+ 3.0 3]]
@@ -99,12 +99,20 @@
 [[not 0]]
 */
 /* Statements */
+
+/*Everything to here parses */
+
+/* Paul's test
+[[if[>= 1200e-6 1][stdout [sin [-.5236]]] [stdout [or true false]]]]
+*/
+
+[[if [>= 1200e6 1] [stdout [sin [-1]]] [stdout [or true false]]]]
+
 /*
 [[if [= 1 1] [let [[y int]]] [:= y 3]]]
 [[if [= 1 1] [let [[y int]]] [:= y 3]] [:= x 2]]
 [[while [= 5 x] [:= x [- x 1]]]]
 */
-/*Everything to here parses */
 
 
 /* This should work syntactically. Binop and 2 floats with no spaces */
