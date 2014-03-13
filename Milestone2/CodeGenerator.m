@@ -24,7 +24,7 @@ static int funcCounter = 0;
 	CodeGenerator *codeGener = [[CodeGenerator alloc] init];
 	codeGener.generatedCode = [NSMutableString string];
 	[codeGener parseTreeWithRootNode:treeRoot];
-	[codeGener.generatedCode appendString:@"bye"];
+//	[codeGener.generatedCode appendString:@"bye"];
 	return codeGener.generatedCode;
 }
 
@@ -54,6 +54,10 @@ static int funcCounter = 0;
 		else if (child.production == ProductionTypePrintStmts)
 		{
 			[self parsePrint:child];
+		}
+		else if (child.production == ProductionTypeLetStmt)
+		{
+			[self parseLetStmt:child];
 		}
 		else
 		{
@@ -189,19 +193,21 @@ static int funcCounter = 0;
 		//Typecheck Oper 1
 		Node *Oper1 = [root.children objectAtIndex:2];
 		NSMutableString *OutputOper1 = [NSMutableString stringWithString:@""];
-		OpType OperType1 =[self parseOper:Oper1 output:OutputOper1];
+		OpType OperType1 = [self parseOper:Oper1 output:OutputOper1];
 		
 		Node *function = [root.children objectAtIndex:1];
 		if(function.token.tag == NEG){
 			//need to have '-' right in front of the oper
 			[tempOutput appendFormat:@"%@", function.token.codeOutput];
-		} else if ([function isTrig]) {
-			
-		} else {
-			//Otherwise add a space
+			[tempOutput appendFormat:@"%@ ", OutputOper1];
+		} else {//if ([function isTrig]) {
+			[tempOutput appendFormat:@"%@ ", OutputOper1];
 			[tempOutput appendFormat:@"%@ ", function.token.codeOutput];
+//		} else {
+//			//Otherwise add a space
+//			[tempOutput appendFormat:@"%@ ", function.token.codeOutput];
+//			[tempOutput appendFormat:@"%@ ", OutputOper1];
 		}
-		[tempOutput appendFormat:@"%@ ", OutputOper1];
 		returnType = OperType1;
 		return returnType;
 	}
@@ -231,18 +237,54 @@ static int funcCounter = 0;
 	[self.generatedCode appendFormat:@"endif ; func%i ", funcCounter];
 }
 
-/** [stdout oper] -> oper [f]. */
+/** [stdout oper] ->  */
 - (void) parsePrint:(Node*)root
 {
 	Node *operNode = root.children[2];
 
-	OpType type = [self parseTreeWithRootNode:operNode];
+	OpType type = [self parseOper:operNode];
 
 	// print it.
 	if (type == OpTypeFloat)
 		[self.generatedCode appendString:@"f. "];
-	else
+	else if (type == OpTypeInt)
 		[self.generatedCode appendString:@". "];
+	else
+		[self.generatedCode appendString:@"cr "];
+}
+
+/** [let [varlist]] */
+- (void) parseLetStmt:(Node*)root
+{
+	Node *varlistNode = root.children[3];
+
+	NSArray *vars = [self parseVarlist:varlistNode];
+
+	for (NSString *var in vars)
+	{
+		[self.generatedCode appendFormat:@"create %@ 1 cells allot ", var];
+	}
+
+
+}
+
+/** [name type] | [name type] varlist */
+- (NSArray*) parseVarlist:(Node*)root
+{
+	NSMutableArray *vars = [NSMutableArray array];
+
+	if (root.children.count == 4)
+	{
+		// [name type]
+		
+	}
+	else
+	{
+		// [name type] varlist
+
+	}
+
+	return nil;
 }
 
 @end

@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		7619294E18C0131E0001848E /* CodeGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7619294D18C0131E0001848E /* CodeGenerator.m */; };
 		7626F42018BC0BA600712998 /* testcases.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7626F41F18BC0BA600712998 /* testcases.txt */; };
-		76575EF1189484D500E1BFDD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76575EF0189484D500E1BFDD /* Cocoa.framework */; };
+		7638921218CFE3690068A433 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76575EF5189484D500E1BFDD /* Foundation.framework */; };
 		76575EFD189484D500E1BFDD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 76575EFC189484D500E1BFDD /* main.m */; };
 		76575F04189484D500E1BFDD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 76575F03189484D500E1BFDD /* AppDelegate.m */; };
 		76575F09189484D500E1BFDD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 76575F08189484D500E1BFDD /* Images.xcassets */; };
@@ -18,7 +18,6 @@
 		765A62491895E2250097F8C1 /* ReservedKeywords.plist in Resources */ = {isa = PBXBuildFile; fileRef = 765A62481895E2250097F8C1 /* ReservedKeywords.plist */; };
 		766B4187189889DB00B17587 /* Word.m in Sources */ = {isa = PBXBuildFile; fileRef = 766B4186189889DB00B17587 /* Word.m */; };
 		766B418A189892B400B17587 /* Num.m in Sources */ = {isa = PBXBuildFile; fileRef = 766B4189189892B400B17587 /* Num.m */; };
-		766B41901898A20700B17587 /* Float.m in Sources */ = {isa = PBXBuildFile; fileRef = 766B418F1898A20700B17587 /* Float.m */; };
 		766B69F118973C8D00579586 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 766B69F018973C8D00579586 /* MainMenu.xib */; };
 		7677FF5618AC582A009B1912 /* Defines.m in Sources */ = {isa = PBXBuildFile; fileRef = 7677FF5518AC582A009B1912 /* Defines.m */; };
 		76990CBD18ADB34900775DE3 /* Node.m in Sources */ = {isa = PBXBuildFile; fileRef = 76990CBC18ADB34900775DE3 /* Node.m */; };
@@ -28,6 +27,7 @@
 		76990CC918ADBC2900775DE3 /* Type.m in Sources */ = {isa = PBXBuildFile; fileRef = 76990CC818ADBC2900775DE3 /* Type.m */; };
 		76E3FCDA18AC90DB005ED87F /* Parser.m in Sources */ = {isa = PBXBuildFile; fileRef = 76E3FCD918AC90DB005ED87F /* Parser.m */; };
 		76E3FCDD18AC9793005ED87F /* Environment.m in Sources */ = {isa = PBXBuildFile; fileRef = 76E3FCDC18AC9793005ED87F /* Environment.m */; };
+		76E8383F18CFE66C00C8DCB8 /* Float.m in Sources */ = {isa = PBXBuildFile; fileRef = 76E8383E18CFE66C00C8DCB8 /* Float.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,7 +35,6 @@
 		7619294D18C0131E0001848E /* CodeGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CodeGenerator.m; sourceTree = "<group>"; };
 		7626F41F18BC0BA600712998 /* testcases.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = testcases.txt; sourceTree = "<group>"; };
 		76575EED189484D500E1BFDD /* Milestone2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Milestone2.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		76575EF0189484D500E1BFDD /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		76575EF3189484D500E1BFDD /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		76575EF4189484D500E1BFDD /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		76575EF5189484D500E1BFDD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -45,7 +44,6 @@
 		76575F02189484D500E1BFDD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		76575F03189484D500E1BFDD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		76575F08189484D500E1BFDD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		76575F0F189484D500E1BFDD /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		76575F24189486E100E1BFDD /* LexicalAnalyzer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LexicalAnalyzer.h; path = Classes/LexicalAnalyzer.h; sourceTree = "<group>"; };
 		76575F25189486E100E1BFDD /* LexicalAnalyzer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LexicalAnalyzer.m; path = Classes/LexicalAnalyzer.m; sourceTree = "<group>"; };
 		76575F3F1894BCE700E1BFDD /* Token.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Token.h; sourceTree = "<group>"; };
@@ -56,8 +54,6 @@
 		766B4186189889DB00B17587 /* Word.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Word.m; sourceTree = "<group>"; };
 		766B4188189892B400B17587 /* Num.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Num.h; sourceTree = "<group>"; };
 		766B4189189892B400B17587 /* Num.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Num.m; sourceTree = "<group>"; };
-		766B418E1898A20700B17587 /* Float.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Float.h; sourceTree = "<group>"; };
-		766B418F1898A20700B17587 /* Float.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Float.m; sourceTree = "<group>"; };
 		766B69F018973C8D00579586 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		7677FF5518AC582A009B1912 /* Defines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Defines.m; sourceTree = "<group>"; };
 		76990CBB18ADB34900775DE3 /* Node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Node.h; path = Classes/Node.h; sourceTree = "<group>"; };
@@ -74,6 +70,8 @@
 		76E3FCD918AC90DB005ED87F /* Parser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Parser.m; path = Classes/Parser.m; sourceTree = "<group>"; };
 		76E3FCDB18AC9793005ED87F /* Environment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Environment.h; path = Classes/Environment.h; sourceTree = "<group>"; };
 		76E3FCDC18AC9793005ED87F /* Environment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Environment.m; path = Classes/Environment.m; sourceTree = "<group>"; };
+		76E8383D18CFE66C00C8DCB8 /* Float.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Float.h; sourceTree = "<group>"; };
+		76E8383E18CFE66C00C8DCB8 /* Float.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Float.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,7 +79,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				76575EF1189484D500E1BFDD /* Cocoa.framework in Frameworks */,
+				7638921218CFE3690068A433 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,8 +106,6 @@
 		76575EEF189484D500E1BFDD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				76575EF0189484D500E1BFDD /* Cocoa.framework */,
-				76575F0F189484D500E1BFDD /* XCTest.framework */,
 				76575EF2189484D500E1BFDD /* Other Frameworks */,
 			);
 			name = Frameworks;
@@ -187,8 +183,8 @@
 				766B4186189889DB00B17587 /* Word.m */,
 				766B4188189892B400B17587 /* Num.h */,
 				766B4189189892B400B17587 /* Num.m */,
-				766B418E1898A20700B17587 /* Float.h */,
-				766B418F1898A20700B17587 /* Float.m */,
+				76E8383D18CFE66C00C8DCB8 /* Float.h */,
+				76E8383E18CFE66C00C8DCB8 /* Float.m */,
 			);
 			name = "Token Classes";
 			path = "Classes/Token Classes";
@@ -266,9 +262,9 @@
 				76990CC918ADBC2900775DE3 /* Type.m in Sources */,
 				76575F26189486E100E1BFDD /* LexicalAnalyzer.m in Sources */,
 				76575F04189484D500E1BFDD /* AppDelegate.m in Sources */,
-				766B41901898A20700B17587 /* Float.m in Sources */,
 				76E3FCDA18AC90DB005ED87F /* Parser.m in Sources */,
 				76575F421894BCE700E1BFDD /* Token.m in Sources */,
+				76E8383F18CFE66C00C8DCB8 /* Float.m in Sources */,
 				7677FF5618AC582A009B1912 /* Defines.m in Sources */,
 				76E3FCDD18AC9793005ED87F /* Environment.m in Sources */,
 				76990CC618ADBBC400775DE3 /* Expr.m in Sources */,
@@ -286,6 +282,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -329,6 +326,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -365,12 +363,17 @@
 		76575F1F189484D500E1BFDD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Milestone2/Milestone2-Prefix.pch";
 				INFOPLIST_FILE = "Milestone2/Milestone2-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx10.9;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -378,12 +381,16 @@
 		76575F20189484D500E1BFDD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Milestone2/Milestone2-Prefix.pch";
 				INFOPLIST_FILE = "Milestone2/Milestone2-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx10.9;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

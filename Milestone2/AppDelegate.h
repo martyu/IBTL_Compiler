@@ -6,8 +6,6 @@
 //  Copyright (c) 2014 Marty Ulrich/David Merrick. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
-
 @interface AppDelegate : NSObject <NSApplicationDelegate, NSOpenSavePanelDelegate>
 
 @property (assign) IBOutlet NSWindow *window;

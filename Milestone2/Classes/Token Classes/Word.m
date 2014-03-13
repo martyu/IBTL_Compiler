@@ -140,17 +140,14 @@
 {
 	if (self.tokType == TokenTypeName && self.tag == ID && [self.lexeme characterAtIndex:0] == '"')
 	{
-		NSMutableString *string = [NSMutableString stringWithFormat:@"s%@", self.lexeme];
+		// string literal
+		NSMutableString *string = [NSMutableString stringWithFormat:@".%@", self.lexeme];
 		[string insertString:@" " atIndex:2];
 		return string;
 	}
 	else if (self.tag == SIN || self.tag == COS || self.tag == TAN)
 	{
 		return [NSString stringWithFormat:@"f%@", self.lexeme];
-	}
-	else if (self.tokType == TokenTypeStdOut)
-	{
-		return @".";
 	}
 
 	return self.lexeme;

@@ -6,9 +6,7 @@
 //  Copyright (c) 2014 Marty Ulrich/David Merrick. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
-@class Node;
+#import "Classes/Node.h"
 
 //For typechecking the oper production
 typedef enum {

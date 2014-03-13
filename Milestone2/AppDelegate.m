@@ -62,13 +62,24 @@
 		[parser parse];
 		
 		//@debug:
-		[parser.rootNode printChildren];
-//		NSLog(@"tokenArray: %@", parser.tokenArray);
+//		[parser.rootNode printChildren];
+		NSLog(@"tokenArray: %@", parser.tokenArray);
 
 		NSString *gforth = [CodeGenerator generateCodeFromTree:parser.rootNode];
-		
-		//@todo: Make this actually execute the forth code and show the output.
-		printf("\n%s\n\n\n", [gforth UTF8String]);
+
+		NSString *gforth2 = [NSString stringWithFormat:@"%@. bye", gforth];
+		printf("\n\n%s\noutput: ", [gforth2 UTF8String]);
+		NSString *gforthFilePath = [@"~/milestone5.fs" stringByExpandingTildeInPath];
+		[gforth2 writeToFile:gforthFilePath atomically:YES encoding:NSASCIIStringEncoding error:NULL];
+
+		if (system([[NSString stringWithFormat:@"gforth %@", gforthFilePath] UTF8String]) == 256)
+		{
+			// error.  try printing top of float stack.
+			gforth2 = [NSString stringWithFormat:@"%@f. bye", gforth];
+			[gforth2 writeToFile:gforthFilePath atomically:YES encoding:NSASCIIStringEncoding error:NULL];
+			printf("\n\n%s\noutput: ", [gforth2 UTF8String]);
+			system([[NSString stringWithFormat:@"gforth %@", gforthFilePath] UTF8String]);
+		}
 
 		// get next token so we're ready to parse the next statement.
 		[parser getNextToken];
