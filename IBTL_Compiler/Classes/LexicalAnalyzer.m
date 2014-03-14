@@ -320,8 +320,13 @@ static int _line;
 				[self readCharacter];
 			}
 
-			if (self.peek != 'e')
+			if (self.peek != 'e'){
 				return [Float floatWithValue:v];
+			} else if(self.peek == '.'){ //in the case of like [-10.1.1]
+				//Push back
+				[self pushBack];
+				return [Float floatWithValue:v];
+			}
 		}
 
 		if (self.peek == 'e')

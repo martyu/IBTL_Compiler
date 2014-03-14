@@ -100,8 +100,6 @@
 */
 /* Statements */
 
-/*Everything to here parses */
-
 /* Paul's test */
 [[if[>= 1200e-6 1][stdout [sin 3.14]] [stdout [or true false]]]]
 
@@ -120,4 +118,4 @@
 */
 
 /* This should work syntactically. Binop and 2 floats with no spaces */
-/* [+10.1.1] */
+[[+10.1.1]]
