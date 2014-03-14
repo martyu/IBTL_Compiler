@@ -8,10 +8,12 @@
 
 #import "CodeGenerator.h"
 #import "Node.h"
+#import "Word.h"
 
 @interface CodeGenerator ()
 
 @property(nonatomic, strong)NSMutableString *generatedCode;
+@property(nonatomic, strong)NSMutableDictionary *definedVars;
 
 @end
 
@@ -23,6 +25,8 @@ static int funcCounter = 0;
 {
 	CodeGenerator *codeGener = [[CodeGenerator alloc] init];
 	codeGener.generatedCode = [NSMutableString string];
+	codeGener.definedVars = [NSMutableDictionary dictionary];
+	NSMutableArray *letNodes = [codeGener findLetNodes:treeRoot];
 	[codeGener parseTreeWithRootNode:treeRoot];
 //	[codeGener.generatedCode appendString:@"bye"];
 	return codeGener.generatedCode;
@@ -167,20 +171,25 @@ static int funcCounter = 0;
 			//[:= name oper]
 			OpType returnType; // The type that we will return from this function
 			
-			//Typecheck the Oper
-			Node *Oper2 = [root.children objectAtIndex:3];
-			NSMutableString *OutputOper2 = [NSMutableString stringWithString:@""];
-			OpType Oper2Type =[self parseOper:Oper2 output:OutputOper2];
-			
 			//Grab the name
-			Node *theName = [root.children objectAtIndex:2];
-			
-			//Output the children in reverse order
-			[tempOutput appendFormat:@"%@ ", OutputOper2];
-			[tempOutput appendFormat:@"%@ ", theName.token.codeOutput];
-			[tempOutput appendFormat:@"%@ ", function.token.codeOutput];
-			
-			returnType = Oper2Type;
+			Node *nameNode = root.children[2];
+			NSString *varName;
+			if ([nameNode.token isKindOfClass:[Word class]]) {
+				varName = [(Word*)nameNode.token lexeme];
+			} else {
+				[self reportError:@"expected Word token"];
+			}
+
+			// check that the variable's been defined.
+			Word *nameTok = self.definedVars[varName];
+			if (!nameTok) {
+				[self reportError:[NSString stringWithFormat:@"undefined variable \"%@\"", varName]];
+			}
+
+			Node *operNode = root.children[3];
+			returnType = [self parseOper:operNode];
+			[self.generatedCode appendFormat:@"%@ ! ", varName];
+
 			return returnType;
 			
 		}
@@ -257,34 +266,59 @@ static int funcCounter = 0;
 - (void) parseLetStmt:(Node*)root
 {
 	Node *varlistNode = root.children[3];
-
-	NSArray *vars = [self parseVarlist:varlistNode];
-
-	for (NSString *var in vars)
-	{
-		[self.generatedCode appendFormat:@"create %@ 1 cells allot ", var];
+	if (varlistNode.production != ProductionTypeVarlistStmt) {
+		[self reportError:@"expected varlist"];
 	}
-
-
+	[self parseVarlist:varlistNode];
 }
 
 /** [name type] | [name type] varlist */
 - (NSArray*) parseVarlist:(Node*)root
 {
-	NSMutableArray *vars = [NSMutableArray array];
-
-	if (root.children.count == 4)
-	{
-		// [name type]
-		
+	// [name type] or [name type] varlist
+	Word *var;
+	if ([[root.children[1] token] isMemberOfClass:[Word class]]) {
+		var = (Word*)[root.children[1] token];
+	} else {
+		[self reportError:@"variable is not a word."];
 	}
-	else
+
+	NSString *varName = var.lexeme;
+	// add to var dict
+	self.definedVars[varName] = var;
+	[self.generatedCode appendFormat:@"Variable %@ ", varName];
+
+	Word *type;
+	if ([[root.children[2] token] isMemberOfClass:[Word class]]) {
+		type = (Word*)[root.children[2] token];
+	}
+
+	// add type to var token
+	if ([type.lexeme isEqualToString:@"int"]) {
+		var.varType = VariableTypeInt;
+	} else if ([type.lexeme isEqualToString:@"float"]) {
+		var.varType = VariableTypeFloat;
+	} else {
+		[self reportError:[NSString stringWithFormat:@"wtf type is var \"%@\"?", var]];
+	}
+
+	if (root.children.count == 5)
 	{
 		// [name type] varlist
+		Node *varlistNode = root.children[4];
+		if (varlistNode.production != ProductionTypeVarlistStmt) {
+			[self reportError:@"expected varlist node."];
+		}
 
+		[self parseVarlist:varlistNode];
 	}
 
 	return nil;
+}
+
+- (void) reportError:(NSString*)errStr
+{
+	[NSException raise:@"Code Generator error" format:@"%@", errStr];
 }
 
 @end

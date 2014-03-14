@@ -1,5 +1,6 @@
 /* Test if our parse tree will typecheck and convert ints to floats */
 
+/*
 [[+ 2.5 [+ 2 4]]]
 
 [[+ 3 5.0]]
@@ -10,6 +11,7 @@
 [[not 3.0]]
 [[+ 2.5 3]]
 [[+ 3 2.5]]
+*/
 
 /*
 [3.2]
@@ -103,13 +105,16 @@
 /*Everything to here parses */
 
 /* Paul's test */
+/*
 [[if[>= 1200e-6 1][stdout [sin 3.14]] [stdout [or true false]]]]
 
-
-
 [[if [> 2 3] [stdout "yes"] [stdout "no"]]]
+*/
+
+
+[[let [[x int]]] [:= x 10] [stdout [- 20 x]]]
+
 /*
-[[let [x int]] [:= x 10] [stdout [- 20 x]]]
 [while [> x 5] [[stdout "hello"] [:= x [- x 1]]]]
 */
 
