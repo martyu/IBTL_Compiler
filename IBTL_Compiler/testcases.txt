@@ -1,26 +1,19 @@
-/*
- * todo: write cases for while loops
- * todo: Floating point opers need an "f." after them to print correctly
- * todo: Assignment operators aren't working in forth
- */
+/* Test if our parse tree will typecheck and convert ints to floats */
 
 /*
 [[+ 2.5 [+ 2 4]]]
+
 [[+ 3 5.0]]
 
-/* Paul's test (need to not output dot at the end so it doesn't stack underflow in forth) */
-[[if[>= 1200e-6 1][stdout [sin 3.14]] [stdout [or true false]]]]
+[[:= x 5]]
+[[:= x 5.9]]
 
 [[not 3.0]]
 [[+ 2.5 3]]
 [[+ 3 2.5]]
 */
 
-/* Test if our parse tree will typecheck and convert ints to floats */
-[[:= x 5.9]]
 /*
-[[+ 2.5 3]]
-[[+ 3 2.5]]
 [3.2]
 [[+ 3.0 3]]
 [[+ 3 3.0]]
@@ -28,8 +21,9 @@
 [[:= x [+ 2 3.0]]]
 [[:= x [:= y [:= z [+ 5.2 4]]]]]
 [[+ 5.0 [-3 2]]]
-[[+10.1.1]]
+
 [[+ [* 3 5] 7]]
+
 [[/ 3 5]]
 [[/ 4.0 3.0]]
 */
@@ -44,6 +38,11 @@
 [[not false]]
 [[not true]]
 */
+/* Test cases for our parser
+ * @todo: write test cases for assignment operators
+ * @todo: Have "bye" output in gforth code after each statement
+ * @todo: Make this work: [+10.1.1]
+ */
 
 /* Statements and expressions */
 /*
@@ -108,7 +107,7 @@
 /* Paul's test */
 
 
-[[if[>= 1200e-6 1][stdout [sin 3.14]] [stdout [or true false]]]]
+[[if[<= 1200e-6 1][stdout [sin 3.14]] [stdout [or true false]]]]
 
 
 [[if [> 2 3] [stdout "yes"] [stdout "no"]]]
@@ -118,9 +117,13 @@
 [[let [[x int]]] [:= x 10] [stdout [- 20 x]]]
 
 
-[[let [[x int]]] [:= x 10] [while [< x 5] [stdout "hello"] [stdout "x= "] [stdout x] [:= x [- x 1]]]]
+[[let [[x int]]] [:= x 10] [while [> x 5] [stdout "hello"] [stdout "x"] [stdout x] [:= x [- x 1]]]]
 
 
 /*
-[while [> x 5] [[stdout "hello"] [:= x [- x 1]]]]
+[[if [= 1 1] [let [[y int]]] [:= y 3]] [:= x 2]]
+[[while [= 5 x] [:= x [- x 1]]]]
 */
+
+/* This should work syntactically. Binop and 2 floats with no spaces */
+/* [+10.1.1] */

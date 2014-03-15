@@ -14,10 +14,7 @@
 
 @interface AppDelegate ()
 
-@property (weak) IBOutlet NSTextField *currentTokenLabel;
-@property (weak) IBOutlet NSTextField *nextTokenLabel;
-@property (weak) IBOutlet NSTextField *tempNodeLabel;
-@property (weak) IBOutlet NSTextField *rootNodeLabel;
+@property (weak) IBOutlet NSTextField *outputText;
 
 @end
 
@@ -31,12 +28,12 @@
     //To do: Have output be translated so token type will show up as the category name as a string
 	//To do: Have input be a file by default
 
-	NSString *path = [[NSBundle mainBundle] pathForResource:@"testcases" ofType:@"txt"];
-	[self startWithURL:[NSURL fileURLWithPath:path]];
+//	NSString *path = [[NSBundle mainBundle] pathForResource:@"testcases" ofType:@"txt"];
+//	[self startWithURL:[NSURL fileURLWithPath:path]];
 
-//	NSOpenPanel *open = [[NSOpenPanel alloc] initWithContentRect:NSRectFromCGRect(CGRectMake(0.0, 0.0, 400.0, 400.0)) styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
-//	open.delegate = self;
-//	[self.window addChildWindow:open ordered:NSWindowAbove];
+	NSOpenPanel *open = [[NSOpenPanel alloc] initWithContentRect:NSRectFromCGRect(CGRectMake(0.0, 0.0, 400.0, 400.0)) styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
+	open.delegate = self;
+	[self.window addChildWindow:open ordered:NSWindowAbove];
 }
 
 - (BOOL)panel:(id)sender validateURL:(NSURL *)url error:(NSError **)outError
@@ -52,10 +49,6 @@
 	LexicalAnalyzer *lex = [[LexicalAnalyzer alloc] initWithSource:source];
 
     Parser *parser = [[Parser alloc] initWithLexicalAnalyzer:lex];
-	parser.currentTokenLabel = self.currentTokenLabel;
-	parser.nextTokenLabel = self.nextTokenLabel;
-	parser.tempNodeLabel = self.tempNodeLabel;
-	parser.rootNodeLabel = self.rootNodeLabel;
 
 	while (parser.currentToken)
 	{
@@ -68,18 +61,22 @@
 		NSString *gforth = [CodeGenerator generateCodeFromTree:parser.rootNode];
 
 		NSString *gforth2 = [NSString stringWithFormat:@"%@ bye", gforth];
-		printf("\n\n%s\noutput: ", [gforth2 UTF8String]);
 		NSString *gforthFilePath = [@"~/milestone5.fs" stringByExpandingTildeInPath];
 		[gforth2 writeToFile:gforthFilePath atomically:YES encoding:NSASCIIStringEncoding error:NULL];
 
-		if (system([[NSString stringWithFormat:@"gforth %@", gforthFilePath] UTF8String]) == 256)
+		NSMutableString *output = [NSMutableString string];
+
+		FILE *terminal = popen([[NSString stringWithFormat:@"gforth %@", gforthFilePath] UTF8String], "r");
+		char buf[256];
+		while (fgets(buf, sizeof(buf), terminal) != 0)
 		{
-//			// error.  try printing top of float stack.
-//			gforth2 = [NSString stringWithFormat:@"%@f. bye", gforth];
-//			[gforth2 writeToFile:gforthFilePath atomically:YES encoding:NSASCIIStringEncoding error:NULL];
-//			printf("\n\n%s\noutput: ", [gforth2 UTF8String]);
-//			system([[NSString stringWithFormat:@"gforth %@", gforthFilePath] UTF8String]);
+			[output appendString:[NSString stringWithFormat:@"%s", buf]];
 		}
+		pclose(terminal);
+
+		self.outputText.stringValue = [NSString stringWithFormat:@"%@\nGforth code:\n%@\noutput:\n%@\n", self.outputText.stringValue, gforth2, output];
+
+		printf("\nGforth code:\n%s\noutput:\n%s\n", [gforth2 UTF8String], [output UTF8String]);
 
 		// get next token so we're ready to parse the next statement.
 		[parser getNextToken];

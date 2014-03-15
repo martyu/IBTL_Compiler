@@ -365,9 +365,9 @@ static int funcCounter = 0;
 	Node *exprlist = rootNode.children[3];
 
 	[self.generatedCode appendFormat:@": func%i begin ", funcCounter];
-	[self parseTreeFromLeft:expr];
+	[self parseTreeWithRootNode:expr];
 	[self.generatedCode appendString:@"while "];
-	[self parseTreeFromLeft:exprlist];
+	[self parseExprlist:exprlist];
 	[self.generatedCode appendFormat:@"repeat ; func%i", funcCounter++];
 }
 
