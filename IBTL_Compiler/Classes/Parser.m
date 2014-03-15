@@ -48,8 +48,12 @@
 
 - (void)error:(NSString*)errorType
 {
-	printf("\n\n");
-	[NSException raise:errorType format:@"Error on line %i, column %i, token %@", [[self.lex class] line], [[self.lex class] column], self.currentToken];
+	NSAlert *alertView = [NSAlert alertWithMessageText:[NSString stringWithFormat:@"Syntax error on line %i", [LexicalAnalyzer line]]
+										 defaultButton:@"ok"
+									   alternateButton:nil
+										   otherButton:nil
+							 informativeTextWithFormat:@"iSyntax error on line %i", [LexicalAnalyzer line]];
+	[alertView runModal];
 }
 
 - (void) parse

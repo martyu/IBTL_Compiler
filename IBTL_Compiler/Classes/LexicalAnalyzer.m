@@ -400,6 +400,13 @@ static int _line;
 
 - (void)reportError
 {
+	NSAlert *alertView = [NSAlert alertWithMessageText:[NSString stringWithFormat:@"Syntax error on line %i", _line]
+										 defaultButton:@"ok"
+									   alternateButton:@"well shit."
+										   otherButton:@"really need 3 btns?"
+							 informativeTextWithFormat:@"iSyntax error on line %i", _line];
+	[alertView runModal];
+	
 	NSLog(@"Syntax error on line %i", _line);
 }
 

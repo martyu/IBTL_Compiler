@@ -104,7 +104,7 @@
 
 /*Everything to here parses */
 
-[[stdout [+ "ello" "poppy"]]]
+fd l#$22[[stdout [+ "ello" "poppy"]]]
 
 /* Paul's test */
 

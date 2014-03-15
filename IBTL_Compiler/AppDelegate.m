@@ -14,7 +14,7 @@
 
 @interface AppDelegate ()
 
-@property (weak) IBOutlet NSTextField *outputText;
+@property (strong) IBOutlet NSTextView *outputText;
 
 @end
 
@@ -28,8 +28,6 @@
     //To do: Have output be translated so token type will show up as the category name as a string
 	//To do: Have input be a file by default
 
-	[self.outputText.cell setScrollable:YES];
-
 	NSString *path = [[NSBundle mainBundle] pathForResource:@"testcases" ofType:@"txt"];
 	[self startWithURL:[NSURL fileURLWithPath:path]];
 
@@ -42,9 +40,9 @@
 
 	path = [[NSBundle mainBundle] pathForResource:@"proftest4" ofType:@"in"];
 	[self startWithURL:[NSURL fileURLWithPath:path]];
-
-
-
+//
+//
+//
 //	[self showOpenPanel:nil];
 }
 
@@ -94,7 +92,7 @@
 		}
 		pclose(terminal);
 
-		self.outputText.stringValue = [NSString stringWithFormat:@"%@\nGforth code:\n%@\noutput:\n%@\n", self.outputText.stringValue, gforth2, output];
+		self.outputText.string = [NSString stringWithFormat:@"%@\nGforth code:\n%@\noutput:\n%@\n", self.outputText.string, gforth2, output];
 
 		static int testCount = 1;
 
