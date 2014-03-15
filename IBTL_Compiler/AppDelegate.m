@@ -28,22 +28,22 @@
     //To do: Have output be translated so token type will show up as the category name as a string
 	//To do: Have input be a file by default
 
-	NSString *path = [[NSBundle mainBundle] pathForResource:@"testcases" ofType:@"txt"];
-	[self startWithURL:[NSURL fileURLWithPath:path]];
-
-
-	path = [[NSBundle mainBundle] pathForResource:@"proftest" ofType:nil];
-	[self startWithURL:[NSURL fileURLWithPath:path]];
-
-	path = [[NSBundle mainBundle] pathForResource:@"proftest" ofType:@"in"];
-	[self startWithURL:[NSURL fileURLWithPath:path]];
-
-	path = [[NSBundle mainBundle] pathForResource:@"proftest4" ofType:@"in"];
-	[self startWithURL:[NSURL fileURLWithPath:path]];
+//	NSString *path = [[NSBundle mainBundle] pathForResource:@"testcases" ofType:@"txt"];
+//	[self startWithURL:[NSURL fileURLWithPath:path]];
 //
 //
+//	path = [[NSBundle mainBundle] pathForResource:@"proftest" ofType:nil];
+//	[self startWithURL:[NSURL fileURLWithPath:path]];
 //
-//	[self showOpenPanel:nil];
+//	path = [[NSBundle mainBundle] pathForResource:@"proftest" ofType:@"in"];
+//	[self startWithURL:[NSURL fileURLWithPath:path]];
+//
+//	path = [[NSBundle mainBundle] pathForResource:@"proftest4" ofType:@"in"];
+//	[self startWithURL:[NSURL fileURLWithPath:path]];
+
+
+
+	[self showOpenPanel:nil];
 }
 
 - (IBAction)showOpenPanel:(id)sender
