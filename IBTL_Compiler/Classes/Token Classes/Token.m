@@ -36,9 +36,6 @@
 	if (self.tag == ']' || self.tag == '[')
 		return nil;
 
-	if (self.tag == ASSIGN)
-		return @":=";
-
 	return [Defines descriptionForConstant:self.tag];
 }
 

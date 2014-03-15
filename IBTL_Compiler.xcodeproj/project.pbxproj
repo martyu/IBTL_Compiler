@@ -30,7 +30,6 @@
 		76572DF918D2A35D00D7A48A /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 76572DDC18D2A35D00D7A48A /* Credits.rtf */; };
 		76572DFA18D2A35D00D7A48A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 76572DDE18D2A35D00D7A48A /* InfoPlist.strings */; };
 		76572DFB18D2A35D00D7A48A /* IBTL_Compiler-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 76572DE018D2A35D00D7A48A /* IBTL_Compiler-Info.plist */; };
-		76572DFC18D2A35D00D7A48A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 76572DE218D2A35D00D7A48A /* Images.xcassets */; };
 		76572DFD18D2A35D00D7A48A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 76572DE318D2A35D00D7A48A /* main.m */; };
 		76572DFE18D2A35D00D7A48A /* ReservedKeywords.plist in Resources */ = {isa = PBXBuildFile; fileRef = 76572DE418D2A35D00D7A48A /* ReservedKeywords.plist */; };
 		76572DFF18D2A35D00D7A48A /* testcases.txt in Resources */ = {isa = PBXBuildFile; fileRef = 76572DE518D2A35D00D7A48A /* testcases.txt */; };
@@ -82,7 +81,6 @@
 		76572DDF18D2A35D00D7A48A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		76572DE018D2A35D00D7A48A /* IBTL_Compiler-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "IBTL_Compiler-Info.plist"; sourceTree = "<group>"; };
 		76572DE118D2A35D00D7A48A /* IBTL_Compiler-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IBTL_Compiler-Prefix.pch"; sourceTree = "<group>"; };
-		76572DE218D2A35D00D7A48A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		76572DE318D2A35D00D7A48A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		76572DE418D2A35D00D7A48A /* ReservedKeywords.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ReservedKeywords.plist; sourceTree = "<group>"; };
 		76572DE518D2A35D00D7A48A /* testcases.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = testcases.txt; sourceTree = "<group>"; };
@@ -152,7 +150,6 @@
 				76572DDE18D2A35D00D7A48A /* InfoPlist.strings */,
 				76572DE018D2A35D00D7A48A /* IBTL_Compiler-Info.plist */,
 				76572DE118D2A35D00D7A48A /* IBTL_Compiler-Prefix.pch */,
-				76572DE218D2A35D00D7A48A /* Images.xcassets */,
 				76572DE318D2A35D00D7A48A /* main.m */,
 				76572DE418D2A35D00D7A48A /* ReservedKeywords.plist */,
 				76572DE518D2A35D00D7A48A /* testcases.txt */,
@@ -258,7 +255,6 @@
 				76572DFE18D2A35D00D7A48A /* ReservedKeywords.plist in Resources */,
 				76572DFB18D2A35D00D7A48A /* IBTL_Compiler-Info.plist in Resources */,
 				76572DF018D2A35D00D7A48A /* BoolDFA.plist in Resources */,
-				76572DFC18D2A35D00D7A48A /* Images.xcassets in Resources */,
 				76572DE718D2A35D00D7A48A /* MainMenu.xib in Resources */,
 				76572DF118D2A35D00D7A48A /* BoolOpDFA.plist in Resources */,
 				76572DF918D2A35D00D7A48A /* Credits.rtf in Resources */,
@@ -439,6 +435,7 @@
 				76572DB118D2A2F400D7A48A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

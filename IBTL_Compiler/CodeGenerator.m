@@ -26,10 +26,18 @@ static int funcCounter = 0;
 	CodeGenerator *codeGener = [[CodeGenerator alloc] init];
 	codeGener.generatedCode = [NSMutableString string];
 	codeGener.definedVars = [NSMutableDictionary dictionary];
-	NSMutableArray *letNodes = [codeGener findLetNodes:treeRoot];
-	[codeGener parseTreeWithRootNode:treeRoot];
-//	[codeGener.generatedCode appendString:@"bye"];
+	[codeGener parseTreeFromLeft:treeRoot];
 	return codeGener.generatedCode;
+}
+
+- (void) parseTreeFromLeft:(Node*)root
+{
+	for (Node *child in root.children) {
+		if (child.production == ProductionTypeS || child.production == ProductionTypeS_)
+			[self parseTreeFromLeft:child];
+		else
+			[self parseTreeWithRootNode:child];
+	}
 }
 
 - (OpType) parseTreeWithRootNode:(Node*)root
@@ -46,26 +54,39 @@ static int funcCounter = 0;
 			type = OpTypeFloat;
 		}
 
-		if(child.production == ProductionTypeOper)
-		{
-			type = [self parseOper:child];
-		}
-		else if (child.production == ProductionTypeIfStmt)
-		{
-			// IF statement
-			[self parseIf:child];
-		}
-		else if (child.production == ProductionTypePrintStmts)
-		{
-			[self parsePrint:child];
-		}
-		else if (child.production == ProductionTypeLetStmt)
-		{
-			[self parseLetStmt:child];
-		}
-		else
-		{
-			[self parseTreeWithRootNode:child];
+		switch (child.production) {
+			case ProductionTypeWhileStmt:
+				[self parseWhile:child];
+				break;
+
+			case ProductionTypeExprList:
+				[self parseExprlist:child];
+				break;
+
+			case ProductionTypeIfStmt:
+				[self parseIf:child];
+				break;
+
+			case ProductionTypeLetStmt:
+				[self parseLetStmt:child];
+				break;
+
+			case ProductionTypeOper:
+				[self parseOper:child];
+				break;
+
+			case ProductionTypeVarlistStmt:
+				[self parseVarlist:child];
+				break;
+
+			case ProductionTypePrintStmts:
+				[self parsePrint:child];
+				break;
+
+			default:
+				if (child.production)
+					[self parseTreeWithRootNode:child];
+				break;
 		}
 	}
 
@@ -96,8 +117,28 @@ static int funcCounter = 0;
 	}
 	
 	//oper -> constant | oper -> name
-	if (root.token.codeOutput){
-		[tempOutput appendFormat:@"%@", root.token.codeOutput];
+	if (root.token.codeOutput)
+	{
+		// if it's a variable, need to add a '@' to get value.
+		Word *wordTok;
+
+		if ([root.token isKindOfClass:[Word class]])
+			wordTok = (Word*)root.token;
+		NSString *varName;
+		if (wordTok)
+			varName = self.definedVars[[(Word*)(root.token) lexeme]];
+
+		if (varName)
+		{
+			[tempOutput appendFormat:@"%@ @", root.token.codeOutput];
+			if (wordTok.varType == VariableTypeInt)
+				return OpTypeInt;
+			else if (wordTok.varType == VariableTypeFloat)
+				return OpTypeFloat;
+		}
+		else
+			[tempOutput appendFormat:@"%@", root.token.codeOutput];
+
 		if(root.token.tag == FLOAT){
 			[tempOutput appendString:@"e"];
 			return OpTypeFloat;
@@ -140,18 +181,18 @@ static int funcCounter = 0;
 			}
 			
 			//Set return type appropriately if it's not already set
-			if(!returnType){
+//			if(!returnType){
 				//Need to check both in case one is a name
 				if(Oper1Type == OpTypeFloat || Oper2Type == OpTypeFloat){
 					returnType = OpTypeFloat;
 				} else {
 					returnType = OpTypeInt;
 				}
-			}
-			
-			//Output the children in reverse order
-			[tempOutput appendFormat:@"%@ ", OutputOper2];
+//			}
+
+			//Output the children
 			[tempOutput appendFormat:@"%@ ", OutputOper1];
+			[tempOutput appendFormat:@"%@ ", OutputOper2];
 			
 			//@todo: can we do mod on 2 floating point numbers?
 			//Change binop to be floating point if necessary
@@ -243,10 +284,10 @@ static int funcCounter = 0;
 		[self parseTreeWithRootNode:expr3];
 	}
 
-	[self.generatedCode appendFormat:@"endif ; func%i ", funcCounter];
+	[self.generatedCode appendFormat:@"endif ; func%i ", funcCounter++];
 }
 
-/** [stdout oper] ->  */
+/** [stdout oper]  */
 - (void) parsePrint:(Node*)root
 {
 	Node *operNode = root.children[2];
@@ -273,7 +314,7 @@ static int funcCounter = 0;
 }
 
 /** [name type] | [name type] varlist */
-- (NSArray*) parseVarlist:(Node*)root
+- (void) parseVarlist:(Node*)root
 {
 	// [name type] or [name type] varlist
 	Word *var;
@@ -284,9 +325,12 @@ static int funcCounter = 0;
 	}
 
 	NSString *varName = var.lexeme;
-	// add to var dict
-	self.definedVars[varName] = var;
-	[self.generatedCode appendFormat:@"Variable %@ ", varName];
+	// check if already defined
+	if (!self.definedVars[varName])
+	{
+		self.definedVars[varName] = var;
+		[self.generatedCode appendFormat:@"Variable %@ ", varName];
+	}
 
 	Word *type;
 	if ([[root.children[2] token] isMemberOfClass:[Word class]]) {
@@ -312,12 +356,36 @@ static int funcCounter = 0;
 
 		[self parseVarlist:varlistNode];
 	}
+}
 
-	return nil;
+/** [while expr exprlist] -> : <func name> begin expr while exprlist repeat ; <func name> */
+- (void) parseWhile:(Node*)rootNode
+{
+	Node *expr = rootNode.children[2];
+	Node *exprlist = rootNode.children[3];
+
+	[self.generatedCode appendFormat:@": func%i begin ", funcCounter];
+	[self parseTreeFromLeft:expr];
+	[self.generatedCode appendString:@"while "];
+	[self parseTreeFromLeft:exprlist];
+	[self.generatedCode appendFormat:@"repeat ; func%i", funcCounter++];
+}
+
+/** exprlist -> expr | expr exprlist */
+- (void) parseExprlist:(Node*)rootNode
+{
+	[self parseTreeWithRootNode:rootNode.children[0]];
+
+	if (rootNode.children.count == 2)
+	{
+		// expr exprlist
+		[self parseExprlist:rootNode.children[1]];
+	}
 }
 
 - (void) reportError:(NSString*)errStr
 {
+	NSLog(@"\n\n");
 	[NSException raise:@"Code Generator error" format:@"%@", errStr];
 }
 

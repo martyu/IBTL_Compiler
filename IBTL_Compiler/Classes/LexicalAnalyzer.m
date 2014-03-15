@@ -18,7 +18,7 @@
 @interface SourceServer : NSObject
 @end
 
-static int _column = 1;
+static int _column = -2;
 
 @interface SourceServer ()
 
@@ -152,7 +152,7 @@ static int _line;
 	//Keep track of what line number we're on
 	if (self.peek == '\n') {
 		_line++;
-		_column = 1;
+		_column = -2;
 	}
 }
 

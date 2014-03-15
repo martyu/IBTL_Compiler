@@ -105,18 +105,19 @@
 /*Everything to here parses */
 
 /* Paul's test */
-/*
+
+
 [[if[>= 1200e-6 1][stdout [sin 3.14]] [stdout [or true false]]]]
 
+
 [[if [> 2 3] [stdout "yes"] [stdout "no"]]]
-*/
+
 
 
 [[let [[x int]]] [:= x 10] [stdout [- 20 x]]]
 
-/*
-[while [> x 5] [[stdout "hello"] [:= x [- x 1]]]]
-*/
+
+[[let [[x int]]] [:= x 10] [while [< x 5] [stdout "hello"] [stdout "x= "] [stdout x] [:= x [- x 1]]]]
 
 
 /*
