@@ -28,11 +28,31 @@
     //To do: Have output be translated so token type will show up as the category name as a string
 	//To do: Have input be a file by default
 
-//	NSString *path = [[NSBundle mainBundle] pathForResource:@"testcases" ofType:@"txt"];
-//	[self startWithURL:[NSURL fileURLWithPath:path]];
+	[self.outputText.cell setScrollable:YES];
 
+	NSString *path = [[NSBundle mainBundle] pathForResource:@"testcases" ofType:@"txt"];
+	[self startWithURL:[NSURL fileURLWithPath:path]];
+
+
+	path = [[NSBundle mainBundle] pathForResource:@"proftest" ofType:nil];
+	[self startWithURL:[NSURL fileURLWithPath:path]];
+
+	path = [[NSBundle mainBundle] pathForResource:@"proftest" ofType:@"in"];
+	[self startWithURL:[NSURL fileURLWithPath:path]];
+
+	path = [[NSBundle mainBundle] pathForResource:@"proftest4" ofType:@"in"];
+	[self startWithURL:[NSURL fileURLWithPath:path]];
+
+
+
+//	[self showOpenPanel:nil];
+}
+
+- (IBAction)showOpenPanel:(id)sender
+{
 	NSOpenPanel *open = [[NSOpenPanel alloc] initWithContentRect:NSRectFromCGRect(CGRectMake(0.0, 0.0, 400.0, 400.0)) styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
 	open.delegate = self;
+	open.allowsMultipleSelection = YES;
 	[self.window addChildWindow:open ordered:NSWindowAbove];
 }
 
@@ -76,7 +96,9 @@
 
 		self.outputText.stringValue = [NSString stringWithFormat:@"%@\nGforth code:\n%@\noutput:\n%@\n", self.outputText.stringValue, gforth2, output];
 
-		printf("\nGforth code:\n%s\noutput:\n%s\n", [gforth2 UTF8String], [output UTF8String]);
+		static int testCount = 1;
+
+		printf("Test %i:\nGforth code:\n%s\noutput:\n%s\n", testCount, [gforth2 UTF8String], [output UTF8String]);
 
 		// get next token so we're ready to parse the next statement.
 		[parser getNextToken];

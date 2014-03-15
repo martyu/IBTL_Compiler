@@ -36,6 +36,12 @@
 	if (self.tag == ']' || self.tag == '[')
 		return nil;
 
+	if (self.tag == NEG)
+		return @"negate";
+
+	if (self.tag == '^')
+		return @"fexp";
+
 	return [Defines descriptionForConstant:self.tag];
 }
 

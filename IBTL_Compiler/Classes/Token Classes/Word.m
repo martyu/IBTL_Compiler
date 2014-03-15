@@ -145,10 +145,10 @@
 		[string insertString:@" " atIndex:2];
 		return string;
 	}
-	else if (self.tag == SIN || self.tag == COS || self.tag == TAN)
-	{
-		return [NSString stringWithFormat:@"f%@", self.lexeme];
-	}
+//	else if (self.tag == SIN || self.tag == COS || self.tag == TAN)
+//	{
+//		return [NSString stringWithFormat:@"f%@", self.lexeme];
+//	}
 
 	return self.lexeme;
 }

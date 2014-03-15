@@ -237,7 +237,15 @@ static int _line;
 			[self readCharacter];
 			if (isnumber(self.peek) || self.peek == '.')
 				return [Token tokenWithTag:NEG type:TokenTypeUnOp];
-			else
+
+			for (NSString *word in self.words.allKeys)
+			{
+				if ([word characterAtIndex:0] == self.peek)
+				{
+					return [Token tokenWithTag:NEG type:TokenTypeUnOp];
+				}
+			}
+
 				return [Token tokenWithTag:'-' type:TokenTypeBinOp];
 		}
 		case '!':

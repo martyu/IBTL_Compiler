@@ -130,11 +130,16 @@ static int funcCounter = 0;
 
 		if (varName)
 		{
-			[tempOutput appendFormat:@"%@ @", root.token.codeOutput];
 			if (wordTok.varType == VariableTypeInt)
+			{
+				[tempOutput appendFormat:@"%@ @", root.token.codeOutput];
 				return OpTypeInt;
+			}
 			else if (wordTok.varType == VariableTypeFloat)
+			{
+				[tempOutput appendFormat:@"%@ f@", root.token.codeOutput];
 				return OpTypeFloat;
+			}
 		}
 		else
 			[tempOutput appendFormat:@"%@", root.token.codeOutput];
@@ -229,7 +234,15 @@ static int funcCounter = 0;
 
 			Node *operNode = root.children[3];
 			returnType = [self parseOper:operNode];
-			[self.generatedCode appendFormat:@"%@ ! ", varName];
+			if (nameTok.varType == VariableTypeFloat && returnType != OpTypeFloat)
+				[self.generatedCode appendString:@"s>f "];
+
+			[self.generatedCode appendFormat:@"%@ ", varName];
+
+			if (returnType == OpTypeFloat || nameTok.varType == VariableTypeFloat)
+				[self.generatedCode appendString:@"f"];
+
+			[self.generatedCode appendString:@"! "];
 
 			return returnType;
 			
@@ -246,18 +259,13 @@ static int funcCounter = 0;
 		OpType OperType1 = [self parseOper:Oper1 output:OutputOper1];
 		
 		Node *function = [root.children objectAtIndex:1];
-		if(function.token.tag == NEG){
-			//need to have '-' right in front of the oper
-			[tempOutput appendFormat:@"%@", function.token.codeOutput];
-			[tempOutput appendFormat:@"%@ ", OutputOper1];
-		} else {//if ([function isTrig]) {
-			[tempOutput appendFormat:@"%@ ", OutputOper1];
-			[tempOutput appendFormat:@"%@ ", function.token.codeOutput];
-//		} else {
-//			//Otherwise add a space
-//			[tempOutput appendFormat:@"%@ ", function.token.codeOutput];
-//			[tempOutput appendFormat:@"%@ ", OutputOper1];
-		}
+
+		[tempOutput appendFormat:@"%@ ", OutputOper1];
+
+		if (OperType1 == OpTypeFloat)
+			[tempOutput appendString:@"f"];
+
+		[tempOutput appendFormat:@"%@ ", function.token.codeOutput];
 		returnType = OperType1;
 		return returnType;
 	}
@@ -368,7 +376,7 @@ static int funcCounter = 0;
 	[self parseTreeWithRootNode:expr];
 	[self.generatedCode appendString:@"while "];
 	[self parseExprlist:exprlist];
-	[self.generatedCode appendFormat:@"repeat ; func%i", funcCounter++];
+	[self.generatedCode appendFormat:@"repeat ; func%i ", funcCounter++];
 }
 
 /** exprlist -> expr | expr exprlist */
