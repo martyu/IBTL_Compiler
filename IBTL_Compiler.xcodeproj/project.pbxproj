@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		181B894818D5185A00465F8E /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 181B894718D5185A00465F8E /* MainMenu.xib */; };
 		76572D8218D2A2F400D7A48A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76572D8118D2A2F400D7A48A /* Cocoa.framework */; };
 		76572DE618D2A35D00D7A48A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 76572DB718D2A35D00D7A48A /* AppDelegate.m */; };
-		76572DE718D2A35D00D7A48A /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76572DB818D2A35D00D7A48A /* MainMenu.xib */; };
 		76572DE818D2A35D00D7A48A /* Environment.m in Sources */ = {isa = PBXBuildFile; fileRef = 76572DBC18D2A35D00D7A48A /* Environment.m */; };
 		76572DE918D2A35D00D7A48A /* Expr.m in Sources */ = {isa = PBXBuildFile; fileRef = 76572DBE18D2A35D00D7A48A /* Expr.m */; };
 		76572DEA18D2A35D00D7A48A /* Id.m in Sources */ = {isa = PBXBuildFile; fileRef = 76572DC018D2A35D00D7A48A /* Id.m */; };
@@ -29,7 +29,6 @@
 		76572DF818D2A35D00D7A48A /* Defines.m in Sources */ = {isa = PBXBuildFile; fileRef = 76572DDB18D2A35D00D7A48A /* Defines.m */; };
 		76572DF918D2A35D00D7A48A /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 76572DDC18D2A35D00D7A48A /* Credits.rtf */; };
 		76572DFA18D2A35D00D7A48A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 76572DDE18D2A35D00D7A48A /* InfoPlist.strings */; };
-		76572DFB18D2A35D00D7A48A /* IBTL_Compiler-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 76572DE018D2A35D00D7A48A /* IBTL_Compiler-Info.plist */; };
 		76572DFD18D2A35D00D7A48A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 76572DE318D2A35D00D7A48A /* main.m */; };
 		76572DFE18D2A35D00D7A48A /* ReservedKeywords.plist in Resources */ = {isa = PBXBuildFile; fileRef = 76572DE418D2A35D00D7A48A /* ReservedKeywords.plist */; };
 		76572DFF18D2A35D00D7A48A /* testcases.txt in Resources */ = {isa = PBXBuildFile; fileRef = 76572DE518D2A35D00D7A48A /* testcases.txt */; };
@@ -39,6 +38,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		181B894718D5185A00465F8E /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		76572D7E18D2A2F400D7A48A /* IBTL_Compiler.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IBTL_Compiler.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76572D8118D2A2F400D7A48A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		76572D8418D2A2F400D7A48A /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -47,7 +47,6 @@
 		76572DA018D2A2F400D7A48A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		76572DB618D2A35D00D7A48A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		76572DB718D2A35D00D7A48A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		76572DB918D2A35D00D7A48A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		76572DBB18D2A35D00D7A48A /* Environment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Environment.h; sourceTree = "<group>"; };
 		76572DBC18D2A35D00D7A48A /* Environment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Environment.m; sourceTree = "<group>"; };
 		76572DBD18D2A35D00D7A48A /* Expr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Expr.h; sourceTree = "<group>"; };
@@ -107,6 +106,7 @@
 		76572D7518D2A2F400D7A48A = {
 			isa = PBXGroup;
 			children = (
+				181B894718D5185A00465F8E /* MainMenu.xib */,
 				76572DB518D2A35D00D7A48A /* IBTL_Compiler */,
 				76572D8018D2A2F400D7A48A /* Frameworks */,
 				76572D7F18D2A2F400D7A48A /* Products */,
@@ -146,7 +146,6 @@
 			children = (
 				76572DB618D2A35D00D7A48A /* AppDelegate.h */,
 				76572DB718D2A35D00D7A48A /* AppDelegate.m */,
-				76572DB818D2A35D00D7A48A /* MainMenu.xib */,
 				76572DBA18D2A35D00D7A48A /* Classes */,
 				76572DD818D2A35D00D7A48A /* CodeGenerator.h */,
 				76572DD918D2A35D00D7A48A /* CodeGenerator.m */,
@@ -262,11 +261,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				76572DFE18D2A35D00D7A48A /* ReservedKeywords.plist in Resources */,
+				181B894818D5185A00465F8E /* MainMenu.xib in Resources */,
 				76572E0518D414AC00D7A48A /* proftest4.in in Resources */,
 				76572E0418D414AC00D7A48A /* proftest.in in Resources */,
-				76572DFB18D2A35D00D7A48A /* IBTL_Compiler-Info.plist in Resources */,
 				76572DF018D2A35D00D7A48A /* BoolDFA.plist in Resources */,
-				76572DE718D2A35D00D7A48A /* MainMenu.xib in Resources */,
 				76572DF118D2A35D00D7A48A /* BoolOpDFA.plist in Resources */,
 				76572DF918D2A35D00D7A48A /* Credits.rtf in Resources */,
 				76572E0318D414AC00D7A48A /* proftest in Resources */,
@@ -305,14 +303,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		76572DB818D2A35D00D7A48A /* MainMenu.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				76572DB918D2A35D00D7A48A /* Base */,
-			);
-			name = MainMenu.xib;
-			sourceTree = "<group>";
-		};
 		76572DDC18D2A35D00D7A48A /* Credits.rtf */ = {
 			isa = PBXVariantGroup;
 			children = (
