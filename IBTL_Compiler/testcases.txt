@@ -104,8 +104,9 @@
 
 /*Everything to here parses */
 
-/* Paul's test */
+[[stdout [+ "ello" "poppy"]]]
 
+/* Paul's test */
 
 [[if[<= 1200e-6 1][stdout [sin 3.14]] [stdout [or true false]]]]
 

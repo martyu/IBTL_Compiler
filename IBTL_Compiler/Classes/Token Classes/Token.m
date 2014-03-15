@@ -40,7 +40,7 @@
 		return @"negate";
 
 	if (self.tag == '^')
-		return @"fexp";
+		return @"exp";
 
 	return [Defines descriptionForConstant:self.tag];
 }

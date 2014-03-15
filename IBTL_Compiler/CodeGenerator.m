@@ -204,7 +204,7 @@ static int funcCounter = 0;
 			if(returnType == OpTypeFloat){
 				//Only add the 'f' on these productions: -, +, *, /, >, >=, <, <=
 				if(function.token.tag == '-' || function.token.tag == '+' || function.token.tag == '*' || function.token.tag == '/' ||
-				   function.token.tag == '>' || function.token.tag == '<' || function.token.tag == GE || function.token.tag == LE )
+				   function.token.tag == '>' || function.token.tag == '<' || function.token.tag == GE || function.token.tag == LE || function.token.tag == '^' )
 				{
 					[tempOutput appendString:@"f"];
 				}
